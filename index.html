@@ -39,52 +39,33 @@
     function create ()
     {
         function makeTile (listIn,tile) {
-        var i;
-        var x = 0;
-        var y = 30;
-        for (i = 0; i < listIn.length; i++) {
-            tile.create(x,y,"grass",listIn[i])
-            x += 32
-        }
-        
-    };
+            tile.width = 64;
+            var i1;
+            var i2;
+            var x = 0;
+            var y = 30;
+            var list2;
+            for (i1 = 0; i1 < listIn.length; i1++) {
+                list2 = listIn[i1];
+                for (i2 = 0; i2 < list2.length; i2++) {
+                    tile.create(x,y,"grass",list2[i2])
+                    x += 64;
+                }
+                y += 64;
+                x = 0;
+            }
+            tile.children.iterate(function (child) {
+                child.setScale(2);
+
+            });
+
+        };
         
         var logo;
         var tile = this.physics.add.staticGroup();
         
-        var listIn = [0,8,16,8,8,0,16,0,18,0]
+        var listIn = [[0,8,16,8,8,0,16,0,16,0],[8,0,8,0,0,16,16,8,8,0],[0,8,16,8,8,0,16,0,16,0],[8,0,8,0,0,16,16,8,8,0],[0,8,16,8,8,0,16,0,16,0],[8,0,8,0,0,16,16,8,8,0],[0,8,16,8,8,0,16,0,16,0],[8,0,8,0,0,16,16,8,8,0]]
         makeTile(listIn,tile);
-        
-
-        
-        
-        logo = this.physics.add.group({
-            key: 'logo',
-            repeat: 0,
-            setXY: {x:100, y:0}
-            
-            //setVelocity(140, 100);
-            //setCollideWorldBounds(true);
-            //setScale(0.5);
-            
-        });
-        
-        logo.children.iterate(function (child) {
-
-        child.setBounceY(1);
-        child.setBounceX(1);
-        child.setCollideWorldBounds(true);
-        child.setVelocity(Phaser.Math.FloatBetween(-800, 800), Phaser.Math.FloatBetween(-800, 800));
-            child.setScale(0.8);
-
-        });
-
-      
-        
-        
-        
-        
-        
         
        
     }
