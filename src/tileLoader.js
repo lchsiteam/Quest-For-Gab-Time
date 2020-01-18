@@ -11,13 +11,13 @@ export function makeTile (tile,matrixIn,spritesheet,startPlace = 0,scale=2,x=0,y
     For example, if startPlace is 8 and the number 18 is passed in, 18 will be changed to 24 before being made a tile
     
     The scale factor scales all tiles up by that amount. Default currently is 2.
-    The x and y starting places determan how far down the tiles should start being made. 
+    The x and y starting places determans how far down the tiles should start being made. 
     
     There are also escape charactures one can pass in to do specific things
     
     
     "DR [numTiles]"            Default Run - makes a run of randomized  default tiles # tiles long
-    "DR 16"                    Default tiles default to 0, 8, and 16
+    "DR 16"                    Default tioes default to 0, 8, and 16
                       
     "TR [numTiles] [tileNum]"  Tile Run - makes a run numTiles long of the tile tileNum
     "TR 16 5"
