@@ -20,6 +20,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 var map;
+var layer2map;
 var cursors;
 var debugGraphics;
 var helpText;
@@ -30,13 +31,18 @@ function preload ()
 {
     this.load.image('tiles', 'assets/grass_tiles.png');
     this.load.tilemapCSV('map', 'assets/Level1.csv');
+    this.load.tilemapCSV('layer2', 'assets/level1layer2.csv');
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
 function create ()
 {
+    layer2map = this.make.tilemap({ key: 'layer2', tileWidth: 32, tileHeight: 32 });
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+    
     var tileset = map.addTilesetImage('tiles');
+    var tileset2 = layer2map.addTilesetImage('tiles');
+    var layer2 = layer2map.createStaticLayer(0, tileset2, 0, 0);
     var layer = map.createStaticLayer(0, tileset, 0, 0);
 
     //  This isn't totally accurate, but it'll do for now
@@ -76,23 +82,11 @@ function create ()
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.startFollow(player);
 
-    debugGraphics = this.add.graphics();
-
-    this.input.keyboard.on('keydown_C', function (event) {
-        showDebug = !showDebug;
-        drawDebug();
-    });
 
     cursors = this.input.keyboard.createCursorKeys();
-
-    helpText = this.add.text(16, 16, getHelpMessage(), {
-        fontSize: '18px',
-        fill: '#ffffff'
-    });
-    helpText.setScrollFactor(0);
 }
 
-function update (time, delta)
+function update ()
 {
     player.body.setVelocity(0);
 
@@ -139,23 +133,3 @@ function update (time, delta)
     }
 }
 
-function drawDebug ()
-{
-    debugGraphics.clear();
-
-    if (showDebug)
-    {
-        // Pass in null for any of the style options to disable drawing that component
-        map.renderDebug(debugGraphics, {
-            tileColor: null, // Non-colliding tiles
-            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 200), // Colliding tiles
-            faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Colliding face edges
-        });
-    }
-}
-
-function getHelpMessage ()
-{
-    return 'Arrow keys to move.' +
-        '\nPress "C" to toggle debug visuals: ' + (showDebug ? 'on' : 'off');
-}
