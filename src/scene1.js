@@ -12,36 +12,48 @@ export class Scene1 extends Phaser.Scene {
      preload ()
 {
     this.load.image('tiles', 'assets/grass_tiles.png');
-    this.load.tilemapCSV('map', 'assets/Level1.csv');
-    this.load.tilemapCSV('layer2', 'assets/level1layer2.csv');
+    this.load.image('doors', 'assets/doors.png');-
+    this.load.tilemapCSV('map', 'assets/Level1layer2.csv');
+    this.load.tilemapCSV('layer1', 'assets/level1layer1.csv');
+    this.load.tilemapCSV('doorCSV', 'assets/Level1Doors.csv');
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
  create ()
 {
-    var layer2map;
+    this.startScene2 = function (player, star)
+    {
+        this.scene.start('Scene2');
+    }
+
+    var layer1map;
     var map;
-    
+    var doorsLayerMap;
     this.Keystrokes = [];
     
-    layer2map = this.make.tilemap({ key: 'layer2', tileWidth: 32, tileHeight: 32 });
+    layer1map = this.make.tilemap({ key: 'layer1', tileWidth: 32, tileHeight: 32 });
+    var tileset1 = layer1map.addTilesetImage('tiles');
+    var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
+    layer1map.setCollisionBetween(5, 6);
+
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
-    
     var tileset = map.addTilesetImage('tiles');
-    var tileset2 = layer2map.addTilesetImage('tiles');
-    var layer2 = layer2map.createStaticLayer(0, tileset2, 0, 0);
     var layer = map.createStaticLayer(0, tileset, 0, 0);
+    //map.setCollisionBetween(5, 6);
+    
+    doorsLayerMap = this.make.tilemap({ key: 'doorCSV', tileWidth: 32, tileHeight: 32 });
+    var doorMap = doorsLayerMap.addTilesetImage('doors');
+    var doorLayer = doorsLayerMap.createStaticLayer(0, doorMap, 0, 0);
+    doorsLayerMap.setCollisionBetween(0, 10);
+    
     
     this.Keystrokes.keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
-    //  This isn't totally accurate, but it'll do for now
-    map.setCollisionBetween(54, 83);
+    this.player = this.physics.add.sprite(463, 60, 'player', 1);
 
-    this.player = this.physics.add.sprite(50, 100, 'player', 1);
-
-    // Set up the player to collide with the tilemap layer. Alternatively, you can manually run
-    // collisions in update via: this.physics.world.collide(player, layer).
-    this.physics.add.collider(this.player, layer);
+    
+    this.physics.add.collider(this.player, layer1);
+    this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.startFollow(this.player);
@@ -104,12 +116,6 @@ export class Scene1 extends Phaser.Scene {
     {
         this.player.anims.stop();
     }
-     
-     this.input.on('pointerup', function (pointer) {
-
-            this.scene.start('Scene2');
-
-        }, this);
 }
     
     

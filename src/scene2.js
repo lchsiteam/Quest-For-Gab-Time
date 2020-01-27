@@ -11,35 +11,51 @@ export class Scene2 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('tiles', 'assets/grass_tiles.png');
-    this.load.tilemapCSV('map', 'assets/Level1.csv');
-    this.load.tilemapCSV('layer2', 'assets/level1layer2.csv');
+    
+    this.load.image('tilesScene2', 'assets/grass_tiles.png');
+    this.load.image('doorsScene2', 'assets/doors.png');-
+    this.load.tilemapCSV('mapScene2', 'assets/Level2layer2.csv');
+    this.load.tilemapCSV('layer1Scene2', 'assets/level2layer1.csv');
+    this.load.tilemapCSV('doorCSVScene2', 'assets/Level2Doors.csv');
     this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
  create ()
 {
-    var layer2map;
-    var map
+    this.startScene1 = function (player, star)
+    {
+        this.scene.start('Scene1');
+    }
+
+    var layer1map;
+    var map;
+    var doorsLayerMap;
+    this.Keystrokes = [];
     
-    layer2map = this.make.tilemap({ key: 'layer2', tileWidth: 32, tileHeight: 32 });
-    map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
-    
-    var tileset = map.addTilesetImage('tiles');
-    var tileset2 = layer2map.addTilesetImage('tiles');
-    var layer2 = layer2map.createStaticLayer(0, tileset2, 0, 0);
+    layer1map = this.make.tilemap({ key: 'layer1Scene2', tileWidth: 32, tileHeight: 32 });
+    var tileset1 = layer1map.addTilesetImage('tilesScene2');
+    var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
+
+    map = this.make.tilemap({ key: 'mapScene2', tileWidth: 32, tileHeight: 32 });
+    var tileset = map.addTilesetImage('tilesScene2');
     var layer = map.createStaticLayer(0, tileset, 0, 0);
+    //map.setCollisionBetween(5, 5);
+    
+    doorsLayerMap = this.make.tilemap({ key: 'doorCSVScene2', tileWidth: 32, tileHeight: 32 });
+    var doorMap = doorsLayerMap.addTilesetImage('doorsScene2');
+    var doorLayer = doorsLayerMap.createStaticLayer(0, doorMap, 0, 0);
+    doorsLayerMap.setCollisionBetween(11,20);
+    
+    
+    this.Keystrokes.keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
-    //  This isn't totally accurate, but it'll do for now
-    map.setCollisionBetween(54, 83);
+    this.player = this.physics.add.sprite(463, 170, 'player', 1);
 
-    this.player = this.physics.add.sprite(50, 100, 'player', 1);
-
-    // Set up the player to collide with the tilemap layer. Alternatively, you can manually run
-    // collisions in update via: this.physics.world.collide(player, layer).
+    
     this.physics.add.collider(this.player, layer);
+    this.physics.add.collider(this.player, doorLayer, this.startScene1, null, this);
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    //this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.startFollow(this.player);
 
 
@@ -47,26 +63,36 @@ export class Scene2 extends Phaser.Scene {
 }
 
  update ()  {
+     
+     var velocity;
+     
+     if (this.Keystrokes.keyZ.isDown)
+    {
+        velocity = 200;
+    } else {
+        velocity = 100;
+    }
+     
     this.player.body.setVelocity(0);
 
     // Horizontal movement
     if (this.cursors.left.isDown)
     {
-        this.player.body.setVelocityX(-100);
+        this.player.body.setVelocityX(-velocity);
     }
     else if (this.cursors.right.isDown)
     {
-        this.player.body.setVelocityX(100);
+        this.player.body.setVelocityX(velocity);
     }
 
     // Vertical movement
     if (this.cursors.up.isDown)
     {
-        this.player.body.setVelocityY(-100);
+        this.player.body.setVelocityY(-velocity);
     }
     else if (this.cursors.down.isDown)
     {
-        this.player.body.setVelocityY(100);
+        this.player.body.setVelocityY(velocity);
     }
 
     // Update the animation last and give left/right animations precedence over up/down animations
@@ -90,8 +116,6 @@ export class Scene2 extends Phaser.Scene {
     {
         this.player.anims.stop();
     }
-     
-     
 }
     
     

@@ -16,6 +16,9 @@ export class init extends Phaser.Scene {
 
      create ()
     {
+
+        
+
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('player', { start: 3, end: 5 }),
