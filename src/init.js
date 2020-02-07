@@ -11,7 +11,7 @@ export class init extends Phaser.Scene {
 
      preload ()
     {
-        this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
     }
 
      create ()
