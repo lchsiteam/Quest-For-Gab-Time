@@ -43,6 +43,7 @@ export class init extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+        this.scene.start('Health');
         this.scene.start('Scene1');
     }  
     

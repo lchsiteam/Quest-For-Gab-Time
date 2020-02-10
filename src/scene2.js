@@ -13,18 +13,19 @@ export class Scene2 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('tiles', 'assets/TileSheets/grass_tiles.png');
+    this.load.image('tilesScene2', 'assets/TileSheets/classroom_tiles.png');
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
     this.load.image('doors', 'assets/TileSheets/doors.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
     this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
-    this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
  create ()
 {
+    console.log('Scene 2!')
     this.startScene2 = function (player, star)
     {
         this.scene.start('Scene1');
@@ -37,7 +38,7 @@ export class Scene2 extends Phaser.Scene {
     this.Keystrokes = [];
     
     layer1map = this.make.tilemap({ key: 'layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
-    var tileset1 = layer1map.addTilesetImage('tiles');
+    var tileset1 = layer1map.addTilesetImage('tilesScene2');
     var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
     //layer1map.setCollisionBetween(5, 6);
     
@@ -47,7 +48,7 @@ export class Scene2 extends Phaser.Scene {
     //layer1map.setCollisionBetween(5, 6);
 
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });   //grass
-    var tileset = map.addTilesetImage('tiles');
+    var tileset = map.addTilesetImage('tilesScene2');
     var layer = map.createStaticLayer(0, tileset, 0, 0);
     map.setCollisionBetween(70, 70);
     

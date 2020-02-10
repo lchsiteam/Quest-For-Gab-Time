@@ -71,6 +71,7 @@ export class Scene1 extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     
     makeRunning(this);
+    
 }
 
  update ()  {
