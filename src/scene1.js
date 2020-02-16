@@ -23,13 +23,26 @@ export class Scene1 extends Phaser.Scene {
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
+init (data)
+    {
+     
+        'use strict';
+
+        this.PASSING_OBJ = data;
+        this.Health = data.health;
+    }
+
  create ()
 {
     this.startScene2 = function (player, star)
     {
-        this.scene.start('Scene2');
+        this.scene.start('Scene2', this.PASSING_OBJ);
     }
+    
+    
+    
 
+    
     var layer1map;
     var layer15map
     var map;
@@ -50,6 +63,7 @@ export class Scene1 extends Phaser.Scene {
     var tileset = map.addTilesetImage('tiles');
     var layer = map.createStaticLayer(0, tileset, 0, 0);
     map.setCollisionBetween(70, 70);
+    map.setCollisionBetween(-1, -1);
     
     doorsLayerMap = this.make.tilemap({ key: 'doorCSV', tileWidth: 32, tileHeight: 32 });  //doors
     var doorMap = doorsLayerMap.addTilesetImage('doors');

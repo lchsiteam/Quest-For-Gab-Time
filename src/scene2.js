@@ -25,7 +25,6 @@ export class Scene2 extends Phaser.Scene {
 
  create ()
 {
-    console.log('Scene 2!')
     this.startScene2 = function (player, star)
     {
         this.scene.start('Scene1');

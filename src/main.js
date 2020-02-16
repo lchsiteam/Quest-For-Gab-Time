@@ -18,6 +18,7 @@ var config = {
         }
     },
     scene: [init,Scene1,Scene2,Health]
+    
 };
 
 var game = new Phaser.Game(config);
