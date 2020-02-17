@@ -90,6 +90,7 @@ init (data)
 
  update ()  {
      this.running();
+     console.log(this.PASSING_OBJ.playerData.health)
      
      
 }

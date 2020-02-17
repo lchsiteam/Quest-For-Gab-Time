@@ -18,8 +18,15 @@ export class init extends Phaser.Scene {
     {
         'use strict';
 
-            this.PASSING_OBJ	= {
-                health	: 300
+            this.PASSING_OBJ = {
+                size : 300,
+                fps : 60,
+                playerData : {
+                    health	: 300,
+                    maxHealth : 300
+                }
+                
+                
             };
         
     }

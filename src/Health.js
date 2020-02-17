@@ -1,8 +1,5 @@
 export class Health extends Phaser.Scene {
     
-    
-    
-    
     constructor ()
     {
         super('Health');
@@ -24,47 +21,56 @@ init (data)
 
 create ()
 {
-    
-    
-    
     var graphics;
-    var a;
-    graphics = this.add.graphics();
 
+    graphics = this.add.graphics();
     graphics.fillStyle(0xFF0000, 1);
 
     //  32px radius on the corners
     graphics.fillRect(32, 535, 300, 50);
-    
-    
+
     
     setInterval( () => {
+        
+        
+        this.PASSING_OBJ.size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
 
-       
-
-            graphics.fillStyle(0x00000, 1);
-            graphics.fillRect(32, 535, 300, 50);
-            if (this.PASSING_OBJ.health >= 10){
+        graphics.fillStyle(0x00000, 1);
+        graphics.fillRect(32, 535, 300, 50);
+        if (this.PASSING_OBJ.size >= 0)
+        {
             graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(32, 535, this.PASSING_OBJ.health, 50);
-            }
-            else{
-                graphics.visible = false
-            }
+            graphics.fillRect(32, 535, this.PASSING_OBJ.size, 50);
+        }
+ 
 
-        this.PASSING_OBJ.health -= 10
+        
 
 
-    }, 1000)
+    }, 1000/this.PASSING_OBJ.fps) // THIS FUNCTION WILL CHECK EVERY FRAME TO UPDATE THE HEALTH BAR
+    var timeout = false
+    setInterval( () => {
+        if (timeout == false){
+            this.PASSING_OBJ.playerData.health -= 10}
 
-    //  Using an object to define a different radius per corner
+    },1000) //THIS FUNCTION DEMONSTRATES LOSING HEALTH
+
+    setTimeout( () => {
+        timeout = true
+        setInterval( () => {
+            if (this.PASSING_OBJ.playerData.health < this.PASSING_OBJ.playerData.maxHealth){
+                this.PASSING_OBJ.playerData.health += 10}
+        },1000)
+
+    },10000) //THIS FUNCTION DEMONSTRATES Gaining HEALTH
+
+
     
 }
- update ()  {
-     
+    update ()  {
+        
     
-     
+        
 }
-
     
 }
