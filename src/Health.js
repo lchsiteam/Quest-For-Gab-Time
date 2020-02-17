@@ -22,6 +22,7 @@ init (data)
 create ()
 {
     var graphics;
+    var size = 300;
 
     graphics = this.add.graphics();
     graphics.fillStyle(0xFF0000, 1);
@@ -33,14 +34,14 @@ create ()
     setInterval( () => {
         
         
-        this.PASSING_OBJ.size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
+        size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
 
         graphics.fillStyle(0x00000, 1);
         graphics.fillRect(32, 535, 300, 50);
-        if (this.PASSING_OBJ.size >= 0)
+        if (size >= 0)
         {
             graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(32, 535, this.PASSING_OBJ.size, 50);
+            graphics.fillRect(32, 535, size, 50);
         }
  
 
@@ -55,6 +56,7 @@ create ()
 
     },1000) //THIS FUNCTION DEMONSTRATES LOSING HEALTH
 
+    /*
     setTimeout( () => {
         timeout = true
         setInterval( () => {
@@ -63,7 +65,7 @@ create ()
         },1000)
 
     },10000) //THIS FUNCTION DEMONSTRATES Gaining HEALTH
-
+    */
 
     
 }

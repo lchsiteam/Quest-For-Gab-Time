@@ -1,4 +1,4 @@
-import { makeRunning } from './AuxFunctions.js';
+import { makeKeyPresses } from './AuxFunctions.js';
 
 export class Scene1 extends Phaser.Scene {
     
@@ -29,7 +29,6 @@ init (data)
         'use strict';
 
         this.PASSING_OBJ = data;
-        this.Health = data.health;
     }
 
  create ()
@@ -37,11 +36,7 @@ init (data)
     this.startScene2 = function (player, star)
     {
         this.scene.start('Scene2', this.PASSING_OBJ);
-    }
-    
-    
-    
-
+    }  
     
     var layer1map;
     var layer15map
@@ -84,13 +79,12 @@ init (data)
 
     this.cursors = this.input.keyboard.createCursorKeys();
     
-    makeRunning(this);
+    makeKeyPresses(this);
     
 }
 
  update ()  {
      this.running();
-     console.log(this.PASSING_OBJ.playerData.health)
      
      
 }
