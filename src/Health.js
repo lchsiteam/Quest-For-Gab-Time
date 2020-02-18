@@ -33,6 +33,11 @@ create ()
     
     setInterval( () => {
         
+        if (this.PASSING_OBJ.playerData.health < 0) {
+            this.PASSING_OBJ.playerData.health = 0; 
+        } else if (this.PASSING_OBJ.playerData.health > this.PASSING_OBJ.playerData.maxHealth) {
+                this.PASSING_OBJ.playerData.health = this.PASSING_OBJ.playerData.maxHealth;
+        }
         
         size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
 
@@ -44,11 +49,9 @@ create ()
             graphics.fillRect(32, 535, size, 50);
         }
  
-
-        
-
-
     }, 1000/this.PASSING_OBJ.fps) // THIS FUNCTION WILL CHECK EVERY FRAME TO UPDATE THE HEALTH BAR
+    
+    
     var timeout = false
     setInterval( () => {
         if (timeout == false){

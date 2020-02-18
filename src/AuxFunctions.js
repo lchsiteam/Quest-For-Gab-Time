@@ -74,7 +74,10 @@ function keyWasPressed (event) {
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.T) {
-            console.log(this.PASSING_OBJ.playerData.health)
+        if (this.PASSING_OBJ.playerData.healthPacks > 0) {
+            this.PASSING_OBJ.playerData.health += 50;
+            this.PASSING_OBJ.playerData.healthPacks -= 1;
+        }
     }
     
 }
