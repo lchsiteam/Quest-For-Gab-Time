@@ -1,4 +1,4 @@
- export function makeRunning(that) {
+ export function makeKeyPresses(that) {
      
      
     that.Keystrokes.keyZ = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
@@ -6,6 +6,7 @@
     that.Keystrokes.keyD = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     that.Keystrokes.keyW = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     that.Keystrokes.keyS = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    that.Keystrokes.keyT = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
      
      that.running = function (speedMult = 1) {
          var velocity;
@@ -64,4 +65,19 @@
          }
      }
      
- }
+     that.input.keyboard.on('keyup', keyWasPressed, that);
+     
+}
+
+function keyWasPressed (event) {
+    
+    var code = event.keyCode;
+    
+    if (code === Phaser.Input.Keyboard.KeyCodes.T) {
+        if (this.PASSING_OBJ.playerData.healthPacks > 0) {
+            this.PASSING_OBJ.playerData.health += 50;
+            this.PASSING_OBJ.playerData.healthPacks -= 1;
+        }
+    }
+    
+}

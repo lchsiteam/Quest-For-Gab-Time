@@ -1,4 +1,4 @@
-import { makeRunning } from './AuxFunctions.js';
+import { makeKeyPresses } from './AuxFunctions.js';
 
 export class Scene2 extends Phaser.Scene {
     
@@ -13,23 +13,36 @@ export class Scene2 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('tiles', 'assets/TileSheets/grass_tiles.png');
+    this.load.image('tiles', 'assets/TileSheets/classroom_tiles.png');
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
     this.load.image('doors', 'assets/TileSheets/doors.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
     this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
-    this.load.spritesheet('player', 'assets/player.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
+    console.log('Scene 2!')
 }
+
+init (data)
+    {
+     
+        'use strict';
+
+        this.PASSING_OBJ = data;
+    }
 
  create ()
 {
     this.startScene2 = function (player, star)
     {
-        this.scene.start('Scene1');
+        this.scene.start('Scene1', this.PASSING_OBJ);
     }
+    
+    
+    
 
+    
     var layer1map;
     var layer15map
     var map;
@@ -50,6 +63,7 @@ export class Scene2 extends Phaser.Scene {
     var tileset = map.addTilesetImage('tiles');
     var layer = map.createStaticLayer(0, tileset, 0, 0);
     map.setCollisionBetween(70, 70);
+    map.setCollisionBetween(-1, -1);
     
     doorsLayerMap = this.make.tilemap({ key: 'doorCSV', tileWidth: 32, tileHeight: 32 });  //doors
     var doorMap = doorsLayerMap.addTilesetImage('doors');
@@ -70,7 +84,8 @@ export class Scene2 extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
     
-    makeRunning(this);
+    makeKeyPresses(this);
+    
 }
 
  update ()  {

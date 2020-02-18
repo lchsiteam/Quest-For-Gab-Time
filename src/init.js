@@ -13,9 +13,27 @@ export class init extends Phaser.Scene {
     {
         this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
     }
+    
+    init ()
+    {
+        'use strict';
+
+            this.PASSING_OBJ = {
+                fps : 60,
+                playerData : {
+                    health	: 300,
+                    maxHealth : 300,
+                    healthPacks : 5
+                }
+                
+                
+            };
+        
+    }
 
      create ()
     {
+        
 
         
 
@@ -43,7 +61,20 @@ export class init extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
-        this.scene.start('Scene1');
+        
+        // Global vars as properties of my object that
+        // gets passed between all scenes
+        
+
+        // Pass it to every scene
+      
+        'use strict';
+
+        this.scene.start('Health', this.PASSING_OBJ);
+        this.scene.start('Scene1', this.PASSING_OBJ);
+        
+
+        
     }  
     
 }
