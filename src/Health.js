@@ -45,6 +45,7 @@ update ()  {
                 this.PASSING_OBJ.playerData.health = this.PASSING_OBJ.playerData.maxHealth;
         }
         
+
        size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
        //this.PASSING_OBJ.playerData.health -= 1
 
@@ -52,7 +53,7 @@ update ()  {
         graphics.fillRect(82, 535, 300, 50);
 
             graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(82, 535, size, 50);
+            graphics.fillRect(82, 534, size, 51);
     
     
     //console.log(size)
