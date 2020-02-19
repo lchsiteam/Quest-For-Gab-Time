@@ -8,7 +8,7 @@ export class Health extends Phaser.Scene {
 
 preload ()
 {
-    
+    this.load.image('healthBar', 'assets/images/HealthBar.png');
 }
 
 init (data)
@@ -21,60 +21,42 @@ init (data)
 
 create ()
 {
-    var graphics;
+    
+
+    
+    this.add.image(208, 560, 'healthBar');
+    
+    
+    
+    
+}
+update ()  {
+        var graphics;
     var size = 300;
 
     graphics = this.add.graphics();
     graphics.fillStyle(0xFF0000, 1);
 
     //  32px radius on the corners
-    graphics.fillRect(32, 535, 300, 50);
-
-    
-    setInterval( () => {
-        
+    graphics.fillRect(82, 535, 300, 50);
         if (this.PASSING_OBJ.playerData.health < 0) {
             this.PASSING_OBJ.playerData.health = 0; 
         } else if (this.PASSING_OBJ.playerData.health > this.PASSING_OBJ.playerData.maxHealth) {
                 this.PASSING_OBJ.playerData.health = this.PASSING_OBJ.playerData.maxHealth;
         }
         
-        size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
+       size = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
+       this.PASSING_OBJ.playerData.health -= 1
 
         graphics.fillStyle(0x00000, 1);
-        graphics.fillRect(32, 535, 300, 50);
-        if (size >= 0)
-        {
+        graphics.fillRect(82, 535, 300, 50);
+
             graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(32, 535, size, 50);
-        }
+            graphics.fillRect(82, 535, size, 50);
+    
+    
+    //console.log(size)
  
-    }, 1000/this.PASSING_OBJ.fps) // THIS FUNCTION WILL CHECK EVERY FRAME TO UPDATE THE HEALTH BAR
-    
-    
-    var timeout = false
-    setInterval( () => {
-        if (timeout == false){
-            this.PASSING_OBJ.playerData.health -= 10}
-
-    },1000) //THIS FUNCTION DEMONSTRATES LOSING HEALTH
-
-    /*
-    setTimeout( () => {
-        timeout = true
-        setInterval( () => {
-            if (this.PASSING_OBJ.playerData.health < this.PASSING_OBJ.playerData.maxHealth){
-                this.PASSING_OBJ.playerData.health += 10}
-        },1000)
-
-    },10000) //THIS FUNCTION DEMONSTRATES Gaining HEALTH
-    */
-
-    
-}
-    update ()  {
-        
-    
         
 }
     
