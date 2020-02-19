@@ -8,7 +8,7 @@ export class Health extends Phaser.Scene {
 
 preload ()
 {
-    this.load.image('healthBar', 'assets/images/HealthBar.png');
+    this.load.image('healthBar', 'assets/Images/HealthBar.png');
 }
 
 init (data)

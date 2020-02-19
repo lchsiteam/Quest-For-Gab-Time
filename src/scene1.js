@@ -16,10 +16,12 @@ export class Scene1 extends Phaser.Scene {
     this.load.image('tiles', 'assets/TileSheets/grass_tiles.png');
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
     this.load.image('doors', 'assets/TileSheets/doors.png');
+    this.load.image('spike', 'assets/TileSheets/Spikes.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
     this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
+    this.load.tilemapCSV('spikeCSV', 'assets/MapCSVs/spike.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
 }
 
@@ -39,9 +41,10 @@ init (data)
     }  
     
     var layer1map;
-    var layer15map
+    var layer15map;
     var map;
     var doorsLayerMap;
+    var spikeLayerMap
     this.Keystrokes = [];
     
     layer1map = this.make.tilemap({ key: 'layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
@@ -65,6 +68,10 @@ init (data)
     var doorLayer = doorsLayerMap.createStaticLayer(0, doorMap, 0, 0);
     doorsLayerMap.setCollisionBetween(7, 10);
     
+    spikeLayerMap = this.make.tilemap({ key: 'spikeCSV', tileWidth: 32, tileHeight: 32 });  //doors
+    var spikeMap = spikeLayerMap.addTilesetImage('spike');
+    var spikeLayer = spikeLayerMap.createStaticLayer(0, spikeMap, 0, 0);
+    spikeLayerMap.setCollisionBetween(7, 10);
     
 
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
