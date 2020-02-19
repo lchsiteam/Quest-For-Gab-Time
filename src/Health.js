@@ -50,7 +50,7 @@ update ()  {
        //this.PASSING_OBJ.playerData.health -= 1
 
         graphics.fillStyle(0x00000, 1);
-        graphics.fillRect(82, 535, 300, 50);
+        graphics.fillRect(82, 534, 300, 51);
 
             graphics.fillStyle(0xFF0000, 1);
             graphics.fillRect(82, 534, size, 51);
