@@ -1,7 +1,7 @@
 import { init } from './init.js';
 import { Scene1 } from './scene1.js';
 import { Scene2 } from './scene2.js';
-import { Health } from './Health.js';
+import { Health } from './gui.js';
 
 
 var config = {
