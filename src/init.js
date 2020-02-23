@@ -21,10 +21,17 @@ export class init extends Phaser.Scene {
             this.PASSING_OBJ = {
                 fps : 60,
                 playerData : {
-                    health	: 300,
                     maxHealth : 300,
                     healthPacks : 5,
-                    velocity : 100
+                    velocity : 100,
+                    manaEnabled : false,
+                    maxMana : 100,
+                    pastHealth : {
+                    },
+                    currentHealth : {
+                        mana : 100,
+                        health : 300
+                    }
                 }
                 
                 
@@ -71,7 +78,7 @@ export class init extends Phaser.Scene {
       
         'use strict';
 
-        this.scene.start('Health', this.PASSING_OBJ);
+        this.scene.start('gui', this.PASSING_OBJ);
         this.scene.start('Scene1', this.PASSING_OBJ);
         
 

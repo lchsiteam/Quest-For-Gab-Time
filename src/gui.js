@@ -1,16 +1,15 @@
-export class Health extends Phaser.Scene {
+export class gui extends Phaser.Scene {
     
-    constructor ()
-    {
-        super('Health');
-    }
+constructor ()
+{
+    super('gui');
+}
     
 
 preload ()
 {
     this.load.image('healthAndManaBar', 'assets/Images/HealthBarV3.png');
     this.load.image('healthBar', 'assets/Images/HealthBar.png');
-    
 }
 
 init (data)
@@ -35,72 +34,58 @@ create ()
     
 }
 update ()  {
-    var graphics;
-    var healthSize = 300;
-    var manaSize = 300;
-
-    var maxMana = 100 //Make Global Vars
-    var mana = 100 // Make Global Vars
-
-    var manaEnabled = true //make global as well
-
-  
-
-
-
-    graphics = this.add.graphics();
-
-
-        if (this.PASSING_OBJ.playerData.health < 0) {
-            this.PASSING_OBJ.playerData.health = 0; 
-        } else if (this.PASSING_OBJ.playerData.health > this.PASSING_OBJ.playerData.maxHealth) {
-                this.PASSING_OBJ.playerData.health = this.PASSING_OBJ.playerData.maxHealth;
-        }
-
-        if (mana < 0) {
-            mana = 0; 
-        } else if (mana > maxMana) {
-            mana = maxMana;
-        }
-
-
-       
-        
-
-       healthSize = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
-       manaSize = (mana/maxMana) * 300
-       //this.PASSING_OBJ.playerData.health -= 1
-
-        console.log(this.PASSING_OBJ.playerData.health )
-       
-       
-      
-
-       if (manaEnabled){
-            graphics.fillStyle(0x00000, 1);
-            graphics.fillRect(82, 534, 300, 52); //Black background bar
-
-            graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(82, 534, healthSize, 26); //Health bar
-
-            graphics.fillStyle(0x0390fc, 1);
-            graphics.fillRect(82, 560, manaSize, 26); //Mana bar
-
-            this.add.image(208, 560,  'healthAndManaBar');
-
-       }
-
-       else 
-       {
-            graphics.fillStyle(0x00000, 1);
-            graphics.fillRect(82, 534, 300, 52); //Black background bar
-
-            graphics.fillStyle(0xFF0000, 1);
-            graphics.fillRect(82, 534, healthSize, 52); //health bar
-
-            this.add.image(208, 560,  'healthBar');
-       }
-
-}
     
+    if (!(this.PASSING_OBJ.playerData.currentHealth === this.PASSING_OBJ.playerData.pastHealth)) { //checks to see if anything changed
+        this.PASSING_OBJ.playerData.pastHealth = this.PASSING_OBJ.playerData.currentHealth;
+        var graphics;
+        var healthSize = 300;
+        var manaSize = 300;
+
+        console.log('did a thing!');
+
+        graphics = this.add.graphics();
+
+
+            if (this.PASSING_OBJ.playerData.currentHealth.health < 0) {  //Checks to see if health is above or below what it can be
+                this.PASSING_OBJ.playerData.currentHealth.health = 0; 
+            } else if (this.PASSING_OBJ.playerData.currentHealth.health > this.PASSING_OBJ.playerData.maxHealth) {
+                    this.PASSING_OBJ.playerData.currentHealth.health = this.PASSING_OBJ.playerData.maxHealth;
+            }
+
+            if (this.PASSING_OBJ.playerData.currentHealth.mana < 0) {  //Checks to see if mana is above or below what it can be
+                this.PASSING_OBJ.playerData.currentHealth.mana = 0; 
+            } else if (this.PASSING_OBJ.playerData.currentHealth.mana > this.PASSING_OBJ.playerData.maxMana) {
+                this.PASSING_OBJ.playerData.currentHealth.mana = this.PASSING_OBJ.playerData.maxMana;
+            }
+
+           healthSize = (this.PASSING_OBJ.playerData.currentHealth.health/this.PASSING_OBJ.playerData.maxHealth) * 300
+           manaSize = (this.PASSING_OBJ.playerData.currentHealth.mana/this.PASSING_OBJ.playerData.maxMana) * 300
+           //this.PASSING_OBJ.playerData.health -= 1
+
+
+
+
+           if (this.PASSING_OBJ.playerData.manaEnabled){ //Differentiates between the mana and health bar and the just health bar.
+                graphics.fillStyle(0x00000, 1);
+                graphics.fillRect(82, 534, 300, 52); //Black background bar
+
+                graphics.fillStyle(0xFF0000, 1);
+                graphics.fillRect(82, 534, healthSize, 26); //Health bar
+
+                graphics.fillStyle(0x0390fc, 1);
+                graphics.fillRect(82, 560, manaSize, 26); //Mana bar
+
+                this.add.image(208, 560,  'healthAndManaBar');
+
+           } else {
+                graphics.fillStyle(0x00000, 1);
+                graphics.fillRect(82, 534, 300, 52); //Black background bar
+
+                graphics.fillStyle(0xFF0000, 1);
+                graphics.fillRect(82, 534, healthSize, 52); //health bar
+
+                this.add.image(208, 560,  'healthBar');
+           }
+        }
+    }   
 }
