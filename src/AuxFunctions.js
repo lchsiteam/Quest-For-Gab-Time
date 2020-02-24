@@ -82,6 +82,14 @@ function keyWasPressed (event) {
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         
         this.PASSING_OBJ.playerData.velocity = 100;
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
+    
+        if (this.PASSING_OBJ.playerData.manaEnabled === false) {
+            this.PASSING_OBJ.playerData.manaEnabled = true;
+            this.PASSING_OBJ.playerData.mana = 100;
+        } else {
+            this.PASSING_OBJ.playerData.manaEnabled = false;
+        }
     }
     
 }

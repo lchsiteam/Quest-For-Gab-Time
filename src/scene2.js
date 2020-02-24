@@ -21,7 +21,6 @@ export class Scene2 extends Phaser.Scene {
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
     this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
-    console.log('Scene 2!')
 }
 
 init (data)
@@ -38,10 +37,6 @@ init (data)
     {
         this.scene.start('Scene1', this.PASSING_OBJ);
     }
-    
-    
-    
-
     
     var layer1map;
     var layer15map
