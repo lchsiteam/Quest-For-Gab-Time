@@ -1,6 +1,5 @@
- export function makeKeyPresses(that) {
-     
-     
+export function makeFunctions(that) {
+
     that.Keystrokes.keyA = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     that.Keystrokes.keyD = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     that.Keystrokes.keyW = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -58,6 +57,10 @@
      that.input.keyboard.on('keyup', keyWasPressed, that);
      that.input.keyboard.on('keydown', keyIsBeingPressed, that);
      
+    that.getAPack = function () {
+        that.PASSING_OBJ.playerData.healthPacks += 1;
+        console.log('hi');
+    }
 }
 
 function keyIsBeingPressed (event) {
@@ -75,7 +78,7 @@ function keyWasPressed (event) {
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.T) {
-        if (this.PASSING_OBJ.playerData.healthPacks > 0) {
+        if (this.PASSING_OBJ.playerData.healthPacks > 0 && this.PASSING_OBJ.playerData.health < this.PASSING_OBJ.playerData.maxHealth) {
             this.PASSING_OBJ.playerData.health += 50;
             this.PASSING_OBJ.playerData.healthPacks -= 1;
         }
@@ -90,6 +93,18 @@ function keyWasPressed (event) {
         } else {
             this.PASSING_OBJ.playerData.manaEnabled = false;
         }
-    }
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.O) {
+        
+        //cookie  =  this.PASSING_OBJ
+        
+        //put all of your code for input here
+        //Pass through this.PASSING_OBJ
+        
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.I) {
     
+        //put all of your code for input here
+        
+        //this.PASSING_OBJ = cookie
+        
+    }
 }

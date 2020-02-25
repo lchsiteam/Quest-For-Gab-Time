@@ -1,4 +1,4 @@
-import { makeKeyPresses } from './AuxFunctions.js';
+import { makeFunctions } from './AuxFunctions.js';
 
 export class Scene1 extends Phaser.Scene {
     
@@ -17,6 +17,7 @@ export class Scene1 extends Phaser.Scene {
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
     this.load.image('doors', 'assets/TileSheets/doors.png');
     this.load.image('spike', 'assets/TileSheets/Spikes.png');
+    this.load.image('healthCrate', 'assets/Images/HealthCrateV1.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
@@ -75,7 +76,7 @@ init (data)
     
 
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
-
+    this.player.setDepth(1);
     
     this.physics.add.collider(this.player, layer);
     this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
@@ -84,14 +85,26 @@ init (data)
     this.cameras.main.startFollow(this.player);
 
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys();    
+    makeFunctions(this);
     
-    makeKeyPresses(this);
+    
+    var configHealth = {
+        key: 'healthCrate',
+        x: 400,//randFloat: [ 0, (map.width * 32) ] },
+        y: 400,//randFloat: [ 0, (map.height * 32) ] },
+    };
+    
+    this.healthPack = this.make.sprite(configHealth);
+    this.physics.add.collider(this.player, this.healthPack, this.getAPack, null, this);
+    
+    
     
 }
 
  update ()  {
      this.running();
+     
      
      
 }

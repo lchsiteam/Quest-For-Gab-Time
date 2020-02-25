@@ -36,6 +36,7 @@ update ()  {
     var manaSize = 300;
 
     this.graphics.clear();
+    this.bar.setDepth(2);
 
 
     if (this.PASSING_OBJ.playerData.health < 0) {  //Checks to see if health is above or below what it can be

@@ -1,4 +1,4 @@
-import { makeKeyPresses } from './AuxFunctions.js';
+import { makeFunctions } from './AuxFunctions.js';
 
 export class Scene2 extends Phaser.Scene {
     
@@ -78,8 +78,7 @@ init (data)
 
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    
-    makeKeyPresses(this);
+    makeFunctions(this);
     
 }
 
