@@ -39,7 +39,7 @@ init (data)
     this.startScene2 = function (player, star)
     {
         this.scene.start('Scene2', this.PASSING_OBJ);
-    }  
+    } 
     
     var layer1map;
     var layer15map;
@@ -89,13 +89,7 @@ init (data)
     makeFunctions(this);
     
     
-    var configHealth = {
-        key: 'healthCrate',
-        x: 400,//randFloat: [ 0, (map.width * 32) ] },
-        y: 400,//randFloat: [ 0, (map.height * 32) ] },
-    };
-    
-    this.healthPack = this.make.sprite(configHealth);
+    this.healthPack = this.physics.add.sprite(400, 400, 'healthCrate', 1);
     this.physics.add.collider(this.player, this.healthPack, this.getAPack, null, this);
     
     
@@ -104,7 +98,6 @@ init (data)
 
  update ()  {
      this.running();
-     
      
      
 }

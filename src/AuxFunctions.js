@@ -57,9 +57,9 @@ export function makeFunctions(that) {
      that.input.keyboard.on('keyup', keyWasPressed, that);
      that.input.keyboard.on('keydown', keyIsBeingPressed, that);
      
-    that.getAPack = function () {
+    that.getAPack = function (player, pack) {
         that.PASSING_OBJ.playerData.healthPacks += 1;
-        console.log('hi');
+        this.healthPack.destroy();
     }
 }
 

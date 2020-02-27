@@ -22,7 +22,7 @@ export class init extends Phaser.Scene {
                 fps : 60,
                 playerData : {
                     maxHealth : 300,
-                    healthPacks : 5,
+                    healthPacks : 0,
                     velocity : 100,
                     manaEnabled : false,
                     maxMana : 100,
