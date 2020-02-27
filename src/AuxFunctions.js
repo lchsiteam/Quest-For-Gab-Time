@@ -97,6 +97,8 @@ function keyWasPressed (event) {
         
         //cookie  =  this.PASSING_OBJ
         
+        window.localStorage.setItem('gameData', JSON.stringify(this.PASSING_OBJ));
+        
         //put all of your code for input here
         //Pass through this.PASSING_OBJ
         
@@ -104,6 +106,9 @@ function keyWasPressed (event) {
     
         //put all of your code for input here
         
+        var hello = JSON.parse(window.localStorage.getItem('gameData'));
+        
+        console.log(hello);
         //this.PASSING_OBJ = cookie
         
     }
