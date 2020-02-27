@@ -1,4 +1,5 @@
 import { makeFunctions } from './AuxFunctions.js';
+import { healthCrate } from '/src/classes/healthCrate.js';
 
 export class Scene1 extends Phaser.Scene {
     
@@ -17,13 +18,14 @@ export class Scene1 extends Phaser.Scene {
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
     this.load.image('doors', 'assets/TileSheets/doors.png');
     this.load.image('spike', 'assets/TileSheets/Spikes.png');
-    this.load.image('healthCrate', 'assets/Images/HealthCrateV1.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
     this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
     this.load.tilemapCSV('spikeCSV', 'assets/MapCSVs/spike.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
+    
+    this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
 }
 
 init (data)
@@ -88,9 +90,7 @@ init (data)
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
     
-    
-    this.healthPack = this.physics.add.sprite(400, 400, 'healthCrate', 1);
-    this.physics.add.collider(this.player, this.healthPack, this.getAPack, null, this);
+    new healthCrate(this,400,400)
     
     
     
