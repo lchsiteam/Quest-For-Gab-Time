@@ -1,5 +1,6 @@
 import { makeFunctions } from './AuxFunctions.js';
 import { healthCrate } from '/src/classes/healthCrate.js';
+import { bookEnemy } from '/src/classes/bookEntity.js';
 
 export class Scene1 extends Phaser.Scene {
     
@@ -26,6 +27,7 @@ export class Scene1 extends Phaser.Scene {
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
     
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
+    this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
 }
 
 init (data)
@@ -40,7 +42,7 @@ init (data)
 {
     this.startScene2 = function (player, star)
     {
-        this.scene.start('Scene2', this.PASSING_OBJ);
+        this.scene.start('Scene1', this.PASSING_OBJ)
     } 
     
     var layer1map;
@@ -62,7 +64,7 @@ init (data)
 
     map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });   //grass
     var tileset = map.addTilesetImage('tiles');
-    var layer = map.createStaticLayer(0, tileset, 0, 0);
+    this.layer = map.createStaticLayer(0, tileset, 0, 0);
     map.setCollisionBetween(70, 70);
     map.setCollisionBetween(-1, -1);
     
@@ -80,7 +82,7 @@ init (data)
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
     this.player.setDepth(1);
     
-    this.physics.add.collider(this.player, layer);
+    this.physics.add.collider(this.player, this.layer);
     this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -90,7 +92,8 @@ init (data)
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
     
-    new healthCrate(this,400,400)
+    new healthCrate(this,400,400);
+    new bookEnemy(this,800,400,2);  //Pass in this object, x and y
     
     
     

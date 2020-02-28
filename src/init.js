@@ -12,12 +12,12 @@ export class init extends Phaser.Scene {
      preload ()
     {
         this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
     }
     
     init ()
     {
         'use strict';
-
             this.PASSING_OBJ = {
                 fps : 60,
                 playerData : {
@@ -29,16 +29,12 @@ export class init extends Phaser.Scene {
                     mana : 0,
                     health : 300
                 }
-                
-                
             };
         
     }
 
      create ()
     {
-        
-
         
 
         this.anims.create({
@@ -62,6 +58,12 @@ export class init extends Phaser.Scene {
         this.anims.create({
             key: 'down',
             frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'fly',
+            frames: this.anims.generateFrameNumbers('book', { start: 0, end: 6 }),
             frameRate: 10,
             repeat: -1
         });
