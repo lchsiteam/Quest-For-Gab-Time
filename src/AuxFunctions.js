@@ -79,7 +79,7 @@ function keyWasPressed (event) {
     
     if (code === Phaser.Input.Keyboard.KeyCodes.T) {
         if (this.PASSING_OBJ.playerData.healthPacks > 0 && this.PASSING_OBJ.playerData.health < this.PASSING_OBJ.playerData.maxHealth) {
-            this.PASSING_OBJ.playerData.health += 50;
+            this.PASSING_OBJ.playerData.health += 60;
             this.PASSING_OBJ.playerData.healthPacks -= 1;
         }
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
@@ -97,8 +97,6 @@ function keyWasPressed (event) {
         
         //cookie  =  this.PASSING_OBJ
         
-        window.localStorage.setItem('gameData', JSON.stringify(this.PASSING_OBJ));
-        
         //put all of your code for input here
         //Pass through this.PASSING_OBJ
         
@@ -106,9 +104,6 @@ function keyWasPressed (event) {
     
         //put all of your code for input here
         
-        var hello = JSON.parse(window.localStorage.getItem('gameData'));
-        
-        console.log(hello);
         //this.PASSING_OBJ = cookie
         
     }
