@@ -10,6 +10,7 @@ preload ()
 {
     this.load.image('healthAndManaBar', 'assets/Images/HealthBarV3.png');
     this.load.image('healthBar', 'assets/Images/HealthBar.png');
+    this.load.image("healthPack","assets/Images/HealthIcon.png")
 }
 
 init (data)
@@ -26,8 +27,11 @@ create ()
 {
     this.bar = this.add.image(208, 560,  'healthBar');
     this.graphics = this.add.graphics();
+    this.graphics.defaultStrokeWidth = 100;
+    this.healthPack = this.add.image(765,563,'healthPack');
+    this.healthPack.scale = 2.4;
     
-    
+    this.text = this.add.text(775, 565, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Times New Roman", Tahoma, serif' });
     
 }
     
@@ -37,6 +41,8 @@ update ()  {
 
     this.graphics.clear();
     this.bar.setDepth(2);
+    
+    this.text.setText(this.PASSING_OBJ.playerData.healthPacks);
 
 
     if (this.PASSING_OBJ.playerData.health < 0) {  //Checks to see if health is above or below what it can be
