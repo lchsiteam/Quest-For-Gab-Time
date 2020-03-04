@@ -5,7 +5,7 @@ import { gui } from './gui.js';
 
 
 var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: '#2d2d2d',
@@ -22,7 +22,3 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
-
-
-

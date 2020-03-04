@@ -1,3 +1,5 @@
+import { fireBall } from '/src/classes/FireBall.js';
+
 export function makeFunctions(that) {
 
     that.Keystrokes.keyA = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -106,5 +108,11 @@ function keyWasPressed (event) {
         
         //this.PASSING_OBJ = cookie
         
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.Q & this.fireballEnabled) {
+        this.entities.push(new fireBall(this,this.player.x,this.player.y,2));
+        this.fireballEnabled = false
+        setTimeout( () => {
+            this.fireballEnabled = true
+             }, 1000) 
     }
 }

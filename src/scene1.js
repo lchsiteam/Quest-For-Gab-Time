@@ -28,6 +28,7 @@ export class Scene1 extends Phaser.Scene {
     
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
     this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('fireBall', '/assets/Entities/FireBall.png',{ frameWidth: 32, frameHeight: 32 });
 }
 
 init (data)
@@ -51,6 +52,7 @@ init (data)
     var doorsLayerMap;
     var spikeLayerMap
     this.Keystrokes = [];
+    this.fireballEnabled = true
     
     layer1map = this.make.tilemap({ key: 'layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
     var tileset1 = layer1map.addTilesetImage('tiles');
@@ -92,8 +94,10 @@ init (data)
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
     
-    new healthCrate(this,400,400);
-    new bookEnemy(this,800,400,2);  //Pass in this object, x and y
+    this.entities = [];
+    
+    this.entities.push(new healthCrate(this,400,400));
+    this.entities.push(new bookEnemy(this,800,400,2));  //Pass in this object, x and y
     
     
     
@@ -101,8 +105,6 @@ init (data)
 
  update ()  {
      this.running();
-     
-     
 }
     
     

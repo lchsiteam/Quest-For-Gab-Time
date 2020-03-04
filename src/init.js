@@ -13,6 +13,7 @@ export class init extends Phaser.Scene {
     {
         this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('fireBall', '/assets/Entities/FireBall.png',{ frameWidth: 32, frameHeight: 32 });
     }
     
     init ()
@@ -27,7 +28,8 @@ export class init extends Phaser.Scene {
                     manaEnabled : false,
                     maxMana : 100,
                     mana : 0,
-                    health : 300
+                    health : 300,
+                    invinsFrames: false
                 }
             };
         
@@ -66,6 +68,13 @@ export class init extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('book', { start: 0, end: 6 }),
             frameRate: 10,
             repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrow',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 0, end: 19 }),
+            frameRate: 20,
+            flipX: true,
+            killOnComplete: true
         });
         
         // Global vars as properties of my object that

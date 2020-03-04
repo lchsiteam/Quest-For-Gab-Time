@@ -1,13 +1,23 @@
 export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object from phaser as that
     
     var attack = function (player, book) {    //declares a function that passes in the player object and the book object.
-        that.PASSING_OBJ.playerData.health -= 10;  //subtracts 10 from health every tick
-        //book.destroy();                         //Distroys the book object
+        if (!that.PASSING_OBJ.playerData.invinsFrames) {
+            that.PASSING_OBJ.playerData.invinsFrames = true;
+            that.PASSING_OBJ.playerData.health -= 40;  //subtracts 40 from health
+            player.setTint(0xff0000);
+            //book.destroy();                         //Distroys the book object
+            setTimeout( () => {
+                that.PASSING_OBJ.playerData.invinsFrames = false;
+                player.clearTint();
+            }, 200) 
+            
+        }
         
     }
     
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
+    book.health = 50;
     
     that.physics.add.collider(that.player, book, attack, null, that);  //adds a collider so it playes function "attack" when that.player and book collide. 
                                                                        //It gives access to the "that" object, too

@@ -19,7 +19,6 @@ init (data)
         'use strict';
 
         this.PASSING_OBJ = data;
-        console.log(data);
 
     }
 
@@ -31,8 +30,7 @@ create ()
     this.healthPack = this.add.image(765,563,'healthPack');
     this.healthPack.scale = 2.4;
     
-    this.text = this.add.text(775, 565, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Times New Roman", Tahoma, serif' });
-    
+    this.text = this.add.text(775, 565, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Comic Sans MS", Tahoma, serif' });
 }
     
 update ()  {
