@@ -7,8 +7,11 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
             player.setTint(0xff0000);
             //book.destroy();                         //Distroys the book object
             setTimeout( () => {
-                that.PASSING_OBJ.playerData.invinsFrames = false;
                 player.clearTint();
+            }, 400) 
+            
+            setTimeout( () => {
+                that.PASSING_OBJ.playerData.invinsFrames = false;
             }, 200) 
             
         }

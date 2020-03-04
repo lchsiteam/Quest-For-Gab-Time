@@ -25,11 +25,20 @@ export class init extends Phaser.Scene {
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
-                    manaEnabled : false,
+                    manaEnabled : true,
                     maxMana : 100,
-                    mana : 0,
+                    mana : 100,
                     health : 300,
-                    invinsFrames: false
+                    invinsFrames: false,
+                    dead : false,
+                    checkpoint : {
+                        scene: 'Scene1',
+                        maxHealth : 300,
+                        healthPacks : 0,
+                        manaEnabled : true,
+                        maxMana : 100,
+                        velocity: 100
+                    }
                 }
             };
         

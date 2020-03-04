@@ -105,6 +105,7 @@ init (data)
 
  update ()  {
      this.running();
+     this.otherChecks();
 }
     
     
