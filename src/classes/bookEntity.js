@@ -6,8 +6,8 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         
     }
     
-    this.monsterPathfind(that) {
-        return [(this.book.speed*((that.player.y - this.book.y)/(that.player.x - this.book.x))),(this.book.speed*((that.player.x - this.book.x)/(that.player.y - this.book.y)))]
+    this.monsterPathfind(worldData) {
+        return [(this.book.speed*((worldData.player.x - this.book.x)/(worldData.player.y - this.book.y))),(this.book.speed*((worldData.player.y - this.book.y)/(worldData.player.x - this.book.x)))]
     }
     
     this.book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
