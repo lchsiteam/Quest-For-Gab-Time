@@ -18,6 +18,16 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         
     }
     
+    var monsterPathfind = function (that) {
+        var x = that.player.x - book.x; //x distance from player
+        var y = that.player.y - book.y; //y distance from player
+        
+        var distance = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));  //gets the direct distance to the player 
+        var ratio = book.speed/distance;  //ratio of how fast the book is to the distance of the player
+        
+        return[(x*ratio),(y*ratio)]; //multiplies the x and y distances to get a similar triangle at the book's speed
+    }
+    
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     book.health = 50;
@@ -32,6 +42,15 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(scale);                                   //makes it twice as big
+    
+        setInterval(() => {
+               
+        var tmp = monsterPathfind(that);
+        console.log(tmp);
+        book.setVelocityX(tmp[0]);
+        book.setVelocityY(tmp[1]);
+
+    }, 1000)
     
     return book        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
     
