@@ -19,7 +19,13 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     }
     
     var monsterPathfind = function (that) {
-        return[(book.speed*((that.player.x - book.x)/(Math.pow(((Math.pow((that.player.x - book.x), 2))+(Math.pow((that.player.y - book.y), 2))), 0.5)))),(book.speed*((that.player.y - book.y)/(Math.pow(((Math.pow((that.player.x - book.x), 2))+(Math.pow((that.player.y - book.y), 2))), 0.5))))];
+        var x = that.player.x - book.x; //x distance from player
+        var y = that.player.y - book.y; //y distance from player
+        
+        var distance = Math.sqrt(((x)**2)+((y)**2));  //gets the direct distance to the player 
+        var ratio = book.speed/distance;  //ratio of how fast the book is to the distance of the player
+
+        return[(x*ratio),(y*ratio)]; //multiplies the x and y distances to get a similar triangle at the book's speed
     }
     
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
@@ -41,7 +47,6 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         setInterval(() => {
                
         var tmp = monsterPathfind(that);
-        console.log(tmp);
         book.setVelocityX(tmp[0]);
         book.setVelocityY(tmp[1]);
 
