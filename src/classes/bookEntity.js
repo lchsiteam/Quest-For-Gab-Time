@@ -18,15 +18,14 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         
     }
     
-    this.monsterPathfind = function (that) {
-        return [(this.book.speed*((that.player.x - this.book.x)/(Math.pow(((Math.pow((that.player.x - this.book.x), 2))+(Math.pow((that.player.y - this.book.y), 2))), 0.5)))),(this.book.speed*((that.player.y - this.book.y)/(Math.pow(((Math.pow((that.player.x - this.book.x), 2))+(Math.pow((that.player.y - this.book.y), 2))), 0.5))))]
+    var monsterPathfind = function (that) {
+        return[(book.speed*((that.player.x - book.x)/(Math.pow(((Math.pow((that.player.x - book.x), 2))+(Math.pow((that.player.y - book.y), 2))), 0.5)))),(book.speed*((that.player.y - book.y)/(Math.pow(((Math.pow((that.player.x - book.x), 2))+(Math.pow((that.player.y - book.y), 2))), 0.5))))];
     }
-    
-    this.book.speed = 60
     
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     book.health = 50;
+    book.speed = 60;
     
     that.physics.add.collider(that.player, book, attack, null, that);  //adds a collider so it playes function "attack" when that.player and book collide. 
                                                                        //It gives access to the "that" object, too
@@ -39,11 +38,12 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(scale);                                   //makes it twice as big
     
-    setInterval(() => {
+        setInterval(() => {
                
-        var tmp = this.monsterPathfind(that);
-        this.book.setVelocityX(tmp[0]);
-        this.book.setVelocityY(tmp[1]);
+        var tmp = monsterPathfind(that);
+        console.log(tmp);
+        book.setVelocityX(tmp[0]);
+        book.setVelocityY(tmp[1]);
 
     }, 100)
     
