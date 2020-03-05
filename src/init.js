@@ -31,6 +31,7 @@ export class init extends Phaser.Scene {
                     health : 300,
                     invinsFrames: false,
                     dead : false,
+                    manaRegenRate : 0.2,
                     checkpoint : {
                         scene: 'Scene1',
                         maxHealth : 300,

@@ -101,7 +101,17 @@ init (data)
     
     this.entities.push(new healthCrate(this,400,400));
     this.entities.push(new bookEnemy(this,800,400,2));  //Pass in this object, x and y
+    this.entities.push(new bookEnemy(this,800,500,2));
+    this.entities.push(new bookEnemy(this,800,600,2));
+    this.entities.push(new bookEnemy(this,800,700,2));
+    this.entities.push(new bookEnemy(this,800,800,2));
+    this.entities.push(new bookEnemy(this,800,900,2));
+    this.entities.push(new bookEnemy(this,800,1000,2));
+    this.entities.push(new bookEnemy(this,800,1100,2));
+    this.entities.push(new bookEnemy(this,800,1200,2));
+    this.entities.push(new bookEnemy(this,800,1300,2));
     
+    console.log(this.PASSING_OBJ);
     
     
 }

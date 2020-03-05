@@ -18,6 +18,11 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         
     }
     
+    var bounce = function (entity, book) {
+        book.setVelocityX((Math.random() * 2000)-1000);
+        book.setVelocityY((Math.random() * 2000)-1000);
+    }
+    
     var monsterPathfind = function (that) {
         var x = that.player.x - book.x; //x distance from player
         var y = that.player.y - book.y; //y distance from player
@@ -32,11 +37,12 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     
     book.health = 50;
-    book.speed = 60;
+    book.speed = Math.floor((Math.random() * 200)+50);
     
     that.physics.add.collider(that.player, book, attack, null, that);  //adds a collider so it playes function "attack" when that.player and book collide. 
                                                                        //It gives access to the "that" object, too
     that.physics.add.collider(that.layer,book);             //makes it so book can't go through that.layer (the world boarder)
+    that.physics.add.collider(that.entities,book, bounce, null, that);
     
     book.anims.play('fly',true);                            //plays the 'fly' animation declared in init.js
     
@@ -53,7 +59,7 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
             book.setVelocityY(tmp[1]);
         } catch(err) {
             clearInterval(book.interval);
-            }
+        }
 
     }, 100)
     

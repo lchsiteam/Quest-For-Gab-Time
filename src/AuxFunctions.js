@@ -65,7 +65,7 @@ export function makeFunctions(that) {
         }
         
         if (that.PASSING_OBJ.playerData.mana < that.PASSING_OBJ.playerData.maxMana) {
-            that.PASSING_OBJ.playerData.mana += 0.2;
+            that.PASSING_OBJ.playerData.mana += that.PASSING_OBJ.playerData.manaRegenRate;
         }
     }
      
@@ -99,9 +99,9 @@ export function Death (that) {
 }
 
 function throwFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 30 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 30
-        that.entities.push(new fireBall(that,that.player.x,that.player.y,2));
+    if (that.PASSING_OBJ.playerData.mana >= 10 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 10
+        new fireBall(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
