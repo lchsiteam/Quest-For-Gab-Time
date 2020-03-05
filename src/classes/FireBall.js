@@ -32,7 +32,7 @@ export function fireBall(that,x,y,scale = 1) {  //passes in the this object from
     this.book.setScale(scale);                                   //makes it twice as big
     
     var direction = that.player.anims.currentAnim.key;
-    var speed = 200;
+    var speed = 300;
     if (direction === 'up') {
         this.book.setVelocityY(-speed)
     } else if (direction === 'down') {
