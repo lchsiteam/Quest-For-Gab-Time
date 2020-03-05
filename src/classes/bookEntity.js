@@ -21,8 +21,8 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     var monsterPathfind = function (that) {
         var x = that.player.x - book.x; //x distance from player
         var y = that.player.y - book.y; //y distance from player
-
-        var distance = Math.sqrt(Math.pow(x,2)+Math.pow(y,2));  //gets the direct distance to the player 
+        
+        var distance = Math.sqrt(((x)**2)+((y)**2));  //gets the direct distance to the player 
         var ratio = book.speed/distance;  //ratio of how fast the book is to the distance of the player
 
         return[(x*ratio),(y*ratio)]; //multiplies the x and y distances to get a similar triangle at the book's speed
