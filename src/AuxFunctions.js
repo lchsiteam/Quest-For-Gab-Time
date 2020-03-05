@@ -59,7 +59,6 @@ export function makeFunctions(that) {
     
     that.otherChecks = function () {
         if (that.PASSING_OBJ.playerData.health <= 0 && !that.PASSING_OBJ.dead) {
-            console.log(!that.PASSING_OBJ.dead);
             Death(that);
         }else if (that.PASSING_OBJ.playerData.health <= 0) {
             
@@ -86,7 +85,6 @@ export function Death (that) {
     that.PASSING_OBJ.playerData.dead = true;
     that.player.anims.stop();
     setTimeout( () => {
-        console.log(checkpoint.scene)
         that.PASSING_OBJ.playerData.maxHealth = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.healthPacks = checkpoint.healthPacks;
         that.PASSING_OBJ.playerData.velocity = checkpoint.velocity;
@@ -98,6 +96,17 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.dead = false;
         that.player.clearTint();
     }, 2000) 
+}
+
+function throwFireball (that) {
+    if (that.PASSING_OBJ.playerData.mana >= 30 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 30
+        that.entities.push(new fireBall(that,that.player.x,that.player.y,2));
+        that.fireballEnabled = false;
+        setTimeout( () => {
+            that.fireballEnabled = true;
+        }, 50) 
+    }
 }
 
 function keyIsBeingPressed (event) {
@@ -143,15 +152,7 @@ function keyWasPressed (event) {
         
         //this.PASSING_OBJ = cookie
         
-    } else if (code === Phaser.Input.Keyboard.KeyCodes.Q & this.fireballEnabled) {
-        if (this.PASSING_OBJ.playerData.mana >= 30) {
-            
-            this.PASSING_OBJ.playerData.mana -= 30
-            this.entities.push(new fireBall(this,this.player.x,this.player.y,2));
-            this.fireballEnabled = false
-            setTimeout( () => {
-                this.fireballEnabled = true
-                 }, 50) 
-        }
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.Q) {
+        throwFireball(this);
     }
 }

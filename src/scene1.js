@@ -84,6 +84,9 @@ init (data)
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
     this.player.setDepth(1);
     
+    this.player.anims.play('down', true);
+    this.player.anims.stop();
+    
     this.physics.add.collider(this.player, this.layer);
     this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 

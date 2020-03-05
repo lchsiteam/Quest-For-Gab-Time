@@ -31,7 +31,21 @@ export function fireBall(that,x,y,scale = 1) {  //passes in the this object from
     this.book.setSize(17, 16);                               //Sets the size of the hitbox to 17px by 16px. Scales with setScale();
     this.book.setScale(scale);                                   //makes it twice as big
     
-    this.book.setVelocityX(200);
+    var direction = that.player.anims.currentAnim.key;
+    var speed = 200;
+    if (direction === 'up') {
+        this.book.setVelocityY(-speed)
+    } else if (direction === 'down') {
+        this.book.setVelocityY(speed)
+    } else if (direction === 'right') {
+        this.book.setVelocityX(speed);
+    } else if (direction === 'left') {
+        this.book.setVelocityX(-speed);
+    } else {
+        this.book.setVelocityX(-speed);
+    }
+    
+    
     this.book.on('animationcomplete', this.animComplete, this);
     
     return this.book        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time

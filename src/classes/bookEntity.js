@@ -24,6 +24,7 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
+    
     book.health = 50;
     book.speed = 60;
     
@@ -38,12 +39,16 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(scale);                                   //makes it twice as big
     
-        setInterval(() => {
+    book.interval = setInterval(() => {
                
         var tmp = monsterPathfind(that);
-        console.log(tmp);
-        book.setVelocityX(tmp[0]);
-        book.setVelocityY(tmp[1]);
+        try {
+            book.setVelocityX(tmp[0]);
+            book.setVelocityY(tmp[1]);
+        } catch(err) {
+            clearInterval(book.interval);
+        }
+        
 
     }, 100)
     
