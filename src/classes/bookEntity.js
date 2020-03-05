@@ -47,7 +47,6 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
         setInterval(() => {
                
         var tmp = monsterPathfind(that);
-        console.log(tmp);
         book.setVelocityX(tmp[0]);
         book.setVelocityY(tmp[1]);
 
