@@ -1,4 +1,4 @@
-export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object from phaser as that
+export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object from phaser as that
     
     var attack = function (player, book) {    //declares a function that passes in the player object and the book object.
         if (!that.PASSING_OBJ.playerData.invinsFrames) {
@@ -37,7 +37,11 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     
     book.health = 50;
-    book.speed = Math.floor((Math.random() * 200)+50);
+    if (speed < 0) {
+        book.speed = Math.floor((Math.random() * 200)+50);
+    } else {
+        book.speed = speed;
+    }
     
     that.physics.add.collider(that.player, book, attack, null, that);  //adds a collider so it playes function "attack" when that.player and book collide. 
                                                                        //It gives access to the "that" object, too
@@ -49,7 +53,7 @@ export function bookEnemy(that,x,y,scale = 1) {  //passes in the this object fro
     book.setSize(17, 16);                               //Sets the size of the hitbox to 17px by 16px. Scales with setScale();
     
     book.setDrag(100);                                  //Makes it slow down after being pushed
-    book.setScale(scale);                                   //makes it twice as big
+    book.setScale(2);                                   //makes it twice as big
     
     book.interval = setInterval(() => {
                

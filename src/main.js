@@ -1,6 +1,7 @@
 import { init } from './init.js';
 import { Scene1 } from './scene1.js';
 import { Scene2 } from './scene2.js';
+import { Scene3 } from './scene3.js';
 import { gui } from './gui.js';
 
 
@@ -17,7 +18,7 @@ var config = {
             gravity: { y: 0 }
         }
     },
-    scene: [init,Scene1,Scene2,gui]
+    scene: [init,Scene1,Scene2,Scene3,gui]
     
 };
 

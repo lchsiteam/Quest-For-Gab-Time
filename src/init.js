@@ -13,7 +13,7 @@ export class init extends Phaser.Scene {
     {
         this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('fireBall', '/assets/Entities/FireBall.png',{ frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('fireBall', '/assets/Entities/FireBallV2.png',{ frameWidth: 32, frameHeight: 32 });
     }
     
     init ()
@@ -80,11 +80,28 @@ export class init extends Phaser.Scene {
             repeat: -1
         });
         this.anims.create({
-            key: 'FireThrow',
-            frames: this.anims.generateFrameNumbers('fireBall', { start: 0, end: 19 }),
+            key: 'FireThrowRight',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 0, end: 4 }),
             frameRate: 20,
-            flipX: true,
-            killOnComplete: true
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowUp',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 5, end: 9 }),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowLeft',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 10, end: 14 }),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowDown',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 15, end: 19 }),
+            frameRate: 20,
+            repeat: -1
         });
         
         // Global vars as properties of my object that
