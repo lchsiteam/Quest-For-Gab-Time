@@ -23,7 +23,10 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
     var y = playerY;
     var velX = 0;
     var velY = 0;
-    var anim;
+    var anim; 
+    
+    this.relScale = 1; 
+    this.shrink = 0.125; 
     
     var direction = that.player.anims.currentAnim.key;
     var speed = 300;
@@ -66,36 +69,22 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
     this.book.setSize(17, 16);                               //Sets the size of the hitbox to 17px by 16px. Scales with setScale();
     this.book.setScale(scale);                                   //makes it twice as big
     
+    this.timerId = 0; 
     
+    this.shrinkOnce = function() {
+        this.relScale -= this.shrink; 
+        
+        if (this.relScale > 0) {
+            this.book.setScale(scale * this.relScale); 
+        } else {
+            this.book.destroy(); 
+            clearInterval(this.timerId); 
+        } 
+    } 
     
-    
-    setTimeout( () => {
-            this.book.setScale(scale*0.875)
-            setTimeout( () => {
-                this.book.setScale(scale*0.75)
-                setTimeout( () => {
-                    this.book.setScale(scale*0.625) 
-                        setTimeout( () => {
-                            this.book.setScale(scale*0.5)
-                            setTimeout( () => {
-                                this.book.setScale(scale*0.375)
-                                setTimeout( () => {
-                                    this.book.setScale(scale*0.25) 
-                                    setTimeout( () => {
-                                        this.book.setScale(scale*0.125) 
-                                        setTimeout( () => {
-                                            this.book.destroy();
-                                    }, 50) 
-                                }, 50) 
-                            }, 50) 
-                        }, 50)
-                    }, 50) 
-                }, 50) 
-            }, 50)
-        }, 400) 
-    
-    
-    
+    setTimeout(() => {
+        this.timerId = setInterval(() => this.shrinkOnce(), 50); 
+    }, 300);
     
     return this.book        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
     
