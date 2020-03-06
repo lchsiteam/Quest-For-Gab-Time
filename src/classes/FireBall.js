@@ -85,8 +85,6 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
                                         this.book.setScale(scale*0.125) 
                                         setTimeout( () => {
                                             this.book.destroy();
-                                            
-                                        
                                     }, 50) 
                                 }, 50) 
                             }, 50) 
