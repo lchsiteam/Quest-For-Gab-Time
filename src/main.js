@@ -3,7 +3,7 @@ import { Scene1 } from './scene1.js';
 import { Scene2 } from './scene2.js';
 import { gui } from './gui.js';
 
-if (window.innerWidth > window.innerHeight) {
+if ((window.innerWidth/4) > (window.innerHeight/3)) {
     var h = (window.innerHeight - (window.innerHeight % 3));
     var w = (h * (4/3));
 } else {
@@ -12,7 +12,7 @@ if (window.innerWidth > window.innerHeight) {
 }
 
 window.addEventListener('resize', () => {
-    if (window.innerWidth > window.innerHeight) {
+    if ((window.innerWidth/4) > (window.innerHeight/3)) {
         var h = (window.innerHeight - (window.innerHeight % 3));
         var w = (h * (4/3));
     } else {

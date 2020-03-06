@@ -16,7 +16,7 @@ preload ()
 init (data)
     {
         
-        if (window.innerWidth > window.innerHeight) {
+        if ((window.innerWidth/4) > (window.innerHeight/3)) {
             var h = (window.innerHeight - (window.innerHeight % 3));
             var w = (h * (4/3));
         } else {
@@ -34,7 +34,7 @@ init (data)
 create ()
 {
     
-    if (window.innerWidth > window.innerHeight) {
+    if ((window.innerWidth/4) > (window.innerHeight/3)) {
         var h = (window.innerHeight - (window.innerHeight % 3));
         var w = (h * (4/3));
     } else {
@@ -55,7 +55,7 @@ update ()  {
     var healthSize = 300;
     var manaSize = 300;
     
-    if (window.innerWidth > window.innerHeight) {
+    if ((window.innerWidth/4) > (window.innerHeight/3)) {
         var h = (window.innerHeight - (window.innerHeight % 3));
         var w = (h * (4/3));
     } else {
