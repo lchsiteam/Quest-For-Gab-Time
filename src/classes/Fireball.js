@@ -1,7 +1,7 @@
-export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the this object from phaser as that
+export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the this object from phaser as that
     
     this.animComplete = function (animation) {
-        this.book.destroy();
+        this.fireball.destroy();
     }
     
     this.death = function (entity,book) {
@@ -54,20 +54,20 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
     
     
     
-    this.book = that.physics.add.sprite(x, y, 'fireBall',0);   //Declares a new sprite object and assigns it to book. 
+    this.fireball = that.physics.add.sprite(x, y, 'fireBall',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     
-    this.book.anims.play(anim,true);
-    this.book.setVelocityX(velX);
-    this.book.setVelocityY(velY);
+    this.fireball.anims.play(anim,true);
+    this.fireball.setVelocityX(velX);
+    this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too
-    that.physics.add.collider(that.layer,this.book);             //makes it so book can't go through that.layer (the world boarder)
-    that.physics.add.collider(that.entities, this.book, this.death, null, this);
+    that.physics.add.collider(that.layer,this.fireball);             //makes it so book can't go through that.layer (the world boarder)
+    that.physics.add.collider(that.entities, this.fireball, this.death, null, this);
     
     
     
-    this.book.setSize(17, 16);                               //Sets the size of the hitbox to 17px by 16px. Scales with setScale();
-    this.book.setScale(scale);                                   //makes it twice as big
+    this.fireball.setSize(17, 16);                               //Sets the size of the hitbox to 17px by 16px. Scales with setScale();
+    this.fireball.setScale(scale);                                   //makes it twice as big
     
     this.timerId = 0; 
     
@@ -75,9 +75,9 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
         this.relScale -= this.shrink; 
         
         if (this.relScale > 0) {
-            this.book.setScale(scale * this.relScale); 
+            this.fireball.setScale(scale * this.relScale); 
         } else {
-            this.book.destroy(); 
+            this.fireball.destroy(); 
             clearInterval(this.timerId); 
         } 
     } 
@@ -86,6 +86,6 @@ export function fireBall(that,playerX,playerY,scale = 0.5) {  //passes in the th
         this.timerId = setInterval(() => this.shrinkOnce(), 50); 
     }, 300);
     
-    return this.book        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
+    return this.fireball        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
     
 }

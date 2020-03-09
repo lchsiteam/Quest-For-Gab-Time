@@ -1,4 +1,6 @@
-import { fireBall } from '/src/classes/FireBall.js';
+import { fireball } from '/src/classes/Fireball.js';
+import { tripleFireball } from '/src/classes/TripleFireball.js';
+
 
 export function makeFunctions(that) {
 
@@ -101,7 +103,7 @@ export function Death (that) {
 function throwFireball (that) {
     if (that.PASSING_OBJ.playerData.mana >= 10 & that.fireballEnabled) {
         that.PASSING_OBJ.playerData.mana -= 10
-        new fireBall(that,that.player.x,that.player.y,2);
+        new fireball(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
@@ -109,11 +111,23 @@ function throwFireball (that) {
     }
 }
 
+function throwTripleFireball (that) {
+    if (that.PASSING_OBJ.playerData.mana >= 35 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 35
+        new tripleFireball(that,that.player.x,that.player.y,2);
+        that.fireballEnabled = false;
+        setTimeout( () => {
+            that.fireballEnabled = true;
+        }, 50) 
+    }
+}
+
+
 function keyIsBeingPressed (event) {
     
     var code = event.keyCode;
     
-    if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
+    if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         
         this.PASSING_OBJ.playerData.velocity = 200;
     }
@@ -128,7 +142,7 @@ function keyWasPressed (event) {
             this.PASSING_OBJ.playerData.health += 60;
             this.PASSING_OBJ.playerData.healthPacks -= 1;
         }
-    } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         
         this.PASSING_OBJ.playerData.velocity = 100;
     } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
@@ -152,7 +166,10 @@ function keyWasPressed (event) {
         
         //this.PASSING_OBJ = cookie
         
-    } else if (code === Phaser.Input.Keyboard.KeyCodes.Q) {
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         throwFireball(this);
+        
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.X) {
+        throwTripleFireball(this);
     }
 }
