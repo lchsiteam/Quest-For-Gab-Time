@@ -124,8 +124,8 @@ function throwTripleFireball (that) {
 } 
 
 function throwBigFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 100 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 100
+    if (that.PASSING_OBJ.playerData.mana >= 50 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 50
         new bigFireball(that,that.player.x,that.player.y,5);
         that.fireballEnabled = false;
         setTimeout( () => {
