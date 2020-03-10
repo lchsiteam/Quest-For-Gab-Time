@@ -1,13 +1,12 @@
-export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the this object from phaser as that
+export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the this object from phaser as that
     
     this.animComplete = function (animation) {
         this.fireball.destroy();
     }
     
-    this.death = function (entity,book) {
+    this.damage = function (entity,book) {
         entity.setTint(0xff0000);
-        entity.health -= 20;
-        book.destroy();
+        entity.health -= 2; 
         setTimeout( () => {
             entity.clearTint();
             if (entity.health <= 0) {
