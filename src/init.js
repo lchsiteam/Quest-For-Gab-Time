@@ -13,6 +13,7 @@ export class init extends Phaser.Scene {
     {
         this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('fireBall', '/assets/Entities/FireBallV2.png',{ frameWidth: 32, frameHeight: 32 });
     }
     
     init ()
@@ -24,10 +25,21 @@ export class init extends Phaser.Scene {
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
-                    manaEnabled : false,
+                    manaEnabled : true,
                     maxMana : 100,
-                    mana : 0,
-                    health : 300
+                    mana : 100,
+                    health : 300,
+                    invinsFrames: false,
+                    dead : false,
+                    manaRegenRate : 0.2,
+                    checkpoint : {
+                        scene: 'Scene1',
+                        maxHealth : 300,
+                        healthPacks : 0,
+                        manaEnabled : true,
+                        maxMana : 100,
+                        velocity: 100
+                    }
                 }
             };
         
@@ -65,6 +77,30 @@ export class init extends Phaser.Scene {
             key: 'fly',
             frames: this.anims.generateFrameNumbers('book', { start: 0, end: 6 }),
             frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowRight',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 0, end: 4 }),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowUp',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 5, end: 9 }),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowLeft',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 10, end: 14 }),
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'FireThrowDown',
+            frames: this.anims.generateFrameNumbers('fireBall', { start: 15, end: 19 }),
+            frameRate: 20,
             repeat: -1
         });
         
