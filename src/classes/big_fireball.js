@@ -61,7 +61,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too
     that.physics.add.collider(that.layer,this.fireball);             //makes it so book can't go through that.layer (the world boarder)
-    that.physics.add.collider(that.entities, this.fireball, this.death, null, this);
+    that.physics.add.collider(that.entities, this.fireball, this.damage, null, this);
     
     
     
