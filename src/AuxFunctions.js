@@ -141,7 +141,7 @@ function keypressStart (event) {
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
-        console.log('e'); 
+        //console.log('e'); 
         
         this.PASSING_OBJ.playerData.velocity = 200;
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
