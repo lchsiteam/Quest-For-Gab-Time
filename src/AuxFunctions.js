@@ -71,8 +71,8 @@ export function makeFunctions(that) {
         }
     }
      
-     that.input.keyboard.on('keyup', keyWasPressed, that);
-     that.input.keyboard.on('keydown', keyIsBeingPressed, that);
+     that.input.keyboard.on('keyup', keypressEnd, that);
+     that.input.keyboard.on('keydown', keypressStart, that);
      
     that.getAPack = function (player, pack) {
         that.PASSING_OBJ.playerData.healthPacks += 1;
@@ -123,7 +123,7 @@ function throwTripleFireball (that) {
 }
 
 
-function keyIsBeingPressed (event) {
+function keypressStart (event) {
     
     var code = event.keyCode;
     
@@ -134,7 +134,7 @@ function keyIsBeingPressed (event) {
     }
 }
 
-function keyWasPressed (event) {
+function keypressEnd (event) {
     
     var code = event.keyCode;
     
