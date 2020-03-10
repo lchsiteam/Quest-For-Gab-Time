@@ -6,7 +6,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     
     this.damage = function (entity,book) {
         entity.setTint(0xff0000);
-        entity.health -= 2; 
+        entity.health -= 5; 
         setTimeout( () => {
             entity.clearTint();
             if (entity.health <= 0) {
@@ -83,7 +83,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     
     setTimeout(() => {
         this.timerId = setInterval(() => this.shrinkOnce(), 50); 
-    }, 300);
+    }, 1000);
     
     return this.fireball        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
     
