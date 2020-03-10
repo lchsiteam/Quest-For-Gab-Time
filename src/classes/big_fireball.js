@@ -24,7 +24,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     var anim; 
     
     this.relScale = 1; 
-    this.shrink = 0.125; 
+    this.shrink = 1 / 16; 
     
     var direction = that.player.anims.currentAnim.key;
     var speed = 300;
