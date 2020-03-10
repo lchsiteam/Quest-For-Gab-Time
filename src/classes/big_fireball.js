@@ -1,7 +1,6 @@
 export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the this object from phaser as that
     
     this.animComplete = function (animation) {
-        this.fireball.destroy();
     }
     
     this.damage = function (entity,book) {
