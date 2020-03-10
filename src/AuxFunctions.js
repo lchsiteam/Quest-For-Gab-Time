@@ -146,6 +146,7 @@ function keypressStart (event) {
         this.PASSING_OBJ.playerData.velocity = 200;
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         zStartTime = Date.now(); 
+        console.log('e'); 
     } 
 }
 
