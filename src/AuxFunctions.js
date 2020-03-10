@@ -128,6 +128,7 @@ function keyIsBeingPressed (event) {
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
+        console.log('e'); 
         
         this.PASSING_OBJ.playerData.velocity = 200;
     }
