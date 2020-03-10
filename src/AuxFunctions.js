@@ -197,7 +197,7 @@ function keypressEnd (event) {
         
         console.log(chargeSecs); 
         
-        if (chargeSecs >= 5) {
+        if (chargeSecs >= 1) {
             throwBigFireball(this); 
         } else {
             throwFireball(this); 
