@@ -1,5 +1,6 @@
 import { fireball } from '/src/classes/Fireball.js';
-import { tripleFireball } from '/src/classes/TripleFireball.js';
+import { tripleFireball } from '/src/classes/TripleFireball.js'; 
+import { bigFireball } from '/src/classes/big_fireball.js'; 
 
 
 export function makeFunctions(that) {
@@ -120,8 +121,20 @@ function throwTripleFireball (that) {
             that.fireballEnabled = true;
         }, 50) 
     }
+} 
+
+function throwBigFireball (that) {
+    if (that.PASSING_OBJ.playerData.mana >= 35 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 35
+        new bigFireball(that,that.player.x,that.player.y,2);
+        that.fireballEnabled = false;
+        setTimeout( () => {
+            that.fireballEnabled = true;
+        }, 50) 
+    }
 }
 
+let zStartTime = 0; 
 
 function keypressStart (event) {
     
@@ -131,7 +144,9 @@ function keypressStart (event) {
         console.log('e'); 
         
         this.PASSING_OBJ.playerData.velocity = 200;
-    }
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
+        zStartTime = Date.now(); 
+    } 
 }
 
 function keypressEnd (event) {
@@ -168,7 +183,14 @@ function keypressEnd (event) {
         //this.PASSING_OBJ = cookie
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        throwFireball(this);
+        let timeDiff = Date.now() - zStartTime; 
+        let chargeSecs = timeDiff / 1000; 
+        
+        if (chargeSecs >= 5) {
+            throwBigFireball(this); 
+        } else {
+            throwFireball(this); 
+        } 
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.X) {
         throwTripleFireball(this);
