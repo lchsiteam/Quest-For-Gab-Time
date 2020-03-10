@@ -10,7 +10,12 @@ preload ()
 {
     this.load.image('healthAndManaBar', 'assets/Images/HealthBarV3.png');
     this.load.image('healthBar', 'assets/Images/HealthBar.png');
-    this.load.image("healthPack","assets/Images/HealthIcon.png")
+
+    for (var i = 0; i <= 10; i++)
+    {
+        this.load.image("healthPack"+String(i),"assets/Images/"+String(i)+".png")
+    }
+    this.load.image("hotbar", 'assets/Images/InventoryV3.png')
 }
 
 init (data)
@@ -26,12 +31,14 @@ init (data)
 create ()
 {
     this.bar = this.add.image(208, 560,  'healthBar');
+    this.hotbar = this.add.image(730,555,'hotbar')
+    this.hotbar.scale = 1.5
     this.graphics = this.add.graphics();
     this.graphics.defaultStrokeWidth = 100;
-    this.healthPack = this.add.image(765,563,'healthPack');
-    this.healthPack.scale = 2.4;
+    this.healthPack = this.add.image(765,480,'healthPack0');
+    this.healthPack.scale = 0.2;
     
-    this.text = this.add.text(775, 565, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Times New Roman", Tahoma, serif' });
+   // this.text = this.add.text(775, 485, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Times New Roman", Tahoma, serif' });
     
 }
     
@@ -42,7 +49,9 @@ update ()  {
     this.graphics.clear();
     this.bar.setDepth(2);
     
-    this.text.setText(this.PASSING_OBJ.playerData.healthPacks);
+    //this.text.setText(this.PASSING_OBJ.playerData.healthPacks);
+    
+
 
 
     if (this.PASSING_OBJ.playerData.health < 0) {  //Checks to see if health is above or below what it can be
@@ -61,10 +70,10 @@ update ()  {
     manaSize = (this.PASSING_OBJ.playerData.mana/this.PASSING_OBJ.playerData.maxMana) * 300
     //this.PASSING_OBJ.playerData.health -= 1
 
+    this.graphics.fillStyle(0x00000, 1);
+    this.graphics.fillRect(82, 534, 300, 52); //Black background bar
 
     if (this.PASSING_OBJ.playerData.manaEnabled){ //Differentiates between the mana and health bar and the just health bar.
-        this.graphics.fillStyle(0x00000, 1);
-        this.graphics.fillRect(82, 534, 300, 52); //Black background bar
 
         this.graphics.fillStyle(0xFF0000, 1);
         this.graphics.fillRect(82, 534, healthSize, 26); //Health bar
@@ -75,8 +84,7 @@ update ()  {
         this.bar.setTexture('healthAndManaBar');
 
     } else {
-        this.graphics.fillStyle(0x00000, 1);
-        this.graphics.fillRect(82, 534, 300, 52); //Black background bar
+        
 
         this.graphics.fillStyle(0xFF0000, 1);
         this.graphics.fillRect(82, 534, healthSize, 52); //health bar
@@ -84,5 +92,14 @@ update ()  {
         this.bar.setTexture('healthBar');
 
     }
+
+    if (this.PASSING_OBJ.playerData.healthPacks > 10)
+    {
+        this.PASSING_OBJ.playerData.healthPacks = 10
+    }   
+
+    this.healthPack.setTexture('healthPack'+String(this.PASSING_OBJ.playerData.healthPacks))
+    console.log(this.PASSING_OBJ.playerData.healthPacks)
 }   
+
 }
