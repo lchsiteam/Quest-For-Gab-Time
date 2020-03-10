@@ -73,7 +73,7 @@ export function makeFunctions(that) {
     }
      
      that.input.keyboard.on('keyup', keypressEnd, that);
-     that.input.keyboard.on('keydown', keypressStart, that);
+     that.input.keyboard.on('keydown', keypressLoop, that);
      
     that.getAPack = function (player, pack) {
         that.PASSING_OBJ.playerData.healthPacks += 1;
@@ -135,8 +135,9 @@ function throwBigFireball (that) {
 }
 
 let zStartTime = 0; 
+let zReleased = true; 
 
-function keypressStart (event) {
+function keypressLoop (event) {
     
     var code = event.keyCode;
     
@@ -145,8 +146,13 @@ function keypressStart (event) {
         
         this.PASSING_OBJ.playerData.velocity = 200;
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        zStartTime = Date.now(); 
-        console.log('e'); 
+        if (zReleased) {
+            zReleased = false; 
+            
+            zStartTime = Date.now(); 
+            
+            console.log('e'); 
+        } 
     } 
 }
 
@@ -184,6 +190,8 @@ function keypressEnd (event) {
         //this.PASSING_OBJ = cookie
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
+        zReleased = true; 
+        
         let timeDiff = Date.now() - zStartTime; 
         let chargeSecs = timeDiff / 1000; 
         
