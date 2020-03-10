@@ -186,6 +186,8 @@ function keypressEnd (event) {
         let timeDiff = Date.now() - zStartTime; 
         let chargeSecs = timeDiff / 1000; 
         
+        alert(chargeSecs); 
+        
         if (chargeSecs >= 5) {
             throwBigFireball(this); 
         } else {
