@@ -31,10 +31,13 @@ var config = {
     parent: 'phaser-example',
     pixelArt: true,
     physics: {
-        default: 'arcade',
+        default: 'impact',
         arcade: {
             gravity: { y: 0 }
-        }
+        }, 
+        impact: {
+            bounciness: 0
+        } 
     },
     scene: [init,Scene1,Scene2,Scene3,gui]
     
