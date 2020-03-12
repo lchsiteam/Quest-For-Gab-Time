@@ -83,9 +83,8 @@ export function makeFunctions(that) {
 export function Death (that) {
     that.player.setTint(0x444444);
     var checkpoint = that.PASSING_OBJ.playerData.checkpoint;
-    that.player.body.setVelocity(0);
     that.PASSING_OBJ.playerData.dead = true;
-    that.player.anims.stop();
+    that.scene.pause();
     setTimeout( () => {
         that.PASSING_OBJ.playerData.maxHealth = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.healthPacks = checkpoint.healthPacks;
@@ -142,9 +141,13 @@ function keyWasPressed (event) {
             this.PASSING_OBJ.playerData.health += 60;
             this.PASSING_OBJ.playerData.healthPacks -= 1;
         }
-    } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.ESC) {
+        this.scene.pause();
+        this.scene.launch('pause',this.scene.key);
         
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         this.PASSING_OBJ.playerData.velocity = 100;
+        
     } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
     
         if (this.PASSING_OBJ.playerData.manaEnabled === false) {

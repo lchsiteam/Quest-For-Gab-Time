@@ -83,6 +83,9 @@ init (data)
 
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
     this.player.setDepth(1);
+    this.player.setSize(11, 32); 
+    this.player.setScale(1.5);
+     
     
     this.player.anims.play('down', true);
     this.player.anims.stop();
