@@ -71,13 +71,65 @@ export function makeFunctions(that) {
         }
     }
      
-     that.input.keyboard.on('keyup', keyWasPressed, that);
-     that.input.keyboard.on('keydown', keyIsBeingPressed, that);
+    that.input.keyboard.on('keyup', keyWasPressed, that);
+    that.input.keyboard.on('keydown', keyIsBeingPressed, that);
+    
      
     that.getAPack = function (player, pack) {
         that.PASSING_OBJ.playerData.healthPacks += 1;
         this.healthPack.destroy();
     }
+}
+
+export function controller (that) {
+    var controller = that.input.gamepad.getPad(0)
+    
+    
+    if (that.input.gamepad.total === 0)
+    {
+        return;
+    } else {
+        if (controller.L2 === 1) {
+            throwFireball (that)
+        } else if (controller.L1 === 1) {
+            throwTripleFireball (that)
+        }
+    }
+    
+    if (controller.axes.length) {
+        var axisH = controller.axes[0].getValue();
+        var axisV = controller.axes[1].getValue();
+
+        that.player.body.setVelocityX(that.PASSING_OBJ.playerData.velocity * axisH);
+        that.player.body.setVelocityY(that.PASSING_OBJ.playerData.velocity * axisV);
+        
+        if (Math.abs(axisH) > Math.abs(axisV)) {
+            if (axisH < 0) {
+                that.player.anims.play('left', true);
+            } else {
+                that.player.anims.play('right', true);
+            }
+            
+        }else if (Math.abs(axisH) < Math.abs(axisV)) {
+            if (axisV < 0) {
+                that.player.anims.play('up', true);
+            } else {
+                that.player.anims.play('down', true);
+            }
+            
+        } else {
+            that.player.anims.stop();
+        }
+    }
+    
+    if (controller.A === true) {
+        that.PASSING_OBJ.playerData.velocity = 260;
+    } else {
+        that.PASSING_OBJ.playerData.velocity = 130;
+    }
+    
+    console.log(controller);
+    
 }
 
 export function Death (that) {
@@ -106,7 +158,7 @@ function throwFireball (that) {
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 50) 
+        }, 200) 
     }
 }
 
@@ -117,7 +169,7 @@ function throwTripleFireball (that) {
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 50) 
+        }, 200) 
     }
 }
 

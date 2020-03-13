@@ -31,6 +31,9 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     pixelArt: true,
+    input: {
+        gamepad: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
