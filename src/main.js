@@ -35,7 +35,7 @@ var config = {
         gamepad: true
     },
     physics: {
-        default: 'impact',
+        default: 'arcade',
         arcade: {
             gravity: { y: 0 }
         }, 

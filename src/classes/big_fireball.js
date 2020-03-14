@@ -56,11 +56,12 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     
     this.fireball.anims.play(anim,true);
+    this.fireball.setBounce(0); 
     this.fireball.setVelocityX(velX);
     this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too
     that.physics.add.collider(that.layer,this.fireball);             //makes it so book can't go through that.layer (the world boarder)
-    that.physics.add.collider(that.entities, this.fireball, this.damage, null, this);
+    that.physics.add.overlap(that.entities, this.fireball, this.damage, null, this);
     
     
     
