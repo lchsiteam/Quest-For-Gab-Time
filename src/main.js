@@ -3,6 +3,7 @@ import { Scene1 } from './scene1.js';
 import { Scene2 } from './scene2.js';
 import { Scene3 } from './scene3.js';
 import { gui } from './gui.js';
+import { pause } from './pause.js';
 
 if ((window.innerWidth/4) > (window.innerHeight/3)) {
     var h = (window.innerHeight - (window.innerHeight % 3));
@@ -30,6 +31,9 @@ var config = {
     backgroundColor: '#2d2d2d',
     parent: 'phaser-example',
     pixelArt: true,
+    input: {
+        gamepad: true
+    },
     physics: {
         default: 'impact',
         arcade: {
@@ -39,7 +43,7 @@ var config = {
             bounciness: 0
         } 
     },
-    scene: [init,Scene1,Scene2,Scene3,gui]
+    scene: [init,Scene1,Scene2,Scene3,gui,pause]
     
 };
 

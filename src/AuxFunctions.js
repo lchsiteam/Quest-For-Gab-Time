@@ -72,8 +72,9 @@ export function makeFunctions(that) {
         }
     }
      
-     that.input.keyboard.on('keyup', keypressEnd, that);
-     that.input.keyboard.on('keydown', keypressLoop, that);
+    that.input.keyboard.on('keyup', keypressEnd, that);
+    that.input.keyboard.on('keydown', keypressLoop, that);
+    
      
     that.getAPack = function (player, pack) {
         that.PASSING_OBJ.playerData.healthPacks += 1;
@@ -81,12 +82,62 @@ export function makeFunctions(that) {
     }
 }
 
+export function controller (that) {
+    var controller = that.input.gamepad.getPad(0)
+    
+    
+    if (that.input.gamepad.total === 0)
+    {
+        return;
+    } else {
+        if (controller.L2 === 1) {
+            throwFireball (that)
+        } else if (controller.L1 === 1) {
+            throwTripleFireball (that)
+        }
+    }
+    
+    if (controller.axes.length) {
+        var axisH = controller.axes[0].getValue();
+        var axisV = controller.axes[1].getValue();
+
+        that.player.body.setVelocityX(that.PASSING_OBJ.playerData.velocity * axisH);
+        that.player.body.setVelocityY(that.PASSING_OBJ.playerData.velocity * axisV);
+        
+        if (Math.abs(axisH) > Math.abs(axisV)) {
+            if (axisH < 0) {
+                that.player.anims.play('left', true);
+            } else {
+                that.player.anims.play('right', true);
+            }
+            
+        }else if (Math.abs(axisH) < Math.abs(axisV)) {
+            if (axisV < 0) {
+                that.player.anims.play('up', true);
+            } else {
+                that.player.anims.play('down', true);
+            }
+            
+        } else {
+            that.player.anims.stop();
+        }
+    }
+    
+    if (controller.A === true) {
+        that.PASSING_OBJ.playerData.velocity = 260;
+    } else {
+        that.PASSING_OBJ.playerData.velocity = 130;
+    }
+    
+    console.log(controller);
+    
+}
+
 export function Death (that) {
     that.player.setTint(0x444444);
     var checkpoint = that.PASSING_OBJ.playerData.checkpoint;
-    that.player.body.setVelocity(0);
     that.PASSING_OBJ.playerData.dead = true;
-    that.player.anims.stop();
+    that.scene.pause();
     setTimeout( () => {
         that.PASSING_OBJ.playerData.maxHealth = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.healthPacks = checkpoint.healthPacks;
@@ -108,7 +159,7 @@ function throwFireball (that) {
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 50) 
+        }, 200) 
     }
 }
 
@@ -119,7 +170,7 @@ function throwTripleFireball (that) {
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 50) 
+        }, 200) 
     }
 } 
 
@@ -165,9 +216,13 @@ function keypressEnd (event) {
             this.PASSING_OBJ.playerData.health += 60;
             this.PASSING_OBJ.playerData.healthPacks -= 1;
         }
-    } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.ESC) {
+        this.scene.pause();
+        this.scene.launch('pause',this.scene.key);
         
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         this.PASSING_OBJ.playerData.velocity = 100;
+        
     } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
     
         if (this.PASSING_OBJ.playerData.manaEnabled === false) {

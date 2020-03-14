@@ -141,7 +141,6 @@ update ()  {
         this.PASSING_OBJ.playerData.healthPacks = 10
     }   
 
-    this.healthPack.setTexture('healthPack'+String(this.PASSING_OBJ.playerData.healthPacks))
-    console.log(this.PASSING_OBJ.playerData.healthPacks)
+    this.healthPack.setTexture('healthPack'+String(this.PASSING_OBJ.playerData.healthPacks));
 }   
 }

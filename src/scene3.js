@@ -1,4 +1,5 @@
 import { makeFunctions } from './AuxFunctions.js';
+import { controller } from './AuxFunctions.js';
 import { healthCrate } from '/src/classes/healthCrate.js';
 import { bookEnemy } from '/src/classes/bookEntity.js';
 
@@ -72,6 +73,8 @@ init (data)
 
     this.player = this.physics.add.sprite(495, 92, 'player', 1);
     this.player.setDepth(1);
+    this.player.setSize(11, 30); 
+    this.player.setScale(1.5);
     
     this.player.anims.play('down', true);
     this.player.anims.stop();
@@ -108,8 +111,12 @@ init (data)
 }
 
  update ()  {
-     this.running();
      this.otherChecks();
+     if (this.PASSING_OBJ.controller === false) {
+        this.running();
+     } else {
+        controller(this);
+     }
 }
     
     
