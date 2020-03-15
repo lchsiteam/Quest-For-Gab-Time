@@ -128,36 +128,40 @@ update ()  {
     //this.PASSING_OBJ.playerData.health -= 1
 
     this.graphics.fillStyle(0x00000, 1); 
-    
+
+    //top left coordinates of the black background bar
+    const refX = w * 0.26 - 126; 
+    const refY = h * 0.93 - 26; 
 
     if (this.PASSING_OBJ.playerData.manaEnabled){ //Differentiates between the mana and health bar and the just health bar.
         this.graphics.fillStyle(0x00000, 1);
-        this.graphics.fillRect(((w*0.26)-126), ((h*0.93)-26), 300, 52); //Black background bar
+        this.graphics.fillRect(refX, refY, 300, 52); //Black background bar
 
         this.graphics.fillStyle(0xFF0000, 1);
-        this.graphics.fillRect(((w*0.26)-126), ((h*0.93)-26), healthSize, 26); //Health bar
+        this.graphics.fillRect(refX, refY, healthSize, 26); //Health bar
 
         this.graphics.fillStyle(0x0390fc, 1);
-        this.graphics.fillRect(((w*0.26)-126), (h*0.93), manaSize, 26); //Mana bar
+        this.graphics.fillRect(refX, refY + 26, manaSize, 26); //Mana bar
 
         this.bar.setTexture('healthAndManaBar');
 
     } else {
         this.graphics.fillStyle(0x00000, 1);
-        this.graphics.fillRect(((w*0.26)-126), ((h*0.93)-26), 300, 52); //Black background bar
+        this.graphics.fillRect(refX, refY, 300, 52); //Black background bar
 
         this.graphics.fillStyle(0xFF0000, 1);
-        this.graphics.fillRect(((w*0.26)-126), ((h*0.93)-26), healthSize, 52); //health bar
+        this.graphics.fillRect(refX, refY, healthSize, 52); //health bar
 
         this.bar.setTexture('healthBar');
 
     } 
 
     const zBarBorder = 2; 
+    const zBarOffset = 330; //how far right it is relative to the black background bar
 
     this.graphics.fillStyle(0x000000, 1) 
 
-    this.graphics.fillRect(w * 0.26 - 126 + 330 - zBarBorder, h * 0.93 - 26 - zBarBorder, 
+    this.graphics.fillRect(refX + zBarOffset - zBarBorder, refY - zBarBorder, 
         zRectWidth + zBarBorder * 2, zRectHeight + zBarBorder * 2); 
 
     if (zChargeTime == zChargeCap) {
@@ -167,7 +171,7 @@ update ()  {
     } 
     
     //charge bar (for the z-button attack) 
-    this.graphics.fillRect(w * 0.26 - 126 + 330, h * 0.93 - 26 + zRectHeight - zChargeSize, zRectWidth, zChargeSize); 
+    this.graphics.fillRect(refX + zBarOffset, refY + zRectHeight - zChargeSize, zRectWidth, zChargeSize); 
 
     if (this.PASSING_OBJ.playerData.healthPacks > 10)
     {
