@@ -175,8 +175,8 @@ function throwTripleFireball (that) {
 } 
 
 function throwBigFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 50 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 50
+    if (that.PASSING_OBJ.playerData.mana >= 80 & that.fireballEnabled) {
+        that.PASSING_OBJ.playerData.mana -= 80
         new bigFireball(that,that.player.x,that.player.y,5);
         that.fireballEnabled = false;
         setTimeout( () => {
@@ -185,11 +185,7 @@ function throwBigFireball (that) {
     }
 }
 
-let zStartTime = 0; 
-let zReleased = true; 
-
 function keypressLoop (event) {
-    
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
@@ -197,10 +193,10 @@ function keypressLoop (event) {
         
         this.PASSING_OBJ.playerData.velocity = 200;
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        if (zReleased) {
-            zReleased = false; 
-            
-            zStartTime = Date.now(); 
+        var p = this.PASSING_OBJ.playerData; 
+
+        if (!p.zStartTime) { //when the Z button starts being pressed
+            p.zStartTime = Date.now(); 
             
             console.log('e'); 
         } 
@@ -245,14 +241,13 @@ function keypressEnd (event) {
         //this.PASSING_OBJ = cookie
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        zReleased = true; 
+        let timeDiff = Date.now() - this.PASSING_OBJ.playerData.zStartTime; 
+
+        this.PASSING_OBJ.playerData.zStartTime = null; //resets start time to nothing
         
-        let timeDiff = Date.now() - zStartTime; 
-        let chargeSecs = timeDiff / 1000; 
+        console.log(timeDiff); 
         
-        console.log(chargeSecs); 
-        
-        if (chargeSecs >= 1) {
+        if (timeDiff >= 1000) { //needs 1,000 ms charge to get big fireball
             throwBigFireball(this); 
         } else {
             throwFireball(this); 

@@ -104,13 +104,30 @@ update ()  {
         this.PASSING_OBJ.playerData.mana = 0; 
     } else if (this.PASSING_OBJ.playerData.mana > this.PASSING_OBJ.playerData.maxMana) {
         this.PASSING_OBJ.playerData.mana = this.PASSING_OBJ.playerData.maxMana;
-    }
+    } 
 
-    healthSize = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300
-    manaSize = (this.PASSING_OBJ.playerData.mana/this.PASSING_OBJ.playerData.maxMana) * 300
+    var zChargeTime; 
+    var p = this.PASSING_OBJ.playerData; //shortcut
+
+    if (p.zStartTime) {
+        zChargeTime = Date.now() - p.zStartTime; 
+    } else {
+        zChargeTime = 0; 
+    } 
+
+    const zChargeCap = 1000; //max of 1,000 ms charge
+
+    zChargeTime = Math.min(zChargeTime, zChargeCap); 
+
+    const zRectWidth = 10; 
+    const zRectHeight = 52; 
+
+    healthSize = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300; 
+    manaSize = (this.PASSING_OBJ.playerData.mana/this.PASSING_OBJ.playerData.maxMana) * 300; 
+    var zChargeSize = zChargeTime / zChargeCap * zRectHeight; 
     //this.PASSING_OBJ.playerData.health -= 1
 
-    this.graphics.fillStyle(0x00000, 1);
+    this.graphics.fillStyle(0x00000, 1); 
     
 
     if (this.PASSING_OBJ.playerData.manaEnabled){ //Differentiates between the mana and health bar and the just health bar.
@@ -134,7 +151,16 @@ update ()  {
 
         this.bar.setTexture('healthBar');
 
-    }
+    } 
+
+    if (zChargeTime == zChargeCap) {
+        this.graphics.fillStyle(0xff0000, 1); //fully charged bar is red
+    } else {
+        this.graphics.fillStyle(0xffff00, 1); //not fully charged bar is yellow
+    } 
+    
+    //charge bar (for the z-button attack) 
+    this.graphics.fillRect(w * 0.26 - 126 + 330, h * 0.93 - 26 + 52 - zChargeSize, zRectWidth, zChargeSize); 
 
     if (this.PASSING_OBJ.playerData.healthPacks > 10)
     {
