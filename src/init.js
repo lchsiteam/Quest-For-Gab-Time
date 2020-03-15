@@ -26,6 +26,7 @@ export class init extends Phaser.Scene {
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
+                    velMultip: 1, 
                     manaEnabled : true,
                     maxMana : 100,
                     mana : 100,

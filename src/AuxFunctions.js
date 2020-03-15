@@ -11,54 +11,65 @@ export function makeFunctions(that) {
     that.Keystrokes.keyS = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
      
      that.running = function () {
+        var p = this.PASSING_OBJ.playerData; 
+
         if (!that.PASSING_OBJ.playerData.dead) {
-             that.player.body.setVelocity(0);
+            that.player.body.setVelocity(0); 
 
-             // Horizontal movement
-             if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
-             {
-                 that.player.body.setVelocityX(-this.PASSING_OBJ.playerData.velocity);
-             }
-             else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
-             {
-                 that.player.body.setVelocityX(this.PASSING_OBJ.playerData.velocity);
-             }
+            var speed = p.velocity * p.velMultip; 
 
-             // Vertical movement
-             if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
-             {
-                 that.player.body.setVelocityY(-this.PASSING_OBJ.playerData.velocity);
-             }
-             else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
-             {
-                 that.player.body.setVelocityY(this.PASSING_OBJ.playerData.velocity);
-             }
+            console.log(p.velocity); 
+            console.log(p.velMultip); 
+
+            if (speed != 0) {
+        
+                // Horizontal movement
+                if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
+                {
+                    that.player.body.setVelocityX(-speed);
+                }
+                else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
+                {
+                    that.player.body.setVelocityX(speed);
+                }
+
+                // Vertical movement
+                if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
+                {
+                    that.player.body.setVelocityY(-speed);
+                }
+                else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
+                {
+                    that.player.body.setVelocityY(speed);
+                } 
 
 
-
-             // Update the animation last and give left/right animations precedence over up/down animations
-             if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
-             {
-                 that.player.anims.play('left', true);
-             }
-             else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
-             {
-                 that.player.anims.play('right', true);
-             }
-             else if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
-             {
-                 that.player.anims.play('up', true);
-             }
-             else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
-             {
-                 that.player.anims.play('down', true);
-             }
-             else
-             {
-                 that.player.anims.stop();
-             }
+                // Update the animation last and give left/right animations precedence over up/down animations
+                if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
+                {
+                    that.player.anims.play('left', true);
+                }
+                else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
+                {
+                    that.player.anims.play('right', true);
+                }
+                else if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
+                {
+                    that.player.anims.play('up', true);
+                }
+                else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
+                {
+                    that.player.anims.play('down', true);
+                }
+                else
+                {
+                    that.player.anims.stop();
+                } 
+            } else {
+                that.player.anims.stop(); 
+            }
         }
-     }
+    }
     
     that.otherChecks = function () {
         if (that.PASSING_OBJ.playerData.health <= 0 && !that.PASSING_OBJ.dead) {
@@ -183,7 +194,9 @@ function throwBigFireball (that) {
             that.fireballEnabled = true;
         }, 50) 
     }
-}
+} 
+
+const zVelMultip = 0.5; //slowness when holding down Z
 
 function keypressLoop (event) {
     var code = event.keyCode;
@@ -197,11 +210,12 @@ function keypressLoop (event) {
 
         if (!p.zStartTime) { //when the Z button starts being pressed
             p.zStartTime = Date.now(); 
+            p.velMultip *= zVelMultip; 
             
-            console.log('e'); 
+            //console.log('e'); 
         } 
     } 
-}
+} 
 
 function keypressEnd (event) {
     
@@ -241,16 +255,21 @@ function keypressEnd (event) {
         //this.PASSING_OBJ = cookie
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        let timeDiff = Date.now() - this.PASSING_OBJ.playerData.zStartTime; 
+        var p = this.PASSING_OBJ.playerData; 
+        
+        if (p.zStartTime) {
+            var timeDiff = Date.now() - p.zStartTime; 
 
-        this.PASSING_OBJ.playerData.zStartTime = null; //resets start time to nothing
-        
-        console.log(timeDiff); 
-        
-        if (timeDiff >= 1000) { //needs 1,000 ms charge to get big fireball
-            throwBigFireball(this); 
-        } else {
-            throwFireball(this); 
+            p.velMultip /= zVelMultip; 
+            p.zStartTime = null; //resets start time to nothing
+            
+            //console.log(timeDiff); 
+            
+            if (timeDiff >= 1000) { //needs 1,000 ms charge to get big fireball
+                throwBigFireball(this); 
+            } else {
+                throwFireball(this); 
+            } 
         } 
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.X) {
