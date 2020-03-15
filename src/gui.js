@@ -160,7 +160,7 @@ update ()  {
     } 
     
     //charge bar (for the z-button attack) 
-    this.graphics.fillRect(w * 0.26 - 126 + 330, h * 0.93 - 26 + 52 - zChargeSize, zRectWidth, zChargeSize); 
+    this.graphics.fillRect(w * 0.26 - 126 + 330, h * 0.93 - 26 + zRectHeight - zChargeSize, zRectWidth, zChargeSize); 
 
     if (this.PASSING_OBJ.playerData.healthPacks > 10)
     {
