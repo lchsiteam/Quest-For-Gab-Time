@@ -153,8 +153,12 @@ update ()  {
 
     } 
 
+    this.graphics.fillStyle(0x000000, 1) 
+
+    this.graphics.fillRect(w * 0.26 - 126 + 330 - 2, h * 0.93 - 26 - 2, zRectWidth + 4, zRectHeight + 4); 
+
     if (zChargeTime == zChargeCap) {
-        this.graphics.fillStyle(0xff0000, 1); //fully charged bar is red
+        this.graphics.fillStyle(0xff8800, 1); //fully charged bar is orange
     } else {
         this.graphics.fillStyle(0xffff00, 1); //not fully charged bar is yellow
     } 

@@ -18,8 +18,8 @@ export function makeFunctions(that) {
 
             var speed = p.velocity * p.velMultip; 
 
-            console.log(p.velocity); 
-            console.log(p.velMultip); 
+            //console.log(p.velocity); 
+            //console.log(p.velMultip); 
 
             if (speed != 0) {
         
