@@ -115,7 +115,7 @@ update ()  {
         zChargeTime = 0; 
     } 
 
-    const zChargeCap = 1000; //max of 1,000 ms charge
+    const zChargeCap = p.zChargeMax; //max of 1,000 ms charge
 
     zChargeTime = Math.min(zChargeTime, zChargeCap); 
 
@@ -153,9 +153,12 @@ update ()  {
 
     } 
 
+    const zBarBorder = 2; 
+
     this.graphics.fillStyle(0x000000, 1) 
 
-    this.graphics.fillRect(w * 0.26 - 126 + 330 - 2, h * 0.93 - 26 - 2, zRectWidth + 4, zRectHeight + 4); 
+    this.graphics.fillRect(w * 0.26 - 126 + 330 - zBarBorder, h * 0.93 - 26 - zBarBorder, 
+        zRectWidth + zBarBorder * 2, zRectHeight + zBarBorder * 2); 
 
     if (zChargeTime == zChargeCap) {
         this.graphics.fillStyle(0xff8800, 1); //fully charged bar is orange

@@ -55,8 +55,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     this.fireball = that.physics.add.sprite(x, y, 'fireBall',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     
-    this.fireball.anims.play(anim,true);
-    this.fireball.setBounce(0); 
+    this.fireball.anims.play(anim,true); 
     this.fireball.setVelocityX(velX);
     this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too

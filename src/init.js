@@ -35,6 +35,13 @@ export class init extends Phaser.Scene {
                     dead : false,
                     manaRegenRate : 0.2, 
                     zStartTime: null, 
+                    zChargeMax: 1000, 
+                    zVelMultip: 0.5, 
+                    manaCosts: {
+                        smallFireball: 10, 
+                        tripleFireball: 35, 
+                        bigFireball: 80, 
+                    }, 
                     checkpoint : {
                         scene: 'Scene1',
                         maxHealth : 300,

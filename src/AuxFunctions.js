@@ -161,42 +161,48 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.dead = false;
         that.player.clearTint();
     }, 2000) 
-}
+} 
+
+const fireCooldown = 200; 
 
 function throwFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 10 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 10
+    var p = that.PASSING_OBJ.playerData; 
+
+    if (p.mana >= p.manaCosts.smallFireball && that.fireballEnabled) {
+        p.mana -= p.manaCosts.smallFireball; 
         new fireball(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 200) 
+        }, fireCooldown) 
     }
 }
 
 function throwTripleFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 35 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 35
+    var p = that.PASSING_OBJ.playerData; 
+
+    if (p.mana >= p.manaCosts.tripleFireball && that.fireballEnabled) {
+        p.mana -= p.manaCosts.tripleFireball; 
         new tripleFireball(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 200) 
+        }, fireCooldown) 
     }
 } 
 
 function throwBigFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 80 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 80
+    var p = that.PASSING_OBJ.playerData; 
+
+    if (that.fireballEnabled) {
+        p.mana -= p.manaCosts.bigFireball; 
         new bigFireball(that,that.player.x,that.player.y,5);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 50) 
+        }, fireCooldown) 
     }
 } 
-
-const zVelMultip = 0.5; //slowness when holding down Z
 
 function keypressLoop (event) {
     var code = event.keyCode;
@@ -210,7 +216,7 @@ function keypressLoop (event) {
 
         if (!p.zStartTime) { //when the Z button starts being pressed
             p.zStartTime = Date.now(); 
-            p.velMultip *= zVelMultip; 
+            p.velMultip *= p.zVelMultip; 
             
             //console.log('e'); 
         } 
@@ -260,12 +266,12 @@ function keypressEnd (event) {
         if (p.zStartTime) {
             var timeDiff = Date.now() - p.zStartTime; 
 
-            p.velMultip /= zVelMultip; 
+            p.velMultip /= p.zVelMultip; 
             p.zStartTime = null; //resets start time to nothing
             
             //console.log(timeDiff); 
             
-            if (timeDiff >= 1000) { //needs 1,000 ms charge to get big fireball
+            if (timeDiff >= p.zChargeMax && p.mana >= p.manaCosts.bigFireball) { //needs 1,000 ms charge to get big fireball
                 throwBigFireball(this); 
             } else {
                 throwFireball(this); 
