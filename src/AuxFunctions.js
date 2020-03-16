@@ -1,5 +1,6 @@
 import { fireball } from '/src/classes/Fireball.js';
-import { tripleFireball } from '/src/classes/TripleFireball.js';
+import { tripleFireball } from '/src/classes/TripleFireball.js'; 
+import { bigFireball } from '/src/classes/big_fireball.js'; 
 
 
 export function makeFunctions(that) {
@@ -10,54 +11,65 @@ export function makeFunctions(that) {
     that.Keystrokes.keyS = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
      
      that.running = function () {
+        var p = this.PASSING_OBJ.playerData; 
+
         if (!that.PASSING_OBJ.playerData.dead) {
-             that.player.body.setVelocity(0);
+            that.player.body.setVelocity(0); 
 
-             // Horizontal movement
-             if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
-             {
-                 that.player.body.setVelocityX(-this.PASSING_OBJ.playerData.velocity);
-             }
-             else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
-             {
-                 that.player.body.setVelocityX(this.PASSING_OBJ.playerData.velocity);
-             }
+            var speed = p.velocity * p.velMultip; 
 
-             // Vertical movement
-             if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
-             {
-                 that.player.body.setVelocityY(-this.PASSING_OBJ.playerData.velocity);
-             }
-             else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
-             {
-                 that.player.body.setVelocityY(this.PASSING_OBJ.playerData.velocity);
-             }
+            //console.log(p.velocity); 
+            //console.log(p.velMultip); 
+
+            if (speed != 0) {
+        
+                // Horizontal movement
+                if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
+                {
+                    that.player.body.setVelocityX(-speed);
+                }
+                else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
+                {
+                    that.player.body.setVelocityX(speed);
+                }
+
+                // Vertical movement
+                if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
+                {
+                    that.player.body.setVelocityY(-speed);
+                }
+                else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
+                {
+                    that.player.body.setVelocityY(speed);
+                } 
 
 
-
-             // Update the animation last and give left/right animations precedence over up/down animations
-             if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
-             {
-                 that.player.anims.play('left', true);
-             }
-             else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
-             {
-                 that.player.anims.play('right', true);
-             }
-             else if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
-             {
-                 that.player.anims.play('up', true);
-             }
-             else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
-             {
-                 that.player.anims.play('down', true);
-             }
-             else
-             {
-                 that.player.anims.stop();
-             }
+                // Update the animation last and give left/right animations precedence over up/down animations
+                if (that.cursors.left.isDown || that.Keystrokes.keyA.isDown)
+                {
+                    that.player.anims.play('left', true);
+                }
+                else if (that.cursors.right.isDown || that.Keystrokes.keyD.isDown)
+                {
+                    that.player.anims.play('right', true);
+                }
+                else if (that.cursors.up.isDown || that.Keystrokes.keyW.isDown)
+                {
+                    that.player.anims.play('up', true);
+                }
+                else if (that.cursors.down.isDown || that.Keystrokes.keyS.isDown)
+                {
+                    that.player.anims.play('down', true);
+                }
+                else
+                {
+                    that.player.anims.stop();
+                } 
+            } else {
+                that.player.anims.stop(); 
+            }
         }
-     }
+    }
     
     that.otherChecks = function () {
         if (that.PASSING_OBJ.playerData.health <= 0 && !that.PASSING_OBJ.dead) {
@@ -71,8 +83,8 @@ export function makeFunctions(that) {
         }
     }
      
-    that.input.keyboard.on('keyup', keyWasPressed, that);
-    that.input.keyboard.on('keydown', keyIsBeingPressed, that);
+    that.input.keyboard.on('keyup', keypressEnd, that);
+    that.input.keyboard.on('keydown', keypressLoop, that);
     
      
     that.getAPack = function (player, pack) {
@@ -149,42 +161,69 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.dead = false;
         that.player.clearTint();
     }, 2000) 
-}
+} 
+
+const fireCooldown = 200; 
 
 function throwFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 10 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 10
+    var p = that.PASSING_OBJ.playerData; 
+
+    if (p.mana >= p.manaCosts.smallFireball && that.fireballEnabled) {
+        p.mana -= p.manaCosts.smallFireball; 
         new fireball(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 200) 
+        }, fireCooldown) 
     }
 }
 
 function throwTripleFireball (that) {
-    if (that.PASSING_OBJ.playerData.mana >= 35 & that.fireballEnabled) {
-        that.PASSING_OBJ.playerData.mana -= 35
+    var p = that.PASSING_OBJ.playerData; 
+
+    if (p.mana >= p.manaCosts.tripleFireball && that.fireballEnabled) {
+        p.mana -= p.manaCosts.tripleFireball; 
         new tripleFireball(that,that.player.x,that.player.y,2);
         that.fireballEnabled = false;
         setTimeout( () => {
             that.fireballEnabled = true;
-        }, 200) 
+        }, fireCooldown) 
     }
-}
+} 
 
+function throwBigFireball (that) {
+    var p = that.PASSING_OBJ.playerData; 
 
-function keyIsBeingPressed (event) {
-    
+    if (that.fireballEnabled) {
+        p.mana -= p.manaCosts.bigFireball; 
+        new bigFireball(that,that.player.x,that.player.y,5);
+        that.fireballEnabled = false;
+        setTimeout( () => {
+            that.fireballEnabled = true;
+        }, fireCooldown) 
+    }
+} 
+
+function keypressLoop (event) {
     var code = event.keyCode;
     
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
+        //console.log('e'); 
         
         this.PASSING_OBJ.playerData.velocity = 200;
-    }
-}
+    } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
+        var p = this.PASSING_OBJ.playerData; 
 
-function keyWasPressed (event) {
+        if (!p.zStartTime) { //when the Z button starts being pressed
+            p.zStartTime = Date.now(); 
+            p.velMultip *= p.zVelMultip; 
+            
+            //console.log('e'); 
+        } 
+    } 
+} 
+
+function keypressEnd (event) {
     
     var code = event.keyCode;
     
@@ -222,7 +261,22 @@ function keyWasPressed (event) {
         //this.PASSING_OBJ = cookie
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
-        throwFireball(this);
+        var p = this.PASSING_OBJ.playerData; 
+        
+        if (p.zStartTime) {
+            var timeDiff = Date.now() - p.zStartTime; 
+
+            p.velMultip /= p.zVelMultip; 
+            p.zStartTime = null; //resets start time to nothing
+            
+            //console.log(timeDiff); 
+            
+            if (timeDiff >= p.zChargeMax && p.mana >= p.manaCosts.bigFireball) { //needs 1,000 ms charge to get big fireball
+                throwBigFireball(this); 
+            } else {
+                throwFireball(this); 
+            } 
+        } 
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.X) {
         throwTripleFireball(this);

@@ -38,7 +38,10 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }
-        }
+        }, 
+        impact: {
+            bounciness: 0
+        } 
     },
     scene: [init,Scene1,Scene2,Scene3,gui,pause]
     
