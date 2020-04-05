@@ -58,12 +58,12 @@ init (data)
     
     layer2map = this.make.tilemap({ key: 'layer2', tileWidth: 32, tileHeight: 32 });  //concrete
     var tileset2 = layer2map.addTilesetImage('tiles');
-    var layer2 = layer2map.createStaticLayer(0, tileset2, 0, 0);
+    this.layer = layer2map.createStaticLayer(0, tileset2, 0, 0);
     layer2map.setCollisionBetween(-1, -1);
 
     map = this.make.tilemap({ key: 'layer3', tileWidth: 32, tileHeight: 32 });   //grass
     var tileset = map.addTilesetImage('tiles');
-    this.layer = map.createStaticLayer(0, tileset, 0, 0);
+    var layer2 = map.createStaticLayer(0, tileset, 0, 0);
    
     
     doorsLayerMap = this.make.tilemap({ key: 'layer4', tileWidth: 32, tileHeight: 32 });  //doors
@@ -79,7 +79,7 @@ init (data)
     this.player.anims.play('down', true);
     this.player.anims.stop();
     
-    this.physics.add.collider(this.player, layer2);
+    this.physics.add.collider(this.player, this.layer);
     this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 
     this.cameras.main.setBounds(0, 0, layer1map.widthInPixels, layer1map.heightInPixels);
