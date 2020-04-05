@@ -2,6 +2,7 @@ import { makeFunctions } from './AuxFunctions.js';
 import { controller } from './AuxFunctions.js';
 import { healthCrate } from '/src/classes/healthCrate.js';
 import { bookEnemy } from '/src/classes/bookEntity.js';
+import { makeDoor } from '/src/classes/door.js';
 
 export class Scene1 extends Phaser.Scene {
     
@@ -18,18 +19,17 @@ export class Scene1 extends Phaser.Scene {
 {
     this.load.image('tiles', 'assets/TileSheets/grass_tiles.png');
     this.load.image('concrete', 'assets/TileSheets/concrete_tiles.png');
-    this.load.image('doors', 'assets/TileSheets/doors.png');
     this.load.image('spike', 'assets/TileSheets/Spikes.png');
     this.load.tilemapCSV('map', 'assets/MapCSVs/level1layer2.csv');
     this.load.tilemapCSV('layer1', 'assets/MapCSVs/level1layer1.csv');
     this.load.tilemapCSV('layer15', 'assets/MapCSVs/level1layer15.csv');
-    this.load.tilemapCSV('doorCSV', 'assets/MapCSVs/Level1Doors.csv');
     this.load.tilemapCSV('spikeCSV', 'assets/MapCSVs/spike.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
     
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
     this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('fireBall', '/assets/Entities/FireBallV2.png',{ frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('doors', '/assets/Entities/doors.png',{ frameWidth: 32, frameHeight: 64 });
 }
 
 init (data)
@@ -42,15 +42,11 @@ init (data)
 
  create ()
 {
-    this.startScene2 = function (player, star)
-    {
-        this.scene.start('Scene3', this.PASSING_OBJ)
-    } 
+    
     
     var layer1map;
     var layer15map;
     var map;
-    var doorsLayerMap;
     var spikeLayerMap
     this.Keystrokes = [];
     this.fireballEnabled = true
@@ -71,18 +67,13 @@ init (data)
     map.setCollisionBetween(70, 70);
     map.setCollisionBetween(-1, -1);
     
-    doorsLayerMap = this.make.tilemap({ key: 'doorCSV', tileWidth: 32, tileHeight: 32 });  //doors
-    var doorMap = doorsLayerMap.addTilesetImage('doors');
-    var doorLayer = doorsLayerMap.createStaticLayer(0, doorMap, 0, 0);
-    doorsLayerMap.setCollisionBetween(7, 10);
-    
     spikeLayerMap = this.make.tilemap({ key: 'spikeCSV', tileWidth: 32, tileHeight: 32 });  //doors
     var spikeMap = spikeLayerMap.addTilesetImage('spike');
     var spikeLayer = spikeLayerMap.createStaticLayer(0, spikeMap, 0, 0);
     spikeLayerMap.setCollisionBetween(7, 10);
     
 
-    this.player = this.physics.add.sprite(495, 92, 'player', 1);
+    this.player = this.physics.add.sprite(this.PASSING_OBJ.playerData.x, this.PASSING_OBJ.playerData.y, 'player', 1);
     this.player.setDepth(1);
     this.player.setSize(11, 32); 
     this.player.setScale(1.5);
@@ -92,7 +83,6 @@ init (data)
     this.player.anims.stop();
     
     this.physics.add.collider(this.player, this.layer);
-    this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.startFollow(this.player);
@@ -100,6 +90,12 @@ init (data)
 
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
+    
+    this.doors = [];
+    //for doors, pass in (this, doorPosX, doorPosY, exitScene, exitPosX, exitPosY ,spritesheetValue) 
+    //Positions are in values of tiles, so they're multiplied by 32 later
+    
+    this.doors.push(new makeDoor(this,15.5,2,'Scene3',7,3,4));
     
     this.entities = [];
     

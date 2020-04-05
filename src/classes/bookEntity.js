@@ -35,6 +35,10 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
+    book.death = function() {
+        //this is where you put custom death things
+        book.destroy();
+    }
     
     book.health = 50;
     if (speed < 0) {

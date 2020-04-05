@@ -26,6 +26,7 @@ export class Scene3 extends Phaser.Scene {
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
     this.load.spritesheet('book', '/assets/Entities/FlyingBook.png',{ frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('fireBall', '/assets/Entities/FireBallV2.png',{ frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('doors', '/assets/Entities/doors.png',{ frameWidth: 32, frameHeight: 64 });
 }
 
 init (data)
@@ -38,15 +39,10 @@ init (data)
 
  create ()
 {
-    this.startScene2 = function (player, star)
-    {
-        this.scene.start('Scene1', this.PASSING_OBJ)
-    } 
     
     var layer1map;
     var layer2map;
     var map;
-    var doorsLayerMap;
     var spikeLayerMap
     this.Keystrokes = [];
     this.fireballEnabled = true
@@ -64,14 +60,9 @@ init (data)
     map = this.make.tilemap({ key: 'layer3', tileWidth: 32, tileHeight: 32 });   //grass
     var tileset = map.addTilesetImage('tiles');
     var layer2 = map.createStaticLayer(0, tileset, 0, 0);
-   
-    
-    doorsLayerMap = this.make.tilemap({ key: 'layer4', tileWidth: 32, tileHeight: 32 });  //doors
-    var doorMap = doorsLayerMap.addTilesetImage('tiles');
-    var doorLayer = doorsLayerMap.createStaticLayer(0, doorMap, 0, 0);
     
 
-    this.player = this.physics.add.sprite(495, 92, 'player', 1);
+    this.player = this.physics.add.sprite(this.PASSING_OBJ.playerData.x, this.PASSING_OBJ.playerData.y, 'player', 1);
     this.player.setDepth(1);
     this.player.setSize(11, 30); 
     this.player.setScale(1.5);
@@ -80,7 +71,6 @@ init (data)
     this.player.anims.stop();
     
     this.physics.add.collider(this.player, this.layer);
-    this.physics.add.collider(this.player, doorLayer, this.startScene2, null, this);
 
     this.cameras.main.setBounds(0, 0, layer1map.widthInPixels, layer1map.heightInPixels);
     this.cameras.main.startFollow(this.player);
@@ -111,6 +101,7 @@ init (data)
 }
 
  update ()  {
+     console.log(this.entities)
      this.otherChecks();
      if (this.PASSING_OBJ.controller === false) {
         this.running();

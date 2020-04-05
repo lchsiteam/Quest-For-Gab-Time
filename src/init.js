@@ -23,6 +23,8 @@ export class init extends Phaser.Scene {
                 fps : 60,
                 controller : false,
                 playerData : {
+                    x : 495,
+                    y : 120,
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
@@ -43,6 +45,8 @@ export class init extends Phaser.Scene {
                         bigFireball: 80, 
                     }, 
                     checkpoint : {
+                        x : 495,
+                        y : 120,
                         scene: 'Scene1',
                         maxHealth : 300,
                         healthPacks : 0,

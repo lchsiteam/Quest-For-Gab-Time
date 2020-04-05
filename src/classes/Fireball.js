@@ -11,7 +11,7 @@ export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the th
         setTimeout( () => {
             entity.clearTint();
             if (entity.health <= 0) {
-                entity.destroy();
+                entity.death();
             }
         }, 200) 
         
