@@ -91,11 +91,11 @@ init (data)
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
     
-    this.doors = [];
+    this.objects = [];
     //for doors, pass in (this, doorPosX, doorPosY, exitScene, exitPosX, exitPosY ,spritesheetValue) 
     //Positions are in values of tiles, so they're multiplied by 32 later
     
-    this.doors.push(new makeDoor(this,15.5,2,'Scene3',7,3,4));
+    this.objects.push(new makeDoor(this,15.5,2,'Scene3',7,3,4));
     
     this.entities = [];
     

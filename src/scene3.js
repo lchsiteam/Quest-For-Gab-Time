@@ -2,6 +2,7 @@ import { makeFunctions } from './AuxFunctions.js';
 import { controller } from './AuxFunctions.js';
 import { healthCrate } from '/src/classes/healthCrate.js';
 import { bookEnemy } from '/src/classes/bookEntity.js';
+import { makeDoor } from '/src/classes/door.js';
 
 export class Scene3 extends Phaser.Scene {
     
@@ -79,14 +80,13 @@ init (data)
     this.cursors = this.input.keyboard.createCursorKeys();    
     makeFunctions(this);
     
+    this.objects = [];
+    
+    this.objects.push(new healthCrate(this,400,400));
+    
     this.entities = [];
     
-    this.entities.push(new healthCrate(this,400,400));
     this.entities.push(new bookEnemy(this,800,400,60)); 
-    
-    console.log(this.PASSING_OBJ);
-    
-    this.entities.push(new healthCrate(this,400,400));
     this.entities.push(new bookEnemy(this,800,400));  //Pass in this object, x and y
     this.entities.push(new bookEnemy(this,800,500));
     this.entities.push(new bookEnemy(this,800,600));
@@ -101,12 +101,16 @@ init (data)
 }
 
  update ()  {
-     console.log(this.entities)
      this.otherChecks();
      if (this.PASSING_OBJ.controller === false) {
         this.running();
      } else {
         controller(this);
+     }
+     
+     if(this.entities.length === 0) {
+         this.entities.push(new makeDoor(this,15.5,2,'Scene1',15.5,3,4)); //pushing it to entities only so it doesn't keep making doors
+                                                                       //doors SHOULD be pushed to objects
      }
 }
     

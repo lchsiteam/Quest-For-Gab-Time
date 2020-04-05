@@ -4,7 +4,7 @@ export function makeDoor(that, doorPosX, doorPosY, exitScene, exitPosX, exitPosY
     {
         this.PASSING_OBJ.playerData.x = exitPosX * 32;
         this.PASSING_OBJ.playerData.y = exitPosY * 32;
-        this.scene.start('Scene3', that.PASSING_OBJ)
+        this.scene.start(exitScene, that.PASSING_OBJ)
     }
     
     var door = that.physics.add.sprite(doorPosX*32, doorPosY*32, 'doors',spritesheetValue);
