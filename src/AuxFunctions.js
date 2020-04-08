@@ -1,6 +1,6 @@
 import { fireball } from '/src/classes/Fireball.js';
 import { tripleFireball } from '/src/classes/TripleFireball.js'; 
-import { bigFireball } from '/src/classes/big_fireball.js'; 
+import { bigFireball } from '/src/classes/BigFireball.js'; 
 
 
 export function makeFunctions(that) {
@@ -157,6 +157,8 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.maxMana = checkpoint.maxMana;
         that.PASSING_OBJ.playerData.mana = checkpoint.maxMana;
         that.PASSING_OBJ.playerData.health = checkpoint.maxHealth;
+        that.PASSING_OBJ.playerData.x = checkpoint.x;
+        that.PASSING_OBJ.playerData.y = checkpoint.y;
         that.scene.start(checkpoint.scene, that.PASSING_OBJ);
         that.PASSING_OBJ.playerData.dead = false;
         that.player.clearTint();

@@ -6,7 +6,7 @@ export function tripleFireball(that,playerX,playerY,scale = 0.5) {  //passes in 
         entity.health -= 20;
         book.destroy();
         if (entity.health <= 0) {
-            entity.destroy();
+            entity.death();
         } else {
             setTimeout( () => {
                 entity.clearTint();

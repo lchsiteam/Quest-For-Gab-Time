@@ -9,7 +9,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
         setTimeout( () => {
             entity.clearTint();
             if (entity.health <= 0) {
-                entity.destroy();
+                entity.death();
             }
         }, 200) 
         
