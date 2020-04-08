@@ -37,7 +37,8 @@ init (data)
      
         'use strict';
 
-        this.PASSING_OBJ = data;
+        this.PASSING_OBJ = data; 
+        this.p = data.playerData; 
     }
 
  create ()
