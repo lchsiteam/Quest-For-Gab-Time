@@ -39,6 +39,11 @@ export class init extends Phaser.Scene {
                     zStartTime: null, 
                     zChargeMax: 1000, 
                     zVelMultip: 0.5, 
+                    sprint: 100, 
+                    maxSprint: 100, 
+                    sprinting: null, 
+                    sprintVelMultip: 2, 
+                    maxSprintSecs: 5, 
                     manaCosts: {
                         smallFireball: 10, 
                         tripleFireball: 35, 

@@ -72,15 +72,36 @@ export function makeFunctions(that) {
     }
     
     that.otherChecks = function () {
-        if (that.PASSING_OBJ.playerData.health <= 0 && !that.PASSING_OBJ.dead) {
+        var p = that.p; 
+
+        if (p.health <= 0 && !that.PASSING_OBJ.dead) {
             Death(that);
-        }else if (that.PASSING_OBJ.playerData.health <= 0) {
+        }else if (p.health <= 0) {
             
         }
         
-        if (that.PASSING_OBJ.playerData.mana < that.PASSING_OBJ.playerData.maxMana) {
-            that.PASSING_OBJ.playerData.mana += that.PASSING_OBJ.playerData.manaRegenRate;
-        }
+        if (p.mana < p.maxMana) {
+            p.mana += p.manaRegenRate;
+        } 
+
+        var sprintRate = this.p.maxSprint / this.p.maxSprintSecs / this.PASSING_OBJ.fps; 
+
+        if (this.p.sprinting) {
+            if (this.p.sprint > 0) {
+                this.p.sprint -= sprintRate; 
+            } 
+        } else {
+            if (this.p.sprint < this.p.maxSprint) {
+                this.p.sprint += sprintRate; 
+            } 
+        } 
+
+        this.p.sprint = Math.max(0, Math.min(this.p.sprint, this.p.maxSprint)); 
+
+        if (this.p.sprint == 0 && this.p.sprinting) {
+            this.p.velMultip /= 2; 
+            this.p.sprinting = false; 
+        } 
     }
      
     that.input.keyboard.on('keyup', keypressEnd, that);
@@ -212,7 +233,9 @@ function keypressLoop (event) {
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         //console.log('e'); 
         
-        this.PASSING_OBJ.playerData.velocity = 200;
+        this.p.velMultip *= 2; 
+        this.p.sprinting = true; 
+    
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         var p = this.PASSING_OBJ.playerData; 
 
@@ -239,7 +262,10 @@ function keypressEnd (event) {
         this.scene.launch('pause',this.scene.key);
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
-        this.PASSING_OBJ.playerData.velocity = 100;
+        if (this.p.sprinting) {
+            this.p.velMultip /= 2; 
+            this.p.sprinting = false; 
+        } 
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
     
