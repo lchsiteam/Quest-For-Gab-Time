@@ -180,6 +180,7 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.health = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.x = checkpoint.x;
         that.PASSING_OBJ.playerData.y = checkpoint.y;
+        that.PASSING_OBJ.playerData.sprint = checkpoint.maxSprint;
         that.scene.start(checkpoint.scene, that.PASSING_OBJ);
         that.PASSING_OBJ.playerData.dead = false;
         that.player.clearTint();
