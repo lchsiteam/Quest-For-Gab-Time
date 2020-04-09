@@ -9,8 +9,21 @@ export function makeFunctions(that) {
     that.Keystrokes.keyD = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     that.Keystrokes.keyW = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     that.Keystrokes.keyS = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+    that.playerMoving = function() {
+        const moveKeys = [this.cursors.left, this.Keystrokes.keyA, this.cursors.right, this.Keystrokes.keyD, this.cursors.up, this.Keystrokes.keyW, this.cursors.down, 
+            this.Keystrokes.keyS]; 
+        
+        for (var key of moveKeys) {
+            if (key.isDown) {
+                return true; 
+            }
+        } 
+
+        return false; 
+    } 
      
-     that.running = function () {
+    that.running = function () {
         var p = this.PASSING_OBJ.playerData; 
 
         if (!that.PASSING_OBJ.playerData.dead) {
@@ -84,15 +97,15 @@ export function makeFunctions(that) {
             p.mana += p.manaRegenRate;
         } 
 
-        var sprintRate = this.p.maxSprint / this.p.maxSprintSecs / this.PASSING_OBJ.fps; 
+        var sprintBarChange = this.p.maxSprint / this.p.maxSprintSecs / this.PASSING_OBJ.fps; 
 
-        if (this.p.sprinting) {
+        if (this.p.sprinting && this.playerMoving()) {
             if (this.p.sprint > 0) {
-                this.p.sprint -= sprintRate; 
+                this.p.sprint -= sprintBarChange; 
             } 
         } else {
             if (this.p.sprint < this.p.maxSprint) {
-                this.p.sprint += sprintRate; 
+                this.p.sprint += sprintBarChange; 
             } 
         } 
 
@@ -233,8 +246,10 @@ function keypressLoop (event) {
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         //console.log('e'); 
         
-        this.p.velMultip *= 2; 
-        this.p.sprinting = true; 
+        if (!this.p.sprinting) {
+            this.p.velMultip *= 2; 
+            this.p.sprinting = true; 
+        } 
     
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         var p = this.PASSING_OBJ.playerData; 
