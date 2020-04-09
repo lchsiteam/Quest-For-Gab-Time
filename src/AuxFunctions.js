@@ -182,8 +182,10 @@ export function Death (that) {
     that.player.setTint(0x444444);
     var checkpoint = that.PASSING_OBJ.playerData.checkpoint;
     that.PASSING_OBJ.playerData.dead = true;
-    that.scene.pause();
+    that.scene.pause(); 
+
     setTimeout( () => {
+        /*
         that.PASSING_OBJ.playerData.maxHealth = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.healthPacks = checkpoint.healthPacks;
         that.PASSING_OBJ.playerData.velocity = checkpoint.velocity;
@@ -195,7 +197,18 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.y = checkpoint.y;
         that.scene.start(checkpoint.scene, that.PASSING_OBJ);
         that.PASSING_OBJ.playerData.dead = false;
-        that.player.clearTint();
+        */ 
+        
+        //console.log(that.PASSING_OBJ); 
+        
+        Object.assign(that.p, that.p.checkpoint); //sets all of the player's stats back to "checkpoint" stats
+
+        //console.log('e'); 
+        //console.log(that.PASSING_OBJ); 
+
+        that.scene.start(that.p.respawnScene, that.PASSING_OBJ);
+
+        that.player.clearTint(); 
     }, 2000) 
 } 
 

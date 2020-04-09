@@ -25,6 +25,7 @@ export class init extends Phaser.Scene {
                 playerData : {
                     x : 495,
                     y : 120,
+                    respawnScene: 'Scene1', 
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
@@ -41,7 +42,7 @@ export class init extends Phaser.Scene {
                     zVelMultip: 0.5, 
                     sprint: 100, 
                     maxSprint: 100, 
-                    sprinting: null, 
+                    sprinting: false, 
                     sprintVelMultip: 2, 
                     maxSprintSecs: 5, 
                     manaCosts: {
@@ -49,6 +50,8 @@ export class init extends Phaser.Scene {
                         tripleFireball: 35, 
                         bigFireball: 80, 
                     }, 
+                    checkpoint: {}, 
+                    /*
                     checkpoint : {
                         x : 495,
                         y : 120,
@@ -58,9 +61,16 @@ export class init extends Phaser.Scene {
                         manaEnabled : true,
                         maxMana : 100,
                         velocity: 100
-                    }
+                    } 
+                    */ 
                 }
-            };
+            }; 
+
+            this.p = this.PASSING_OBJ.playerData; //shortcut
+
+            //console.log(this.p); 
+            
+            Object.assign(this.p.checkpoint, this.p); //checkpoint is basically a copy of a "fresh" player's stats, to draw from when the player respawns
         
     }
 

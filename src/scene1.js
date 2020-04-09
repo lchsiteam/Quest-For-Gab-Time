@@ -73,6 +73,7 @@ init (data)
     var spikeLayer = spikeLayerMap.createStaticLayer(0, spikeMap, 0, 0);
     spikeLayerMap.setCollisionBetween(7, 10);
     
+    //console.log(this.PASSING_OBJ.playerData); 
 
     this.player = this.physics.add.sprite(this.PASSING_OBJ.playerData.x, this.PASSING_OBJ.playerData.y, 'player', 1);
     this.player.setDepth(1);
