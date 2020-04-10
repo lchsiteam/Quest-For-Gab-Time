@@ -9,8 +9,21 @@ export function makeFunctions(that) {
     that.Keystrokes.keyD = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     that.Keystrokes.keyW = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     that.Keystrokes.keyS = that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+    that.playerMoving = function() {
+        const moveKeys = [this.cursors.left, this.Keystrokes.keyA, this.cursors.right, this.Keystrokes.keyD, this.cursors.up, this.Keystrokes.keyW, this.cursors.down, 
+            this.Keystrokes.keyS]; 
+        
+        for (var key of moveKeys) {
+            if (key.isDown) {
+                return true; 
+            }
+        } 
+
+        return false; 
+    } 
      
-     that.running = function () {
+    that.running = function () {
         var p = this.PASSING_OBJ.playerData; 
 
         if (!that.PASSING_OBJ.playerData.dead) {
@@ -72,15 +85,36 @@ export function makeFunctions(that) {
     }
     
     that.otherChecks = function () {
-        if (that.PASSING_OBJ.playerData.health <= 0 && !that.PASSING_OBJ.dead) {
+        var p = that.p; 
+
+        if (p.health <= 0 && !that.PASSING_OBJ.dead) {
             Death(that);
-        }else if (that.PASSING_OBJ.playerData.health <= 0) {
+        }else if (p.health <= 0) {
             
         }
         
-        if (that.PASSING_OBJ.playerData.mana < that.PASSING_OBJ.playerData.maxMana) {
-            that.PASSING_OBJ.playerData.mana += that.PASSING_OBJ.playerData.manaRegenRate;
-        }
+        if (p.mana < p.maxMana) {
+            p.mana += p.manaRegenRate;
+        } 
+
+        var sprintBarChange = this.p.maxSprint / this.p.maxSprintSecs / this.PASSING_OBJ.fps; 
+
+        if (this.p.sprinting && this.playerMoving()) {
+            if (this.p.sprint > 0) {
+                this.p.sprint -= sprintBarChange; 
+            } 
+        } else {
+            if (this.p.sprint < this.p.maxSprint) {
+                this.p.sprint += sprintBarChange; 
+            } 
+        } 
+
+        this.p.sprint = Math.max(0, Math.min(this.p.sprint, this.p.maxSprint)); 
+
+        if (this.p.sprint == 0 && this.p.sprinting) {
+            this.p.velMultip /= 2; 
+            this.p.sprinting = false; 
+        } 
     }
      
     that.input.keyboard.on('keyup', keypressEnd, that);
@@ -148,8 +182,10 @@ export function Death (that) {
     that.player.setTint(0x444444);
     var checkpoint = that.PASSING_OBJ.playerData.checkpoint;
     that.PASSING_OBJ.playerData.dead = true;
-    that.scene.pause();
+    that.scene.pause(); 
+
     setTimeout( () => {
+        /*
         that.PASSING_OBJ.playerData.maxHealth = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.healthPacks = checkpoint.healthPacks;
         that.PASSING_OBJ.playerData.velocity = checkpoint.velocity;
@@ -159,9 +195,21 @@ export function Death (that) {
         that.PASSING_OBJ.playerData.health = checkpoint.maxHealth;
         that.PASSING_OBJ.playerData.x = checkpoint.x;
         that.PASSING_OBJ.playerData.y = checkpoint.y;
+        that.PASSING_OBJ.playerData.sprint = checkpoint.maxSprint;
         that.scene.start(checkpoint.scene, that.PASSING_OBJ);
         that.PASSING_OBJ.playerData.dead = false;
-        that.player.clearTint();
+        */ 
+        
+        //console.log(that.PASSING_OBJ); 
+        
+        Object.assign(that.p, that.p.checkpoint); //sets all of the player's stats back to "checkpoint" stats
+
+        //console.log('e'); 
+        //console.log(that.PASSING_OBJ); 
+
+        that.scene.start(that.p.respawnScene, that.PASSING_OBJ);
+
+        that.player.clearTint(); 
     }, 2000) 
 } 
 
@@ -212,7 +260,11 @@ function keypressLoop (event) {
     if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
         //console.log('e'); 
         
-        this.PASSING_OBJ.playerData.velocity = 200;
+        if (!this.p.sprinting) {
+            this.p.velMultip *= 2; 
+            this.p.sprinting = true; 
+        } 
+    
     } else if (code === Phaser.Input.Keyboard.KeyCodes.Z) {
         var p = this.PASSING_OBJ.playerData; 
 
@@ -239,7 +291,10 @@ function keypressEnd (event) {
         this.scene.launch('pause',this.scene.key);
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.SHIFT) {
-        this.PASSING_OBJ.playerData.velocity = 100;
+        if (this.p.sprinting) {
+            this.p.velMultip /= 2; 
+            this.p.sprinting = false; 
+        } 
         
     } else if (code === Phaser.Input.Keyboard.KeyCodes.M) {
     

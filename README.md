@@ -12,7 +12,7 @@ python3 -m http.server 8080
 ```
 or on Windows: 
 ```
-host.cmd 8080
+host 8080
 ``` 
 
 Then, go to the url http://localhost:8080 to access the game.

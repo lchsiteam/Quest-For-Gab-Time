@@ -33,7 +33,7 @@ init (data)
         'use strict';
 
         this.PASSING_OBJ = data;
-
+        this.p = data.playerData; 
     }
 
 create ()
@@ -89,10 +89,7 @@ update ()  {
     //this.text.y = (h*0.94166)
     
   
-    //this.text.setText(this.PASSING_OBJ.playerData.healthPacks);
-    
-
-
+    //this.text.setText(this.PASSING_OBJ.playerData.healthPacks); 
 
     if (this.PASSING_OBJ.playerData.health < 0) {  //Checks to see if health is above or below what it can be
         this.PASSING_OBJ.playerData.health = 0; 
@@ -106,32 +103,40 @@ update ()  {
         this.PASSING_OBJ.playerData.mana = this.PASSING_OBJ.playerData.maxMana;
     } 
 
-    var zChargeTime; 
-    var p = this.PASSING_OBJ.playerData; //shortcut
-
-    if (p.zStartTime) {
-        zChargeTime = Date.now() - p.zStartTime; 
-    } else {
-        zChargeTime = 0; 
-    } 
-
-    const zChargeCap = p.zChargeMax; //max of 1,000 ms charge
-
-    zChargeTime = Math.min(zChargeTime, zChargeCap); 
-
-    const zRectWidth = 10; 
-    const zRectHeight = 52; 
-
-    healthSize = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300; 
-    manaSize = (this.PASSING_OBJ.playerData.mana/this.PASSING_OBJ.playerData.maxMana) * 300; 
-    var zChargeSize = zChargeTime / zChargeCap * zRectHeight; 
-    //this.PASSING_OBJ.playerData.health -= 1
-
-    this.graphics.fillStyle(0x00000, 1); 
-
-    //top left coordinates of the black background bar
+    //top left coordinates of the black background bar for health and mana
     const refX = w * 0.26 - 126; 
     const refY = h * 0.93 - 26; 
+
+    //sprint stuff
+    const sprintBGWidth = 300; 
+    const sprintBGHeight = 26; 
+
+    const sprintBarOffset = sprintBGHeight + 15; 
+    const sprintBarBorder = 4; 
+
+    const sprintBGX = refX; 
+    const sprintBGY = refY - sprintBarOffset; 
+
+    const sprintFillWidth = this.p.sprint * (sprintBGWidth - sprintBarBorder * 2) / this.p.maxSprint; 
+    const sprintFillHeight = sprintBGHeight - sprintBarBorder * 2; 
+
+    const sprintFillX = sprintBGX + sprintBarBorder; 
+    const sprintFillY = sprintBGY + sprintBarBorder; 
+
+    //black background bar for sprint gauge
+    this.graphics.fillStyle(0x00000, 1); 
+
+    this.graphics.fillRect(sprintBGX, sprintBGY, sprintBGWidth, sprintBGHeight); 
+
+    //white fill bar for sprint gauge
+    this.graphics.fillStyle(0xffffff); 
+
+    this.graphics.fillRect(sprintFillX, sprintFillY, sprintFillWidth, sprintFillHeight); 
+
+    //health and mana stuff
+    healthSize = (this.PASSING_OBJ.playerData.health/this.PASSING_OBJ.playerData.maxHealth) * 300; 
+    manaSize = (this.PASSING_OBJ.playerData.mana/this.PASSING_OBJ.playerData.maxMana) * 300; 
+    //this.PASSING_OBJ.playerData.health -= 1
 
     if (this.PASSING_OBJ.playerData.manaEnabled){ //Differentiates between the mana and health bar and the just health bar.
         this.graphics.fillStyle(0x00000, 1);
@@ -156,13 +161,37 @@ update ()  {
 
     } 
 
+    var p = this.p; //shortcut
+
+    const zChargeCap = p.zChargeMax; //max of 1,000 ms charge
+    var zChargeTime; 
+
+    if (p.zStartTime) {
+        zChargeTime = Date.now() - p.zStartTime; 
+        zChargeTime = Math.min(zChargeTime, zChargeCap); 
+    } else {
+        zChargeTime = 0; 
+    } 
+
+    const zBGWidth = 15; 
+    const zBGHeight = 52; 
+
+    const zBarOffset = 330; 
     const zBarBorder = 2; 
-    const zBarOffset = 330; //how far right it is relative to the black background bar
 
-    this.graphics.fillStyle(0x000000, 1) 
+    const zBGX = refX + zBarOffset; 
+    const zBGY = refY; 
 
-    this.graphics.fillRect(refX + zBarOffset - zBarBorder, refY - zBarBorder, 
-        zRectWidth + zBarBorder * 2, zRectHeight + zBarBorder * 2); 
+    const zFillWidth = zBGWidth - zBarBorder * 2; 
+    const zFillHeight = zChargeTime * (zBGHeight - zBarBorder * 2) / zChargeCap; 
+
+    const zFillX = zBGX + zBarBorder; 
+    const zFillY = zBGY - zBarBorder + zBGHeight - zFillHeight; 
+
+    //black background bar for Z-charge gauge
+    this.graphics.fillStyle(0x00000, 1); 
+
+    this.graphics.fillRect(zBGX, zBGY, zBGWidth, zBGHeight); 
 
     if (zChargeTime == zChargeCap) {
         this.graphics.fillStyle(0xff8800, 1); //fully charged bar is orange
@@ -171,7 +200,7 @@ update ()  {
     } 
     
     //charge bar (for the z-button attack) 
-    this.graphics.fillRect(refX + zBarOffset, refY + zRectHeight - zChargeSize, zRectWidth, zChargeSize); 
+    this.graphics.fillRect(zFillX, zFillY, zFillWidth, zFillHeight); 
 
     if (this.PASSING_OBJ.playerData.healthPacks > 10)
     {
