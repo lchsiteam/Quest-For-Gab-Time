@@ -40,7 +40,7 @@ var config = {
             gravity: { y: 0 }
         }, 
         impact: {
-            bounciness: 0
+            bounciness: 0.01
         } 
     },
     scene: [init,Scene1,Scene2,Scene3,gui,pause]
