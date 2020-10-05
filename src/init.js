@@ -1,3 +1,5 @@
+import { initPathfinding } from '/src/classes/Pathfinding.js';
+
 export class init extends Phaser.Scene {
     
     
@@ -68,6 +70,7 @@ export class init extends Phaser.Scene {
             }; 
 
             this.p = this.PASSING_OBJ.playerData; //shortcut
+            initPathfinding(this)
 
             //console.log(this.p); 
             

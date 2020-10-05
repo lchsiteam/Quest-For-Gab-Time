@@ -23,16 +23,6 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
         book.setVelocityY((Math.random() * 2000)-1000);
     }
     
-    var monsterPathfind = function (that) {
-        var x = that.player.x - book.x; //x distance from player
-        var y = that.player.y - book.y; //y distance from player
-        
-        var distance = Math.sqrt(((x)**2)+((y)**2));  //gets the direct distance to the player 
-        var ratio = book.speed/distance;  //ratio of how fast the book is to the distance of the player
-
-        return[(x*ratio),(y*ratio)]; //multiplies the x and y distances to get a similar triangle at the book's speed
-    }
-    
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     book.death = function() {
@@ -44,6 +34,7 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
         book.destroy();
     }
     
+
     book.health = 50;
     if (speed < 0) {
         book.speed = Math.floor((Math.random() * 200)+50);
@@ -62,15 +53,15 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(2);                                   //makes it twice as big
-    
+    console.log(that)
     book.interval = setInterval(() => {
                
-        var tmp = monsterPathfind(that);
+        var tmp = that.PASSING_OBJ.PATHFINDING.wallRideDefault(that,book);
         try {
             book.setVelocityX(tmp[0]);
             book.setVelocityY(tmp[1]);
         } catch(err) {
-            clearInterval(book.interval);
+            clearInterval(book.interval);         //If it's dead
         }
 
     }, 100)
