@@ -1,7 +1,8 @@
 import { init } from './init.js';
-import { Scene1 } from './scene1.js';
-import { Scene2 } from './scene2.js';
-import { Scene3 } from './scene3.js';
+import { Scene1 } from './scenes/scene1.js';
+import { Scene2 } from './scenes/scene2.js';
+import { Scene3 } from './scenes/scene3.js';
+import { Scene4 } from './scenes/scene4.js'
 import { gui } from './gui.js';
 import { pause } from './pause.js';
 
@@ -38,16 +39,15 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }
-        }, 
+        },
         impact: {
             bounciness: 0
-        } 
+        }
     },
-    scene: [init,Scene1,Scene2,Scene3,gui,pause]
-    
+    scene: [init,Scene1,Scene2,Scene3,Scene4,gui,pause]
+
 };
 
 var game = new Phaser.Game(config);
 game.scale.pageAlignHorizontally = true;
 game.scale.pageAlignVertically = true;
-
