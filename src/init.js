@@ -74,8 +74,11 @@ export class init extends Phaser.Scene {
 
             this.p = this.PASSING_OBJ.playerData; //shortcut
             initPathfinding(this)
+<<<<<<< HEAD
 
             //console.log(this.p);
+=======
+>>>>>>> 37fc324c9b1c06a3a1149e44b599444da0cec53e
 
             Object.assign(this.p.checkpoint, this.p); //checkpoint is basically a copy of a "fresh" player's stats, to draw from when the player respawns
 

@@ -22,8 +22,13 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
         book.setVelocityX((Math.random() * 2000)-1000);
         book.setVelocityY((Math.random() * 2000)-1000);
     }
+<<<<<<< HEAD
 
     var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book.
+=======
+    
+    var book = that.physics.add.sprite(x, y, 'book',0);   //Declares a new sprite object and assigns it to book. 
+>>>>>>> 37fc324c9b1c06a3a1149e44b599444da0cec53e
                                                           //Also uses the 'book' spritesheet declared in scene 1 preload
     book.death = function() {
         //this is where you put custom death things
@@ -33,7 +38,11 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
         }
         book.destroy();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 37fc324c9b1c06a3a1149e44b599444da0cec53e
 
     book.health = 50;
     if (speed < 0) {
@@ -55,8 +64,13 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     book.setScale(2);                                   //makes it twice as big
     console.log(that)
     book.interval = setInterval(() => {
+<<<<<<< HEAD
 
         var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunctionQuincy(that,book);
+=======
+               
+        var tmp = that.PASSING_OBJ.PATHFINDING.wallRideDefault(that,book);
+>>>>>>> 37fc324c9b1c06a3a1149e44b599444da0cec53e
         try {
             book.setVelocityX(book.speed*((tmp[0] - book.x)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
             book.setVelocityY(book.speed*((tmp[1] - book.y)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
