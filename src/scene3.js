@@ -88,7 +88,7 @@ init (data)
     this.entities = [];
     
     this.entities.push(new bookEnemy(this,800,400,60)); 
-    this.entities.push(new bookEnemy(this,800,400));  //Pass in this object, x and y
+    /*this.entities.push(new bookEnemy(this,800,400));  //Pass in this object, x and y
     this.entities.push(new bookEnemy(this,800,500));
     this.entities.push(new bookEnemy(this,800,600));
     this.entities.push(new bookEnemy(this,800,700));
@@ -97,7 +97,7 @@ init (data)
     this.entities.push(new bookEnemy(this,800,1000));
     this.entities.push(new bookEnemy(this,800,1100));
     this.entities.push(new bookEnemy(this,800,1200));
-    this.entities.push(new bookEnemy(this,800,1300));
+    this.entities.push(new bookEnemy(this,800,1300));*/
     
 }
 
