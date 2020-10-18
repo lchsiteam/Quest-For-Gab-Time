@@ -17,7 +17,7 @@ export class Scene4 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_V6.png');
+    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_V6_extruded.png');
     this.load.tilemapCSV('scene4layer2', 'assets/MapCSVs/level4layer2.csv');
     this.load.tilemapCSV('scene4layer1', 'assets/MapCSVs/level4layer1.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
@@ -48,12 +48,12 @@ init (data)
     this.Keystrokes = [];
     this.fireballEnabled = true
 
-    layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
-    var tileset1 = layer1map.addTilesetImage('mainTileSheet');
+    layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32});  //dark grass
+    var tileset1 = layer1map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
 
-    map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32 });   //grass
-    var tileset = map.addTilesetImage('mainTileSheet');
+    map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32});   //grass
+    var tileset = map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     this.layer = map.createStaticLayer(0, tileset, 0, 0);
     map.setCollisionBetween(70, 70);
     map.setCollisionBetween(-1, -1);
