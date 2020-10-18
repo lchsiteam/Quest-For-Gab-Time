@@ -17,7 +17,7 @@ export class Scene4 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_V6.png');
+    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_V6_extruded.png');
     this.load.tilemapCSV('scene4layer2', 'assets/MapCSVs/level4layer2.csv');
     this.load.tilemapCSV('scene4layer1', 'assets/MapCSVs/level4layer1.csv');
     this.load.tilemapCSV('scene4col', 'assets/MapCSVs/level4col.csv');
@@ -49,7 +49,6 @@ init (data)
     var spikeLayerMap
     this.Keystrokes = [];
     this.fireballEnabled = true
-
     
     layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
     var tileset1 = layer1map.addTilesetImage('mainTileSheet');
