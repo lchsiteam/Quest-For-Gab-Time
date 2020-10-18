@@ -14,10 +14,12 @@ export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the th
                 entity.death();
             }
         }, 200) 
-        
-        
-        
     }
+    this.KMS = function (book) {
+        book.destroy();
+    }
+    
+    
     
     var x = playerX;
     var y = playerY;
@@ -33,22 +35,22 @@ export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the th
     if (direction === 'up') {
         velY = -speed;
         anim = 'FireThrowUp',true;                            //plays the 'fly' animation declared in init.js
-        var y = playerY - 20;
+        var y = playerY - 10;
         
     } else if (direction === 'down') {
         velY = speed;
         anim = 'FireThrowDown';                             //plays the 'fly' animation declared in init.js
-        var y = playerY + 20;
+        var y = playerY + 10;
         
     } else if (direction === 'right') {
         velX = speed;
         anim = 'FireThrowRight';                            //plays the 'fly' animation declared in init.js
-        var x = playerX + 20;
+        var x = playerX + 10;
         
     } else {
         velX = -speed;
         anim = 'FireThrowLeft';                            //plays the 'fly' animation declared in init.js
-        var x = playerX - 20;
+        var x = playerX - 10;
         
     } 
     
@@ -61,8 +63,9 @@ export function fireball(that,playerX,playerY,scale = 0.5) {  //passes in the th
     this.fireball.setVelocityX(velX);
     this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too
-    that.physics.add.collider(that.layer,this.fireball);             //makes it so book can't go through that.layer (the world boarder)
+    
     that.physics.add.collider(that.entities, this.fireball, this.death, null, this);
+    that.physics.add.collider(that.layer,this.fireball, this.KMS, null, this); //makes it so book disappears when hitting that.layer (the world boarder)
     
     
     

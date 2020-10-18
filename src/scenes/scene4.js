@@ -20,6 +20,7 @@ export class Scene4 extends Phaser.Scene {
     this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_V6_extruded.png');
     this.load.tilemapCSV('scene4layer2', 'assets/MapCSVs/level4layer2.csv');
     this.load.tilemapCSV('scene4layer1', 'assets/MapCSVs/level4layer1.csv');
+    this.load.tilemapCSV('scene4col', 'assets/MapCSVs/level4col.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
 
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
@@ -44,19 +45,23 @@ init (data)
     var layer1map;
     var layer15map;
     var map;
+    var collision;
     var spikeLayerMap
     this.Keystrokes = [];
     this.fireballEnabled = true
-
-    layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32});  //dark grass
-    var tileset1 = layer1map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
+    
+    layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
+    var tileset1 = layer1map.addTilesetImage('mainTileSheet');
     var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
 
-    map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32});   //grass
-    var tileset = map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
-    this.layer = map.createStaticLayer(0, tileset, 0, 0);
-    map.setCollisionBetween(70, 70);
-    map.setCollisionBetween(-1, -1);
+    map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32 });   //grass
+    var tileset = map.addTilesetImage('mainTileSheet');
+    var layer = map.createStaticLayer(0, tileset, 0, 0);
+
+    collision = this.make.tilemap({ key: 'scene4col', tileWidth: 32, tileHeight: 32 });   //colision
+    var tilesetCollision = collision.addTilesetImage();
+    this.layer = collision.createStaticLayer(0, tilesetCollision, 0, 0);
+    collision.setCollisionBetween(-1, 0);
 
     //console.log(this.PASSING_OBJ.playerData);
 
@@ -71,7 +76,7 @@ init (data)
 
     this.physics.add.collider(this.player, this.layer);
 
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.setBounds(0, 0, collision.widthInPixels, collision.heightInPixels);
     this.cameras.main.startFollow(this.player);
 
 

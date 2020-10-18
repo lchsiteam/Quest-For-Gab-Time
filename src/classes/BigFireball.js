@@ -12,9 +12,10 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
                 entity.death();
             }
         }, 200) 
-        
-        
-        
+    }
+    
+    this.KMS = function (book) {
+        book.destroy();
     }
     
     var x = playerX;
@@ -59,7 +60,7 @@ export function bigFireball(that,playerX,playerY,scale = 1) {  //passes in the t
     this.fireball.setVelocityX(velX);
     this.fireball.setVelocityY(velY);
                                                                        //It gives access to the "that" object, too
-    that.physics.add.collider(that.layer,this.fireball);             //makes it so book can't go through that.layer (the world boarder)
+    that.physics.add.collider(that.layer,this.fireball,this.KMS, null, this);             //makes it so book can't go through that.layer (the world boarder)
     that.physics.add.overlap(that.entities, this.fireball, this.damage, null, this);
     
     
