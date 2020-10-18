@@ -149,7 +149,7 @@ export class init extends Phaser.Scene {
         'use strict';
 
         this.scene.start('gui', this.PASSING_OBJ);
-        this.scene.start('Scene1', this.PASSING_OBJ);
+        this.scene.start('Scene4', this.PASSING_OBJ);
 
 
 
