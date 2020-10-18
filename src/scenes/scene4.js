@@ -49,13 +49,13 @@ init (data)
     var spikeLayerMap
     this.Keystrokes = [];
     this.fireballEnabled = true
-    
+
     layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
-    var tileset1 = layer1map.addTilesetImage('mainTileSheet');
+    var tileset1 = layer1map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
 
     map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32 });   //grass
-    var tileset = map.addTilesetImage('mainTileSheet');
+    var tileset = map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     var layer = map.createStaticLayer(0, tileset, 0, 0);
 
     collision = this.make.tilemap({ key: 'scene4col', tileWidth: 32, tileHeight: 32 });   //colision
