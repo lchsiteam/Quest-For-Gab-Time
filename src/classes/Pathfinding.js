@@ -44,7 +44,7 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++) {
+              for (queuePos < queue.length; queuePos++;) {
                 newQueue.push(queue[queuePos]);
               }
               queue = newQueue
@@ -60,7 +60,7 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++) {
+              for (queuePos < queue.length; queuePos++;) {
                 newQueue.push(queue[queuePos]);
               }
               queue = newQueue
@@ -76,7 +76,7 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++) {
+              for (queuePos < queue.length; queuePos++;) {
                 newQueue.push(queue[queuePos]);
               }
               queue = newQueue
@@ -92,7 +92,7 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++) {
+              for (queuePos < queue.length; queuePos++;) {
                 newQueue.push(queue[queuePos]);
               }
               queue = newQueue
@@ -114,12 +114,12 @@ export function initPathfinding(that) {
           var solution = []
 
           var counter = 0
-          for (counter < reversedSolution.length; counter++) {
+          for (counter < reversedSolution.length; counter++;) {
             solution.push(reversedSolution[counter][0]);
           }
 
           return solution
-        }
+        },
 
         monsterPathfindDefault : function (that,monster) {
             var x = that.player.x - monster.x; //x distance from player
