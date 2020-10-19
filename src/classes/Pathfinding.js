@@ -4,11 +4,11 @@ export function initPathfinding(that) {
 
     that.PASSING_OBJ.PATHFINDING = {
 
-        monsterLeadingFunctionQuincy : function (that,monster) {
+        monsterLeadingFunction : function (that,monster) {
           if (monster.speed > that.player.speed)
           {
-              var timeTilCollision = (Math.sqrt(Math.pow(that.player.speed, 2) * Math.pow((-2 * that.player.x * that.player.directionX + 2 * monster.x * that.player.directionX - 2 * that.player.y * that.player.directionY + 2 * monster.y * that.player.directionY), 2) - 4 * (-1 * Math.pow(that.player.speed, 2) * Math.pow(that.player.directionX, 2) - Math.pow(that.player.speed, 2) * Math.pow(that.player.directionY, 2) + Math.pow(monster.speed, 2)) * (-1 * Math.pow(that.player.x, 2) + 2 * that.player.x * monster.x - Math.pow(monster.x, 2) - Math.pow(that.player.y, 2) + 2 * that.player.y * monster.y - Math.pow(monster.y, 2))) - that.player.speed * (-2 * that.player.x * that.player.directionX + 2 * monster.x * that.player.directionX - 2 * that.player.y * that.player.directionY + 2 * monster.y * that.player.directionY))/(2 * (-1 * Math.pow(that.player.speed, 2) * Math.pow(that.player.directionX, 2) - Math.pow(that.player.speed, 2) * Math.pow(that.player.directionY, 2) + Math.pow(monster.speed, 2)))
-              
+              var timeTilCollision = (Math.sqrt(Math.pow(that.player.speed, 2) * Math.pow((-2 * that.player.x * that.player.directionX + 2 * monster.x * that.player.directionX - 2 * that.player.y * that.player.directionY + 2 * monster.y * that.player.directionY), 2) - 4 * (-1 * Math.pow(that.player.speed, 2) * Math.pow(that.player.directionX, 2) - Math.pow(that.player.speed, 2) * Math.pow(that.player.directionY, 2) + Math.pow(monster.speed, 2)) * (-1 * Math.pow(that.player.x, 2) + 2 * that.player.x * monster.x - Math.pow(monster.x, 2) - Math.pow(that.player.y, 2) + 2 * that.player.y * monster.y - Math.pow(monster.y, 2))) - that.player.speed * (-2 * that.player.x * that.player.directionX + 2 * monster.x * that.player.directionX - 2 * that.player.y * that.player.directionY + 2 * monster.y * that.player.directionY))/(2 * (-1 * Math.pow(that.player.speed, 2) * Math.pow(that.player.directionX, 2) - Math.pow(that.player.speed, 2) * Math.pow(that.player.directionY, 2) + Math.pow(monster.speed, 2))) //https://www.youtube.com/watch?v=vVPT0JT1dOw
+
 
 
               return [ (that.player.speed * that.player.directionX * timeTilCollision) + that.player.x , (that.player.speed * that.player.directionY * timeTilCollision + that.player.y) ]
@@ -18,6 +18,108 @@ export function initPathfinding(that) {
               return [that.player.x, that.player.y]
           }
         },
+
+        aStarPathfinding : function (that,csv,monster,target) {
+          var startx = Math.floor(monster.x/32)
+          var starty = Math.floor(monster.y/32)
+
+          var targetx = Math.floor(target[0]/32)
+          var targety = Math.floor(target[1]/32)
+
+          var firstEntry = [[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,undefined]
+
+          var queue = [firstEntry]
+
+          var completedQueueEntries = []
+
+          while (queue[0][0] != [targetx, targety]) {
+            if (csv[(queue[0][0][0] + 1)][queue[0][0][1]] == 1) {
+              var positionx = (queue[0][0][0] + 1)
+              var positiony = queue[0][0][1]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queuePos = 0
+              var newQueue = []
+              while (queue[queuePos][2] > queueEntry[2]) {
+                  newQueue.push(queue[queuePos]);
+                  queuePos++;
+              }
+              newQueue.push(queueEntry);
+              for (queuePos < queue.length; queuePos++) {
+                newQueue.push(queue[queuePos]);
+              }
+              queue = newQueue
+            }
+            if (csv[(queue[0][0][0] - 1)][queue[0][0][1]] == 1) {
+              var positionx = (queue[0][0][0] - 1)
+              var positiony = queue[0][0][1]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queuePos = 0
+              var newQueue = []
+              while (queue[queuePos][2] > queueEntry[2]) {
+                  newQueue.push(queue[queuePos]);
+                  queuePos++;
+              }
+              newQueue.push(queueEntry);
+              for (queuePos < queue.length; queuePos++) {
+                newQueue.push(queue[queuePos]);
+              }
+              queue = newQueue
+            }
+            if (csv[queue[0][0][0]][(queue[0][0][1] + 1)] == 1) {
+              var positionx = queue[0][0][0]
+              var positiony = (queue[0][0][1] + 1)
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queuePos = 0
+              var newQueue = []
+              while (queue[queuePos][2] > queueEntry[2]) {
+                  newQueue.push(queue[queuePos]);
+                  queuePos++;
+              }
+              newQueue.push(queueEntry);
+              for (queuePos < queue.length; queuePos++) {
+                newQueue.push(queue[queuePos]);
+              }
+              queue = newQueue
+            }
+            if (csv[queue[0][0][0]][(queue[0][0][1] - 1)] == 1) {
+              var positionx = queue[0][0][0]
+              var positiony = (queue[0][0][1] - 1)
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queuePos = 0
+              var newQueue = []
+              while (queue[queuePos][2] > queueEntry[2]) {
+                  newQueue.push(queue[queuePos]);
+                  queuePos++;
+              }
+              newQueue.push(queueEntry);
+              for (queuePos < queue.length; queuePos++) {
+                newQueue.push(queue[queuePos]);
+              }
+              queue = newQueue
+            }
+            completedQueueEntries.push(queue[0]);
+            queue.shift();
+          }
+
+          reversedSolution = [queue[0]]
+
+          while (reversedSolution[(reversedSolution.length - 1)] != firstEntry) {
+            var counter = 0
+            while (reversedSolution[(reversedSolution.length - 1)][2] != completedQueueEntries[counter][0]) {
+              counter++;
+            }
+            reversedSolution.push(completedQueueEntries[counter]);
+          }
+
+          var solution = []
+
+          var counter = 0
+          for (counter < reversedSolution.length; counter++) {
+            solution.push(reversedSolution[counter][0]);
+          }
+
+          return solution
+        }
 
         monsterPathfindDefault : function (that,monster) {
             var x = that.player.x - monster.x; //x distance from player
