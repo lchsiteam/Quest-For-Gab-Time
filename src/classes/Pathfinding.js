@@ -19,12 +19,14 @@ export function initPathfinding(that) {
           }
         },
 
-        aStarPathfinding : function (that,csv,monster,target) {
+        aStarPathfinding : function (that,obstacleArray,monster,target) {
           var startx = Math.floor(monster.x/32)
           var starty = Math.floor(monster.y/32)
 
           var targetx = Math.floor(target[0]/32)
           var targety = Math.floor(target[1]/32)
+          
+          var illigalTiles = obstacleArray
 
           var firstEntry = [[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,undefined]
 
@@ -33,13 +35,13 @@ export function initPathfinding(that) {
           var completedQueueEntries = []
 
           while (queue[0][0] != [targetx, targety]) {
-            if (csv[queue[0][0][1]][(queue[0][0][0] + 1)] == 1) {
+            if (illigalTiles[queue[0][0][1]][(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
               var positiony = queue[0][0][1]
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
               var newQueue = []
-              while (queue[queuePos][2] > queueEntry[2]) {
+              while (queue[queuePos][1] > queueEntry[1]) {
                   newQueue.push(queue[queuePos]);
                   queuePos++;
               }
@@ -50,13 +52,13 @@ export function initPathfinding(that) {
               }
               queue = newQueue
             }
-            if (csv[queue[0][0][1]][(queue[0][0][0] - 1)] == 1) {
+            if (illigalTiles[queue[0][0][1]][(queue[0][0][0] - 1)] == 1) {
               var positionx = (queue[0][0][0] - 1)
               var positiony = queue[0][0][1]
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
               var newQueue = []
-              while (queue[queuePos][2] > queueEntry[2]) {
+              while (queue[queuePos][1] > queueEntry[1]) {
                   newQueue.push(queue[queuePos]);
                   queuePos++;
               }
@@ -67,13 +69,13 @@ export function initPathfinding(that) {
               }
               queue = newQueue
             }
-            if (csv[(queue[0][0][1][queue[0][0][0]] + 1)] == 1) {
+            if (illigalTiles[(queue[0][0][1][queue[0][0][0]] + 1)] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] + 1)
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
               var newQueue = []
-              while (queue[queuePos][2] > queueEntry[2]) {
+              while (queue[queuePos][1] > queueEntry[1]) {
                   newQueue.push(queue[queuePos]);
                   queuePos++;
               }
@@ -84,10 +86,10 @@ export function initPathfinding(that) {
               }
               queue = newQueue
             }
-            if (csv[(queue[0][0][1] - 1)][queue[0][0][0]] == 1) {
+            if (illigalTiles[(queue[0][0][1] - 1)][queue[0][0][0]] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] - 1)
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
               var newQueue = []
               while (queue[queuePos][2] > queueEntry[2]) {
@@ -102,6 +104,7 @@ export function initPathfinding(that) {
               queue = newQueue
             }
             completedQueueEntries.push(queue[0]);
+            illigalTiles[queue[0][0][0],queue[0][0][1]] = 0
             queue.shift();
           }
 
