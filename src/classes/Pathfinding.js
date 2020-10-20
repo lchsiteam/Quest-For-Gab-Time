@@ -35,6 +35,9 @@ export function initPathfinding(that) {
           var completedQueueEntries = []
 
           while (queue[0][0] != [targetx, targety]) {
+            if (queue[0] = undefined) {
+              return undefined
+            }
             if (illigalTiles[queue[0][0][1]][(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
               var positiony = queue[0][0][1]
