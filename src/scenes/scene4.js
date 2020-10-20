@@ -104,6 +104,27 @@ init (data)
     this.entities.push(new bookEnemy(this,944,560,120));
     this.entities.push(new bookEnemy(this,656,976,120));
 
+    var csvFetchArray = []
+
+    var client = new XMLHttpRequest();
+    client.open('GET', '/assets/MapCSVs/level4col.csv');
+    client.onreadystatechange = function() {
+      // console.log(client.responseText);
+      var csvSplitOnce = client.responseText.split("\n")
+      // console.log(csvSplitOnce);
+      var csvSplitTwice = []
+      var csvSpiltCounter = 0
+      while (csvSpiltCounter < csvSplitOnce.length) {
+        csvSplitTwice.push(csvSplitOnce[csvSpiltCounter].split(","));
+        csvSpiltCounter++;
+      }
+
+      // console.log(csvSplitTwice)
+
+      this.currentObstacleCSV = csvSplitTwice
+    }
+    client.send();
+
 
 
 

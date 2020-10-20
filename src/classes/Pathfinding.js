@@ -33,7 +33,7 @@ export function initPathfinding(that) {
           var completedQueueEntries = []
 
           while (queue[0][0] != [targetx, targety]) {
-            if (csv[(queue[0][0][0] + 1)][queue[0][0][1]] == 1) {
+            if (csv[queue[0][0][1]][(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
               var positiony = queue[0][0][1]
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
@@ -44,12 +44,13 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++;) {
+              while (queuePos < queue.length) {
                 newQueue.push(queue[queuePos]);
+                queuePos++;
               }
               queue = newQueue
             }
-            if (csv[(queue[0][0][0] - 1)][queue[0][0][1]] == 1) {
+            if (csv[queue[0][0][1]][(queue[0][0][0] - 1)] == 1) {
               var positionx = (queue[0][0][0] - 1)
               var positiony = queue[0][0][1]
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
@@ -60,12 +61,13 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++;) {
+              while (queuePos < queue.length) {
                 newQueue.push(queue[queuePos]);
+                queuePos++;
               }
               queue = newQueue
             }
-            if (csv[queue[0][0][0]][(queue[0][0][1] + 1)] == 1) {
+            if (csv[(queue[0][0][1][queue[0][0][0]] + 1)] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] + 1)
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
@@ -76,12 +78,13 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++;) {
+              while (queuePos < queue.length) {
                 newQueue.push(queue[queuePos]);
+                queuePos++;
               }
               queue = newQueue
             }
-            if (csv[queue[0][0][0]][(queue[0][0][1] - 1)] == 1) {
+            if (csv[(queue[0][0][1] - 1)][queue[0][0][0]] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] - 1)
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5,[queue[0][0][0],queue[0][0][1]]]
@@ -92,8 +95,9 @@ export function initPathfinding(that) {
                   queuePos++;
               }
               newQueue.push(queueEntry);
-              for (queuePos < queue.length; queuePos++;) {
+              while (queuePos < queue.length) {
                 newQueue.push(queue[queuePos]);
+                queuePos++;
               }
               queue = newQueue
             }
@@ -114,8 +118,9 @@ export function initPathfinding(that) {
           var solution = []
 
           var counter = 0
-          for (counter < reversedSolution.length; counter++;) {
+          while (counter < reversedSolution.length) {
             solution.push(reversedSolution[counter][0]);
+            counter++;
           }
 
           return solution
