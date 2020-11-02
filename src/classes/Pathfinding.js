@@ -103,7 +103,7 @@ export function initPathfinding(that) {
           }
           console.log(completedQueueEntries);
 
-          reversedSolution = [queue[0]]
+          var reversedSolution = [queue[0]]
 
           while (reversedSolution[(reversedSolution.length - 1)] != firstEntry) {
             var counter = 0
