@@ -87,6 +87,26 @@ init (data)
     //for doors, pass in (this, doorPosX, doorPosY, exitScene, exitPosX, exitPosY ,spritesheetValue)
     //Positions are in values of tiles, so they're multiplied by 32 later
 
+    var csvSplitTwice = []
+
+    var client = new XMLHttpRequest();
+    client.open('GET', '/assets/MapCSVs/level4col.csv');
+    client.onreadystatechange = function() {
+      // console.log(client.responseText);
+      var csvSplitOnce = client.responseText.split("\n")
+      // console.log(csvSplitOnce);
+      var csvSpiltCounter = 0
+      while (csvSpiltCounter < csvSplitOnce.length) {
+        csvSplitTwice.push(csvSplitOnce[csvSpiltCounter].split(","));
+        csvSpiltCounter++;
+      }
+
+      // console.log(csvSplitTwice)
+
+    }
+    this.currentObstacleCSV = csvSplitTwice
+    client.send();
+
     this.objects.push(new makeDoor(this,15.5,2,'Scene1',7,3,10));
 
     this.entities = [];
@@ -102,28 +122,11 @@ init (data)
     this.entities.push(new healthCrate(this,176,528));
 
     this.entities.push(new bookEnemy(this,944,560,120));
-    this.entities.push(new bookEnemy(this,656,976,120));
+    // this.entities.push(new bookEnemy(this,656,976,120));
 
     var csvFetchArray = []
 
-    var client = new XMLHttpRequest();
-    client.open('GET', '/assets/MapCSVs/level4col.csv');
-    client.onreadystatechange = function() {
-      // console.log(client.responseText);
-      var csvSplitOnce = client.responseText.split("\n")
-      // console.log(csvSplitOnce);
-      var csvSplitTwice = []
-      var csvSpiltCounter = 0
-      while (csvSpiltCounter < csvSplitOnce.length) {
-        csvSplitTwice.push(csvSplitOnce[csvSpiltCounter].split(","));
-        csvSpiltCounter++;
-      }
 
-      // console.log(csvSplitTwice)
-
-      this.currentObstacleCSV = csvSplitTwice
-    }
-    client.send();
 
 
 
