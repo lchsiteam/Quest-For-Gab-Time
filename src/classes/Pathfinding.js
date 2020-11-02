@@ -33,6 +33,8 @@ export function initPathfinding(that) {
           var targetx = Math.floor(target[0]/32)
           var targety = Math.floor(target[1]/32)
 
+          console.log([targetx,targety]);
+
           var illigalTiles = obstacleArray
 
           var firstEntry = [[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,undefined]
@@ -41,7 +43,10 @@ export function initPathfinding(that) {
 
           var completedQueueEntries = []
 
+          var loopCounter = 0
+
           while (queue[0][0] != [targetx, targety]) {
+            console.table(queue);
             if ((illigalTiles[queue[0][0][1]])[(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
               var positiony = queue[0][0][1]
@@ -91,7 +96,10 @@ export function initPathfinding(that) {
             if (queue[0] == undefined) {
               return undefined
             }
-            console.table(queue);
+            if (loopCounter == 20) {
+              break;
+            }
+            loopCounter++;
           }
           console.log(completedQueueEntries);
 
