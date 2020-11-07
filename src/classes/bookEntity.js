@@ -56,7 +56,7 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     console.log(that)
     book.interval = setInterval(() => {
 
-        var tmp = that.PASSING_OBJ.PATHFINDING.AD(that,book);
+        var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunction(that,book);
         try {
             book.setVelocityX(book.speed*((tmp[0] - book.x)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
             book.setVelocityY(book.speed*((tmp[1] - book.y)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));

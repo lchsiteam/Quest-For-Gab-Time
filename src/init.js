@@ -25,9 +25,9 @@ export class init extends Phaser.Scene {
                 fps : 60,
                 controller : false,
                 playerData : {
-                    x : 495,
-                    y : 120,
-                    respawnScene: 'Scene1',
+                    x : 272,
+                    y : 128,
+                    respawnScene: 'Scene2',
                     maxHealth : 300,
                     healthPacks : 0,
                     velocity : 100,
@@ -149,7 +149,7 @@ export class init extends Phaser.Scene {
         'use strict';
 
         this.scene.start('gui', this.PASSING_OBJ);
-        this.scene.start('Scene4', this.PASSING_OBJ);
+        this.scene.start('Scene2', this.PASSING_OBJ);
 
 
 
