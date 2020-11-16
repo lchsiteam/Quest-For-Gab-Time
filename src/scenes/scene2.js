@@ -17,7 +17,7 @@ export class Scene2 extends Phaser.Scene {
 
      preload ()
 {
-    this.load.image('mainTileSheet7', 'assets/TileSheets/Tiles_V7_extruded.png');
+    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_main_extruded.png');
     this.load.tilemapCSV('scene2layer2', 'assets/MapCSVs/level2layer2.csv');
     this.load.tilemapCSV('scene2layer1', 'assets/MapCSVs/level2layer1.csv');
     this.load.tilemapCSV('scene2col', 'assets/MapCSVs/level2col.csv');
