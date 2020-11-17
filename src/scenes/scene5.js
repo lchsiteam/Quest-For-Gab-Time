@@ -4,23 +4,23 @@ import { healthCrate } from '/src/classes/healthCrate.js';
 import { bookEnemy } from '/src/classes/bookEntity.js';
 import { makeDoor } from '/src/classes/door.js';
 
-export class Scene4 extends Phaser.Scene {
+export class Scene5 extends Phaser.Scene {
 
 
 
 
     constructor ()
     {
-        super('Scene4');
+        super('Scene5');
     }
 
 
      preload ()
 {
-    this.load.image('mainTileSheet-old', 'assets/TileSheets/Tiles_V6_extruded.png');
-    this.load.tilemapCSV('scene4layer2', 'assets/MapCSVs/level4layer2.csv');
-    this.load.tilemapCSV('scene4layer1', 'assets/MapCSVs/level4layer1.csv');
-    this.load.tilemapCSV('scene4col', 'assets/MapCSVs/level4col.csv');
+    this.load.image('mainTileSheet', 'assets/TileSheets/Tiles_main_extruded.png');
+    this.load.tilemapCSV('scene5layer2', 'assets/MapCSVs/level5layer2.csv');
+    this.load.tilemapCSV('scene5layer1', 'assets/MapCSVs/level5layer1.csv');
+    this.load.tilemapCSV('scene5col', 'assets/MapCSVs/level5col.csv');
     this.load.spritesheet('player', 'assets/Entities/player.png', { frameWidth: 32, frameHeight: 32 });
 
     this.load.image('healthCrate', '/assets/Images/HealthCrateV1.png');
@@ -50,15 +50,15 @@ init (data)
     this.Keystrokes = [];
     this.fireballEnabled = true
 
-    layer1map = this.make.tilemap({ key: 'scene4layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
-    var tileset1 = layer1map.addTilesetImage('mainTileSheet-old', undefined, 32, 32, 1, 2);
+    layer1map = this.make.tilemap({ key: 'scene5layer1', tileWidth: 32, tileHeight: 32 });  //dark grass
+    var tileset1 = layer1map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     var layer1 = layer1map.createStaticLayer(0, tileset1, 0, 0);
 
-    map = this.make.tilemap({ key: 'scene4layer2', tileWidth: 32, tileHeight: 32 });   //grass
-    var tileset = map.addTilesetImage('mainTileSheet-old', undefined, 32, 32, 1, 2);
+    map = this.make.tilemap({ key: 'scene5layer2', tileWidth: 32, tileHeight: 32 });   //grass
+    var tileset = map.addTilesetImage('mainTileSheet', undefined, 32, 32, 1, 2);
     var layer = map.createStaticLayer(0, tileset, 0, 0);
 
-    collision = this.make.tilemap({ key: 'scene4col', tileWidth: 32, tileHeight: 32 });   //colision
+    collision = this.make.tilemap({ key: 'scene5col', tileWidth: 32, tileHeight: 32 });   //colision
     var tilesetCollision = collision.addTilesetImage();
     this.layer = collision.createStaticLayer(0, tilesetCollision, 0, 0);
     collision.setCollisionBetween(-1, 0);
@@ -87,10 +87,12 @@ init (data)
     //for doors, pass in (this, doorPosX, doorPosY, exitScene, exitPosX, exitPosY ,spritesheetValue)
     //Positions are in values of tiles, so they're multiplied by 32 later
 
+    this.objects.push(new makeDoor(this,10.5,2.6,'Scene4',7,3,6));
+
     var csvSplitTwice = []
 
     var client = new XMLHttpRequest();
-    client.open('GET', '/assets/MapCSVs/level4col.csv');
+    client.open('GET', '/assets/MapCSVs/level5col.csv');
     client.onreadystatechange = function() {
       // console.log(client.responseText);
       var csvSplitOnce = client.responseText.split("\n")
@@ -107,30 +109,9 @@ init (data)
     this.currentObstacleCSV = csvSplitTwice
     client.send();
 
-    this.objects.push(new makeDoor(this,15.5,2,'Scene1',7,3,10));
-    this.objects.push(new makeDoor(this,17.5,2,'Scene5',3,7,8));
-
     this.entities = [];
 
-    this.entities.push(new healthCrate(this,240,464));
-    this.entities.push(new healthCrate(this,208,464));
-    this.entities.push(new healthCrate(this,176,464));
-    this.entities.push(new healthCrate(this,240,496));
-    this.entities.push(new healthCrate(this,208,496));
-    this.entities.push(new healthCrate(this,176,496));
-    this.entities.push(new healthCrate(this,240,528));
-    this.entities.push(new healthCrate(this,208,528));
-    this.entities.push(new healthCrate(this,176,528));
-
-    this.entities.push(new bookEnemy(this,944,560,120));
-    // this.entities.push(new bookEnemy(this,656,976,120));
-
     var csvFetchArray = []
-
-
-
-
-
 
 }
 
