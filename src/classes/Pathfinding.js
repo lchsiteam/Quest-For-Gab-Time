@@ -62,7 +62,6 @@ export function initPathfinding(that) {
               var positiony = queue[0][0][1]
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
-              var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
@@ -73,7 +72,6 @@ export function initPathfinding(that) {
               var positiony = (queue[0][0][1] + 1)
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
-              var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
@@ -84,7 +82,6 @@ export function initPathfinding(that) {
               var positiony = (queue[0][0][1] - 1)
               var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
               var queuePos = 0
-              var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
