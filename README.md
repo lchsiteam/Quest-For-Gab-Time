@@ -12,8 +12,14 @@ python3 -m http.server 8080
 ```
 or on Windows: 
 ```
-host 8080
+python3 -m http.server 8080
 ``` 
+
+If you don't have or want python, you can use http-server with npm
+```
+npm install http-server -g
+http-server
+```
 
 Then, go to the url http://localhost:8080 to access the game.
 
