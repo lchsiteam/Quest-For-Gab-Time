@@ -102,6 +102,8 @@ init (data)
 
     this.currentObstacleCSV = csvSplitTwice
 
+    this.PASSING_OBJ.obstacles = this.currentObstacleCSV
+
     this.objects.push(new makeDoor(this,15.5,2,'Scene1',7,3,10));
     this.objects.push(new makeDoor(this,17.5,2,'Scene5',3,7,8));
 
