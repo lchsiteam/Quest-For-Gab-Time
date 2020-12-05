@@ -122,6 +122,8 @@ init (data)
      } else {
         controller(this);
      }
+     this.PASSING_OBJ.playerData.x = this.player.x
+     this.PASSING_OBJ.playerData.y = this.player.y
 }
 
 

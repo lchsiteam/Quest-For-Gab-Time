@@ -37,9 +37,7 @@ export function initPathfinding(that) {
 
           var illigalTiles = obstacleArray
 
-          var firstEntry = [[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,undefined]
-
-          var queue = [firstEntry]
+          var queue = [[[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,[]]]
 
           var completedQueueEntries = []
 
@@ -50,7 +48,9 @@ export function initPathfinding(that) {
             if ((illigalTiles[queue[0][0][1]])[(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
               var positiony = queue[0][0][1]
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
+              var pathPositions = queue[0][2]
+              pathPositions.push(queue[0][0]);
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],pathPositions]
               var queuePos = 0
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
@@ -60,7 +60,9 @@ export function initPathfinding(that) {
             if (illigalTiles[queue[0][0][1]][(queue[0][0][0] - 1)] == 1) {
               var positionx = (queue[0][0][0] - 1)
               var positiony = queue[0][0][1]
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
+              var pathPositions = queue[0][2]
+              pathPositions.push(queue[0][0]);
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -71,7 +73,9 @@ export function initPathfinding(that) {
             if (illigalTiles[queue[0][0][1]][(queue[0][0][0] + 1)] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] + 1)
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
+              var pathPositions = queue[0][2]
+              pathPositions.push(queue[0][0]);
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -82,7 +86,9 @@ export function initPathfinding(that) {
             if (illigalTiles[(queue[0][0][1] - 1)][queue[0][0][0]] == 1) {
               var positionx = queue[0][0][0]
               var positiony = (queue[0][0][1] - 1)
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],[queue[0][0][0],queue[0][0][1]]]
+              var pathPositions = queue[0][2]
+              pathPositions.push(queue[0][0]);
+              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1],pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -101,27 +107,8 @@ export function initPathfinding(that) {
             }
             loopCounter++;
           }
-          console.log(completedQueueEntries);
 
-          var reversedSolution = [queue[0]]
-
-          while (reversedSolution[(reversedSolution.length - 1)] != firstEntry) {
-            var counter = 0
-            while (reversedSolution[(reversedSolution.length - 1)][2] != completedQueueEntries[counter][0]) {
-              counter++;
-            }
-            reversedSolution.push(completedQueueEntries[counter]);
-          }
-
-          var solution = []
-
-          var counter = 0
-          while (counter < reversedSolution.length) {
-            solution.push(reversedSolution[counter][0]);
-            counter++;
-          }
-
-          return solution
+          return queue[0][2]
         },
 
         monsterPathfindDefault : function (that,monster) {

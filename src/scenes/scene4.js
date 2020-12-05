@@ -89,23 +89,18 @@ init (data)
 
     var csvSplitTwice = []
 
-    var client = new XMLHttpRequest();
-    client.open('GET', '/assets/MapCSVs/level4col.csv');
-    client.onreadystatechange = function() {
-      // console.log(client.responseText);
-      var csvSplitOnce = client.responseText.split("\n")
-      // console.log(csvSplitOnce);
+    Promise.all([
+      fetch('/assets/MapCSVs/level4col.csv').then(x => x.text()),
+    ]).then((response) => {
+      var responeSplitByNewLines = response[0].split("\n")
       var csvSpiltCounter = 0
-      while (csvSpiltCounter < csvSplitOnce.length) {
-        csvSplitTwice.push(csvSplitOnce[csvSpiltCounter].split(","));
+      while (csvSpiltCounter < responeSplitByNewLines.length) {
+        csvSplitTwice.push(responeSplitByNewLines[csvSpiltCounter].split(","));
         csvSpiltCounter++;
       }
+    });
 
-      // console.log(csvSplitTwice)
-
-    }
     this.currentObstacleCSV = csvSplitTwice
-    client.send();
 
     this.objects.push(new makeDoor(this,15.5,2,'Scene1',7,3,10));
     this.objects.push(new makeDoor(this,17.5,2,'Scene5',3,7,8));
@@ -141,6 +136,8 @@ init (data)
      } else {
         controller(this);
      }
+     this.PASSING_OBJ.playerData.x = this.player.x
+     this.PASSING_OBJ.playerData.y = this.player.y
 }
 
 

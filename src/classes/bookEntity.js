@@ -54,9 +54,20 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(2);                                   //makes it twice as big
     console.log(that)
+
+    book.deathClock = 150
+
     book.interval = setInterval(() => {
 
+        book.deathClock = book.deathClock - 1
+        console.log(book.deathClock);
+
         var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunction(that,book);
+        if (book.deathClock == 0) {
+          console.log(that.currentObstacleCSV);
+          console.log(that.PASSING_OBJ.PATHFINDING.aStarPathfinding(that,that.currentObstacleCSV,book,[that.player.x,that.player.y]));
+          book.death();
+        }
         try {
             book.setVelocityX(book.speed*((tmp[0] - book.x)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
             book.setVelocityY(book.speed*((tmp[1] - book.y)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
