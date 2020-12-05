@@ -65,7 +65,7 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
         var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunction(that,book);
         if (book.deathClock == 0) {
           console.log(that.currentObstacleCSV);
-          console.log(that.PASSING_OBJ.PATHFINDING.aStarPathfinding(that,that.currentObstacleCSV,book,[that.player.x,that.player.y]));
+          console.log(that.PASSING_OBJ.PATHFINDING.aStarPathfinding(that.currentObstacleCSV,[Math.floor((book.x/32)),Math.floor((book.y/32))],[Math.floor((that.player.x/32)),Math.floor((that.player.x/32))],30000));
           book.death();
         }
         try {
