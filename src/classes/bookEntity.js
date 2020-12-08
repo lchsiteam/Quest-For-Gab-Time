@@ -54,9 +54,32 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     book.setDrag(100);                                  //Makes it slow down after being pushed
     book.setScale(2);                                   //makes it twice as big
     console.log(that)
+
+    book.deathClock = 5
+
     book.interval = setInterval(() => {
 
+        book.deathClock = book.deathClock - 1
+
         var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunction(that,book);
+        if (book.deathClock == 0) {
+            
+          var path = that.PASSING_OBJ.PATHFINDING.aStarPathfinding(that.currentObstacleCSV,[Math.floor((book.x/32)),Math.floor((book.y/32))],[Math.floor(that.player.x/32),Math.floor(that.player.y/32)]);
+          
+          var pathIndex = 0
+          
+          that.graphics.clear();
+          
+          that.graphics.fillStyle(0x00FFFF, 0.25);
+          
+          while (pathIndex < path.length) {
+            that.graphics.fillRect((path[pathIndex][0]*32), (path[pathIndex][1]*32), 32, 32);
+            pathIndex++;
+          }
+          
+          
+          book.deathClock = 5
+        }
         try {
             book.setVelocityX(book.speed*((tmp[0] - book.x)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
             book.setVelocityY(book.speed*((tmp[1] - book.y)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
@@ -64,7 +87,7 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
             clearInterval(book.interval);         //If it's dead
         }
 
-    }, 100)
+    }, 100) // Runs every 100 Miliseconds
 
     return book        //Returns the book object incase we want to use it. Probably won't declare it to a variable most of the time
 
