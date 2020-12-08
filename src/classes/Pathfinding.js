@@ -24,7 +24,8 @@ export function initPathfinding(that) {
 
             var tmp = this.aStarPathfinding(that,that.currentObstacleCSV,monster,[that.player.x,that.player.y]);
             console.log(tmp);
-          },
+        },
+
 
         aStarPathfinding : function (obstacleArray,start,target,limit) {
           var startx = start[0]
@@ -37,8 +38,6 @@ export function initPathfinding(that) {
 
           var queue = [[[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,[[startx, starty]]]]
 
-          var completedQueueEntries = []
-
           var loopCounter = 0
 
           while (!(queue[0][0][0] == targetx && queue[0][0][1] == targety)) {
@@ -47,7 +46,7 @@ export function initPathfinding(that) {
               var positiony = queue[0][0][1]
               var pathPositions = [...queue[0][2]]
               pathPositions.push([positionx,positiony]);
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1] + 1,pathPositions]
+              var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
@@ -59,7 +58,7 @@ export function initPathfinding(that) {
               var positiony = queue[0][0][1]
               var pathPositions = [...queue[0][2]]
               pathPositions.push([positionx,positiony]);
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1] + 1,pathPositions]
+              var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -72,7 +71,7 @@ export function initPathfinding(that) {
               var positiony = (queue[0][0][1] + 1)
               var pathPositions = [...queue[0][2]]
               pathPositions.push([positionx,positiony]);
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1] + 1,pathPositions]
+              var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -85,7 +84,7 @@ export function initPathfinding(that) {
               var positiony = (queue[0][0][1] - 1)
               var pathPositions = [...queue[0][2]]
               pathPositions.push([positionx,positiony]);
-              var queueEntry = [[positionx, positiony],((targetx-positionx)**2+(targety-positiony)**2)**0.5 + queue[0][1] + 1,pathPositions]
+              var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
               while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
@@ -93,7 +92,6 @@ export function initPathfinding(that) {
               }
               queue.splice(queuePos,0,queueEntry); //this is basically array.insert() sytntax: array.splice(indexToPutTo, 0, element);
             }
-            completedQueueEntries.push(queue[0]);
             illigalTiles[queue[0][0][1]][queue[0][0][0]] = 0
             queue.shift();
             if (queue[0] == undefined) {
