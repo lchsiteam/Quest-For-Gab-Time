@@ -37,9 +37,7 @@ export function initPathfinding(that) {
           var illigalTiles = JSON.parse(JSON.stringify(obstacleArray))
 
           var queue = [[[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,[[startx, starty]]]]
-
-          var loopCounter = 0
-
+          
           while (!(queue[0][0][0] == targetx && queue[0][0][1] == targety)) {
             if ((illigalTiles[queue[0][0][1]])[(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)
@@ -48,7 +46,7 @@ export function initPathfinding(that) {
               pathPositions.push([positionx,positiony]);
               var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
-              while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
+              while (queuePos < (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
               queue.splice(queuePos,0,queueEntry); //this is basically array.insert() sytntax: array.splice(indexToPutTo, 0, element);
@@ -61,7 +59,7 @@ export function initPathfinding(that) {
               var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
-              while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
+              while (queuePos < (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
               queue.splice(queuePos,0,queueEntry); //this is basically array.insert() sytntax: array.splice(indexToPutTo, 0, element);
@@ -74,7 +72,7 @@ export function initPathfinding(that) {
               var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
-              while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
+              while (queuePos < (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
               queue.splice(queuePos,0,queueEntry); //this is basically array.insert() sytntax: array.splice(indexToPutTo, 0, element);
@@ -87,23 +85,26 @@ export function initPathfinding(that) {
               var queueEntry = [[positionx, positiony],(targetx-positionx)**2+(targety-positiony)**2 + queue[0][1] + 1,pathPositions]
               var queuePos = 0
               var newQueue = []
-              while (queuePos != (queue.length) && queue[queuePos][1] < queueEntry[1]) {
+              while (queuePos < (queue.length) && queue[queuePos][1] < queueEntry[1]) {
                 queuePos++;
               }
               queue.splice(queuePos,0,queueEntry); //this is basically array.insert() sytntax: array.splice(indexToPutTo, 0, element);
             }
             illigalTiles[queue[0][0][1]][queue[0][0][0]] = 0
+            var queuePos = 1
+            while (queuePos < queue.length) {
+              if (queue[queuePos][0][0] == queue[0][0][0] && queue[queuePos][0][1] == queue[0][0][1]) {
+                queue.splice(queuePos, 1);
+                queuePos = 1
+              } else {
+                queuePos++;
+              }
+            }
             queue.shift();
             if (queue[0] == undefined) {
               return undefined
             }
-            if (limit == undefined) {
-            } else if (loopCounter == limit) {
-              return undefined
-            }
-            loopCounter++;
           }
-          console.log(loopCounter);
           return queue[0][2]
         },
 
