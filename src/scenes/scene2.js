@@ -104,8 +104,6 @@ init (data)
 
     this.currentObstacleCSV = csvSplitTwice
 
-    this.PASSING_OBJ.obstacles = this.currentObstacleCSV
-
     this.entities = [];
 
     var csvFetchArray = []
@@ -119,8 +117,6 @@ init (data)
      } else {
         controller(this);
      }
-     this.PASSING_OBJ.playerData.x = this.player.x
-     this.PASSING_OBJ.playerData.y = this.player.y
 }
 
 
