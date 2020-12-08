@@ -102,8 +102,6 @@ init (data)
 
     this.currentObstacleCSV = csvSplitTwice
 
-    this.PASSING_OBJ.obstacles = this.currentObstacleCSV
-
     this.objects.push(new makeDoor(this,15.5,2,'Scene1',7,3,10));
     this.objects.push(new makeDoor(this,17.5,2,'Scene5',3,7,8));
 
@@ -124,7 +122,8 @@ init (data)
 
     var csvFetchArray = []
 
-
+    this.graphics = this.add.graphics();
+    this.graphics.defaultStrokeWidth = 100;
 
 
 
@@ -138,8 +137,6 @@ init (data)
      } else {
         controller(this);
      }
-     this.PASSING_OBJ.playerData.x = this.player.x
-     this.PASSING_OBJ.playerData.y = this.player.y
 }
 
 
