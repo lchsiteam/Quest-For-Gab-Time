@@ -10,12 +10,13 @@ export function tripleFireball(that,playerX,playerY,scale = 0.5) {  //passes in 
         } else {
             setTimeout( () => {
                 entity.clearTint();
-
             }, 200) 
         }
-        
-        
-        
+    }
+    
+    this.KMS = function (entitiy,book) {
+        book.destroy();
+        entitiy.destroy();
     }
     
     
@@ -69,6 +70,7 @@ export function tripleFireball(that,playerX,playerY,scale = 0.5) {  //passes in 
             fireball.anims.play(this.anim,true);
             fireball.setSize(17,16);
             that.physics.add.collider(that.entities, fireball, this.death, null, this);
+            that.physics.add.collider(that.layer, fireball, this.KMS, null, this); //makes it so book disappears when hitting that.layer (the world boarder)
             
         }
         
@@ -102,7 +104,6 @@ export function tripleFireball(that,playerX,playerY,scale = 0.5) {  //passes in 
     this.makeAndGo();
     
                                                                        //It gives access to the "that" object, too
-    that.physics.add.collider(that.layer,this.fireBall);             //makes it so book can't go through that.layer (the world boarder)
     
     
     
