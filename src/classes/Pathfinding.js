@@ -19,11 +19,19 @@ export function initPathfinding(that) {
           }
         },
 
-        AD : function (that,monster) {
-
-
-            var tmp = this.aStarPathfinding(that,that.currentObstacleCSV,monster,[that.player.x,that.player.y]);
-            console.log(tmp);
+        goToPoint : function (interval,speed,start,target) {
+          var xdifference = target[0] - start[0]
+          var ydifference = target[1] - start[1]
+          
+          var distance = (xdifference**2 + ydifference**2)**0.5
+          
+          var maxDistancePerInterval = (speed/1000)*interval
+          
+          if (distance > maxDistancePerInterval) {
+            return [speed*(xdifference/distance),speed*(ydifference/distance)]
+          } else {
+            return [xdifference/(1000/interval),ydifference/(1000/interval)]
+          }
         },
 
 
