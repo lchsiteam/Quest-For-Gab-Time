@@ -56,12 +56,13 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
     console.log(that)
 
     book.deathClock = 5
+    
+    var tmp = [0,0]
 
     book.interval = setInterval(() => {
 
         book.deathClock = book.deathClock - 1
 
-        var tmp = that.PASSING_OBJ.PATHFINDING.monsterLeadingFunction(that,book);
         if (book.deathClock == 0) {
             
           var path = that.PASSING_OBJ.PATHFINDING.aStarPathfinding(that.currentObstacleCSV,[Math.floor((book.x/32)),Math.floor((book.y/32))],[Math.floor(that.player.x/32),Math.floor(that.player.y/32)]);
@@ -80,9 +81,13 @@ export function bookEnemy(that,x,y,speed = -1) {  //passes in the this object fr
           
           book.deathClock = 5
         }
+        if (undefined == path || undefined == path[1]) {
+            } else {
+                tmp = that.PASSING_OBJ.PATHFINDING.goToPoint(100,book.speed,[book.x,book.y],[(path[1][0]*32 + 16),(path[1][1]*32 + 16)])
+            }
         try {
-            book.setVelocityX(book.speed*((tmp[0] - book.x)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
-            book.setVelocityY(book.speed*((tmp[1] - book.y)/((tmp[0] - book.x)**2+(tmp[1] - book.y)**2)**(1/2)));
+            book.setVelocityX(tmp[0]);
+            book.setVelocityY(tmp[1]);
         } catch(err) {
             clearInterval(book.interval);         //If it's dead
         }
