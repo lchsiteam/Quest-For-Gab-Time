@@ -19,11 +19,19 @@ export function initPathfinding(that) {
           }
         },
 
-        AD : function (that,monster) {
+        goToPoint : function (interval,speed,start,target) {
+          var xdifference = target[0] - start[0]
+          var ydifference = target[1] - start[1]
 
+          var distance = (xdifference**2 + ydifference**2)**0.5
 
-            var tmp = this.aStarPathfinding(that,that.currentObstacleCSV,monster,[that.player.x,that.player.y]);
-            console.log(tmp);
+          var maxDistancePerInterval = (speed/1000)*interval
+
+          if (distance > maxDistancePerInterval) {
+            return [speed*(xdifference/distance),speed*(ydifference/distance)]
+          } else {
+            return [xdifference*(1000/interval),ydifference*(1000/interval)]
+          }
         },
 
 
@@ -37,7 +45,7 @@ export function initPathfinding(that) {
           var illigalTiles = JSON.parse(JSON.stringify(obstacleArray))
 
           var queue = [[[startx, starty],((targetx-startx)**2+(targety-starty)**2)**0.5,[[startx, starty]]]]
-          
+
           while (!(queue[0][0][0] == targetx && queue[0][0][1] == targety)) {
             if ((illigalTiles[queue[0][0][1]])[(queue[0][0][0] + 1)] == 1) {
               var positionx = (queue[0][0][0] + 1)

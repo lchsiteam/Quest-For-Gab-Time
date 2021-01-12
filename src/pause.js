@@ -7,15 +7,6 @@ constructor ()
 
 init (data)
     {
-        
-        if ((window.innerWidth/4) > (window.innerHeight/3)) {
-            var h = (window.innerHeight - (window.innerHeight % 3));
-            var w = (h * (4/3));
-        } else {
-            var w = (window.innerWidth - (window.innerWidth % 4));
-            var h = (w * (3/4))
-        }
-
      
         'use strict';
 
@@ -43,18 +34,11 @@ create ()
 }
     
 update ()  {
-    if ((window.innerWidth/4) > (window.innerHeight/3)) {
-        var h = (window.innerHeight - (window.innerHeight % 3));
-        var w = (h * (4/3));
-    } else {
-        var w = (window.innerWidth - (window.innerWidth % 4));
-        var h = (w * (3/4))
-    }
 
     this.graphics.clear();
 
     this.graphics.fillStyle(0x000000, 0.6);
-    var background = this.graphics.fillRect(0,0, w, h);
+    var background = this.graphics.fillRect(0,0, 800, 600);
     background.setPosition(0,0,100)
 
     }

@@ -21,15 +21,6 @@ preload ()
 init (data)
     {
 
-        if ((window.innerWidth/4) > (window.innerHeight/3)) {
-            var h = (window.innerHeight - (window.innerHeight % 3));
-            var w = (h * (4/3));
-        } else {
-            var w = (window.innerWidth - (window.innerWidth % 4));
-            var h = (w * (3/4))
-        }
-
-
         'use strict';
 
         this.PASSING_OBJ = data;
@@ -39,26 +30,15 @@ init (data)
 create ()
 {
 
-
-    if ((window.innerWidth/4) > (window.innerHeight/3)) {
-        var h = (window.innerHeight - (window.innerHeight % 3));
-        var w = (h * (4/3));
-    } else {
-        var w = (window.innerWidth - (window.innerWidth % 4));
-        var h = (w * (3/4))
-    }
-
-    this.bar = this.add.image((w*0.26), (h*0.93),  'healthBar');
-    this.hotbar = this.add.image((0.912*w),(h*0.925),'hotbar')
+    this.bar = this.add.image(208, 558,  'healthBar');
+    this.hotbar = this.add.image(730,555,'hotbar')
     this.hotbar.scale = 1.5
     this.graphics = this.add.graphics();
     this.graphics.defaultStrokeWidth = 100;
-    this.healthPack = this.add.image((w*0.95625),(h*0.8),'healthPack0');
+    this.healthPack = this.add.image(765,480,'healthPack0');
     this.healthPack.scale = 0.2;
 
-    this.text = this.add.text((w*0.96875), (h*0.94166), this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Comic Sans MS", Tahoma, serif' });
-
-    this.debugPlayerObstaclesTimer = 20
+    // this.text = this.add.text(775, 565, this.PASSING_OBJ.playerData.healthPacks, { fontFamily: 'Verdana, "Comic Sans MS", Tahoma, serif' });
 
 }
 
@@ -66,29 +46,21 @@ update ()  {
     var healthSize = 300;
     var manaSize = 300;
 
-    if ((window.innerWidth/4) > (window.innerHeight/3)) {
-        var h = (window.innerHeight - (window.innerHeight % 3));
-        var w = (h * (4/3));
-    } else {
-        var w = (window.innerWidth - (window.innerWidth % 4));
-        var h = (w * (3/4))
-    }
-
     this.graphics.clear();
     this.bar.setDepth(2);
-    this.bar.x = (w*0.26)
-    this.bar.y = (h*0.93)
+    this.bar.x = 208
+    this.bar.y = 558
 
-    this.healthPack.x = (w*0.95625)
-    this.healthPack.y = (h*0.8)
+    this.healthPack.x = 765
+    this.healthPack.y = 480
 
-    this.hotbar.x = (0.912*w)
-    this.hotbar.y = (h*0.925)
+    this.hotbar.x = 730
+    this.hotbar.y = 555
 
 
 
-    //this.text.x = (w*0.96875)
-    //this.text.y = (h*0.94166)
+    //this.text.x = 775
+    //this.text.y = 565
 
 
     //this.text.setText(this.PASSING_OBJ.playerData.healthPacks);
@@ -107,8 +79,8 @@ update ()  {
     }
 
     //top left coordinates of the black background bar for health and mana
-    const refX = w * 0.26 - 126;
-    const refY = h * 0.93 - 26;
+    const refX = 82;
+    const refY = 532;
 
     //sprint stuff
     const sprintBGWidth = 300;
